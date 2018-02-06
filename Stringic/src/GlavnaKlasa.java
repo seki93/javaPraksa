@@ -8,7 +8,7 @@ public class GlavnaKlasa {
 		String losPrimer  = "asdfghjk";
 		
 		
-		System.out.println(""+seki1(losPrimer));
+		System.out.println(""+sekeres1(losPrimer));
   		
 	}
 
