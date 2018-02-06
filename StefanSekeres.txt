@@ -1,3 +1,15 @@
 Jos pozdrava za ekipu
+<<<<<<< HEAD
 izmenjena jedna linija
 izmenjenna jos jednaa linija
+=======
+<<<<<<< HEAD
+VladimirJevtic test i pozdrav za ekipu
+=======
+Dodata linija by Seki
+Aleksandar Zecevic pozdrav i od mene
+>>>>>>> c044b77dbd0631f2b34905e34c124d91db0f2d79
+
+
+
+evo jos necege
