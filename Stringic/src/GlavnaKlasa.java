@@ -13,7 +13,7 @@ public class GlavnaKlasa {
 	}
 
 	
-	public static boolean seki1(String niz){
+	public static boolean sekeres1(String niz){
 		boolean bezPonavljanje = true;
 		
 		ArrayList<Character> listaKaraktera = new ArrayList<Character>();
