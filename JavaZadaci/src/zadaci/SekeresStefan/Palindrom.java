@@ -4,8 +4,9 @@ public class Palindrom {
 	
 	public static void main(String[] args) {
 		
-		String palindrom = "ana voli milovana";
+		String palindrom = "Racecar";
 		
+		palindrom = palindrom.toLowerCase();
 		System.out.println("Palindrom: "+pali(palindrom));
 		
 	}
