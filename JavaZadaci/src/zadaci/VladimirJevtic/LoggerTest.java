@@ -7,7 +7,7 @@ public class LoggerTest {
 	
 	public static void main(String[] args ) {
 		
-		Log.info(" Provera Loggera " );
+		Log.debug(" Provera Loggera " );
 		
 	}
 
