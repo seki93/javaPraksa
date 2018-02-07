@@ -1,4 +1,4 @@
-package zadaci.rajko.jegdic;
+package zadaci.rajkoJegdic;
 
 public class GlavnaKlasa {
 
