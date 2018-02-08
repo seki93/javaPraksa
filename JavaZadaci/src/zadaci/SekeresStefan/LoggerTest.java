@@ -28,6 +28,8 @@ public class LoggerTest
 		logger.warn("Ovo je warn : " + poruka);
 		logger.error("ovo je error : " + poruka);
 		logger.fatal("Ovo je fatal : " + poruka);
+		
+		
 	}
 
 }
