@@ -1,4 +1,5 @@
 package zadaci.VladimirJevtic;
+
 import org.apache.log4j.*;
 
 public class LoggerTest {
@@ -13,7 +14,6 @@ public class LoggerTest {
 		Log.info(" Provera Loggera" );
 		Log.debug("Poruka");
 		Log.error("A");
-
 	}
 
 }
