@@ -1,0 +1,109 @@
+Lifecycle - sekvenca faza, definisu red kojim ce GOAL biti izvrsen. Ima vise nivoa. |
+            Tipicni Maven Build lifecycle izgleda ovako:
+            -prepare resources
+            -validate
+            -compile
+            -test
+            -package
+            -install
+            -deploy
+
+Goals - predstavlja TASK koji doprinosi build-u u organizaciji projekta. Moze biti vezan za nula ili vise faza.
+
+
+Build Profiles - set vrednosti konfiguracije, koji koristimo da pregazimo default-nu Maven vrednost.
+
+
+Vrste Build Profile-a - 
+                       - Per Project - definisana u project POM-u
+                       - Per user - definisana u Maven settings.xml
+                       - Global - definisana u Maven global settings.xml
+
+
+Maven Repository - repozitorijum gde se svi project jar, library jar i plugin-ovi, i ostali project-specific fajlovi cuvaju da bi ih Maven lakse i brze koristio.
+
+
+                 3 vrste Maven repo-a:
+                                      - Local Repo. - na lokalnoj masini. Pravi se kada po prvi put pokrenemo Maven komandu.
+                                      - Central Repo. - repozitorijum od Maven zajednice. Sadrzi veliki broj bibiloteka. Ako Maven ne nadje u local repo, trazi u central.
+                                      - Remote Repo. - nas custom repozitorijum ako Maven ne nadje fajl ni u central. Sadrzi library i jar fajlove.
+
+Redosledi trazenja: 
+                    Step 1: trazi u local repo. Ako nema, ide na Step 2.
+                    Step 2: trazi u central repo. Ako nema i nije naglasen u remote repo., ide se na Step 4.
+                    Step 3: ako remote nije naglasen, Maven staje i baca error.
+                    Step 4: trazi dependency u remote repo. Ako nadje, cuva i u suprotnom baca error.
+
+Plugins - prikljucak koji je set GOAL-ova koji pozivamo sintaksom.
+
+          Tipovi: 
+                - Build plugins - izvrsavaju se tokom build procesa.      
+                - Reporting plugin - tokom SITE generacije konfigurisu se u <reporting/> u pom.xml-u.
+
+Archetypes - Maven plugin ciji je TASK da pravi strukturu projekta po template-u.
+
+
+SNAPSHOT - specijalna verzija koja oznacava aktuelnu development kopiju, radi uslaglasavanja.
+
+
+Dependencies - 
+
+
+           Transitive Dependency: dozvoljava nam da izbegnemo zavisnost i komplikacije kada jedan dependency zavisi od drugog. Automatski ih ukljucuje u pricu.
+
+
+
+           Dependency Scope:
+                            - COMPILE
+                            - PROVIDED
+                            - RUNTIME
+                            - TEST
+                            - SYSTEM
+                            - IMPORT
+
+
+          System dependency: dependency sa SYSTEM scope-om su uvek dostupni i ne traze se u repozitorijumu. 
+                             Koriste se da bi rekli Maven-u o dependecy-jima koji su dati od strane JDK-a i VM-a. 
+                             Korisni su za resavanje dependency-ja koji su dati od JDK-a a posle su dostupni kao samostalni download.
+
+          
+          Optional dependency: koriste se kada nije moguce da podelimo projekat u submodule. Ideja je da se neki dependency koriste samo za posebne odlike projekta i nece se koristiti ako ne koristimo tu odliku. 
+                               Onda se odlika deli na submodule koji samo imaju ne-opcione dependency-je. 
+                               Vazno je kontrolisati listu dependency-ja, jer ako include-ujemo jar-ove koje ne koristimo, moze doci do classpath problema, license problema itd.
+
+
+          Exclude dependency: kako mozemo include, tako i exclude. Stavlja se na specificni dependency u POM-u i cilja na groupID i artifactID. 
+                              Kada radimo projekat, taj artifact ID nece biti dodat u classpath (<exclusion/>). Koristi se radi cistijeg projekta. 
+
+
+          Hijerarhija POM-a:  svaki pod model koji ima roditelja pom sadrzi liniju <relativePath>../pom.xml</relativePath>.
+                              Dete nasledjuje sve konfiguracione elemente roditelja. Sa ovim se Maven lepi za dizajn filozofiju konvencija preko konfiguracije. 
+                                             <project>
+                                                <modelVersion>4.0.0</modelVersion>
+                                                <groupId>com.packt</groupId>
+                                                <artifactId>sample-one</artifactId>
+                                                <version>1.0.0</version>
+                                             </project>
+
+
+          Ant i Maven, razlika: Ant - nema formalne konvencije kao zajednicku strukturu projektnih direktorijuma, moras reci Ant-u tacno gde na trazi source i gde da stavi output. Informalne konvencije nisu kodifikovane u produkt.
+                                    - proceduralan je, moras reci Ant-u tacno sta zelis i kad zelis da uradi. Moras da kazes da kompajlira, kopira i kompresuje.
+                                    - nema lifecycle, moras da definises GOAL-ove i GOAL dependency. Moras prikljuciti niz TASK-ova za svaki GOAL rucno.
+                              
+                                Maven - ima konvencije, vec zna gde je source bio zato sto prati konvenciju. 
+                                      - deklarativan je. Sve sto treba jeste da napravimo pom.xml i stavi source u default direktorijum. Maven obavlja ostalo.
+                                      - ima lifecycle, koji pozivamo kad izvrsimo 'mvn install'. Ova komanda izvrsava nekoliko koraka. Maven pokrece broj default plugin GOAL-ova koji kompajliraju i pravi JAR.
+           
+
+            Maven biblioteke, local i remote: - C:\Documents and Settings\{your-username}\.m2
+                                              - Skida u lokalni repo koji odredis sam  kada dodas u {M2_HOME}\conf\setting.xml, koji je npr. default: ~/.m2/repository<localRepository> D:/maven_repo </localRepository>
+                                               - To truly force maven to only use your local repo, you can run with 'mvn <goals>' -o govori mu da trazi oflajn. Prvo gleda local.
+
+                         
+            
+            Prednost drzanja biblioteka na remote umesto local: local cuva kod samo kod nas dok remote moze da salje kod dalje, da drugi koriste i menjaju.
+
+
+
+
+                              
