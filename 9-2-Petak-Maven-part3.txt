@@ -1,0 +1,84 @@
+------------------------------------------------------------------------------
+System Dependencies
+
+ - To su zavisnosti koje uglavnom govore Mejvenu o zavisnostima koje
+su podrzane od JDK ili VM. Posebno su korisne za resavanje  zavisnosti 
+od predmeta koji su obezbedjeni od JDK, ali su dostupni kao preuzimanja 
+ranije. Primer je JDBC.
+ <dependencies>
+      <dependency>
+          <groupId>javax.sql</groupId>
+          <artifactId>jdbc-stdext</artifactId>
+          <version>2.0</version>
+          <scope>system</scope>
+          <systemPath>${java.home}/lib/rt.jar</systemPath>
+      </dependency>
+ </dependencies>
+------------------------------------------------------------------------------
+Optional Dependencies
+
+- One se uglvanom koriste kada nije moguce razdvojiti projekat na pod delove.
+Ideja je da neke od zavisnosti su koriscene za odredjene fjucurse u projektu,
+i nece biti potrebne dalje, ako taj fjucr nije koriscen. Kako projekat ne 
+moze biti podeljen, ove zavisnosti su oznacene kao opcione. 
+- Nije nam bitno da deklarisemo ove zavisnosti da bi sacuvali memoriju, vec da
+bi kontrolisali starne zavisnosti koje nam trebaju da korisimo na projektu.
+ <dependencies>
+    	<!-- declare the dependency to be set as optional -->
+    	<dependency>
+      		<groupId>sample.ProjectA</groupId>
+      		<artifactId>Project-A</artifactId>
+      		<version>1.0</version>
+      		<scope>compile</scope>
+      		<optional>true</optional> 
+			<!-- value will be true or false only -->
+    	</dependency>
+  </dependencies>
+------------------------------------------------------------------------------
+Dependency Exclusions (DE)
+
+- One se uvode u slucajevima kada na projektu nije deklarisan skup zavisnosti.
+U tom slucaju je moguce ukljuciti zavisnosti koje nisu pozeljne. One su posta-
+vljene na specificne zavisnosti u POM-u.
+- We add the <exclusions> tag under the <dependency> section of the pom.
+- Napravljene su na bazi po zavisnosti a ne na POM nivou, da bi graf zavisnos-
+ti bio predvidiv, i da bi zadrzao efekte nasledjivanja iz zavisnosti iskljuci-
+vanja koje ne bi trebalo ukljjuciti.
+------------------------------------------------------------------------------
+Kako rade i kada se koriste DE
+- ----------------------------------------------------------------------------
+Hierarhija POM
+- Svaki pod model koji ima roditelja sadrzi liniju 
+	<relativePath>../pom.xml</relativePath>
+- Dete nasledjuje sve konfiguracione elemente od roditelja. Sa ovim se Mejven
+lepi za dijazn filozofiju konvecija preko konfiguracije.
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.packt</groupId>
+  <artifactId>sample-one</artifactId>
+  <version>1.0.0</version>
+</project>
+------------------------------------------------------------------------------
+Razlika izmedju ant i Mejvena
+- Mejven je frejmvork, Ant je toolbox.
+- Ant nema konvenciju za zajednicku projekatsku strukturu, moras da kazes Ant
+gde tacno moze da nadje izvor i gde da prosledi output. Takodje je, procedura-
+lni, moras da kazes antu tacno sta i kada da radi, kazes da kompajlira, kopira,
+kompresuje. Nema zivotni ciklus, moras sam da zadas ciljeve i ciljne zavisno-
+sti, rucno se postavljaju zadaci za svaki cilj. Dok MAVEN, ima konvencije, vec
+zna gede je izvorni kod(ako pratis konvenciju :) ), stavlja bajtkod na ciljano
+mesto, i proizvodi JAR file. Deklarativan je, sve sto treba da se odradi je
+pom xml, i da se stavi u podrazumevani direktorijum, ostalo odrajuje on sam.
+Ima zivotni ciklus, koji pozivas kada se izvrsi "mvn install", koja mu govori
+da izvrsi niz akcija pojedinacno dok ne stige do zivotnog ciklusa, propratni
+efekti su ti da izvrsava podrazumevane plugin ciljeve, kao sto s kompajlirajne
+i kreiranje JAR.
+------------------------------------------------------------------------------
+Maven biblioteke, local i remote
+- C:\Documents and Settings\{your-username}\.m2
+- Cini mi se da skida u lokalni repo koji odredis sam  kada dodas u
+ {M2_HOME}\conf\setting.xml, koji je npr.
+        Default: ~/.m2/repository
+  <localRepository> D:/maven_repo </localRepository>
+- To truly force maven to only use your local repo, you can run with 
+mvn <goals> -o govori mu da trazi oflajn. Prvo gleda local.

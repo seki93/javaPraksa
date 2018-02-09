@@ -4,9 +4,9 @@ public class Anagram {
 
 	public static void main(String[] args) {
 		
-		String rec1 = "abcdef";
+		String rec1 = "abc";
 		rec1 = bezRazmaka(rec1);
-		String rec2 = "fdecab";
+		String rec2 = "ab";
 		rec2 = bezRazmaka(rec2);		
 		
 		int[] p1 = ponavljanje(rec1);
