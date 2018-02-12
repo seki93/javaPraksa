@@ -12,7 +12,7 @@ public class DuplikatiLinkedListe {
 	}
 	public static void eraseDuplicates (LinkedList<Integer> lista) {
 		
-		for (int i=0; i < lista.size()-1; i++) {
+		for (int i=0; i < lista.size(); i++) {
 			for (int j=i+1; j < lista.size(); j++) {
 				if (lista.get(i).equals(lista.get(j))) {
 					lista.remove(j);
@@ -33,8 +33,6 @@ public class DuplikatiLinkedListe {
 		LinkedList<Integer> lista = new LinkedList<Integer>();
 		lista.addLast(1);
 		lista.addLast(2);
-		lista.addLast(3);
-		lista.addLast(3);
 		lista.addLast(3);
 		lista.addLast(3);
 		lista.addLast(4);
