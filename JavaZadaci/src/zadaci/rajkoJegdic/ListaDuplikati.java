@@ -33,6 +33,8 @@ public class ListaDuplikati {
 	private static LinkedList<String> bezDuplikata(LinkedList<String> lista) {
 		
 		//FIXME: zanima me sto nece da radi
+		// saznao sam sto nije htelo da radi :D
+		//radilo bi i sa kolekcijskom petljim samo da je koriscen interator
 		/*for(String a: lista) {
 			int br = 0;
 			for(String b: lista) {
