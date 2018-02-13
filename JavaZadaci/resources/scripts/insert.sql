@@ -24,12 +24,9 @@ value (123456789,	'Jovan	Milosevic',	20,	131,	1212,	'ne ozenjen'),
 (1202996710, 'Aleksandar	Sekeres',	20,	131,	1313,	'ne ozenjen');
 
 
-insert into radnik
+insert into sportista
 value (236789541,	'Strahinja	Savic',	25,	141,	11111),
 (321987456,	'Ivana	Spanovic',	27,	151,	11111),
 (806702302,	'Vladimir	Stanojevic',	22,	141,	13331),
 (891267345,	'Milos	Bekric',	25,	141,	12221),
 (984512783,	'Marko	Mikic',	22,	121,	11111);
-
-select *
-from sportista
