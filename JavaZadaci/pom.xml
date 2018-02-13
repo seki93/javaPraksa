@@ -29,6 +29,9 @@
     </profile>
     <profile>
         <id>prod</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
         <properties>
             <log4j.file>path_to_file_B</log4j.file>
         </properties>
