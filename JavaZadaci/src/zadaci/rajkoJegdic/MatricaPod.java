@@ -14,7 +14,6 @@ public class MatricaPod {
 		int n = sc.nextInt();
 		int m = sc.nextInt();
 		int[][] matrica = napraviMatricu(n, m);
-		//ispisiMatricu(matrica, n, m);
 		
 		int[][] podMatrica = new int[2][2];
 		
@@ -24,13 +23,12 @@ public class MatricaPod {
 		podMatrica = maksPodMatrica(matrica, n, m);
 		
 		ispisiMatricu(podMatrica, 2, 2);
-		
+				
 	}
 	
 	private static int[][] maksPodMatrica(int[][] matrica, int n, int m) {
 		
 		int[][] tmp = new int[2][2];
-		int[][] tmpPom = new int[2][2];
 		int s = 0, sPom = 0;
 		
 		for(int i = 1; i < n; i++) {
@@ -65,9 +63,9 @@ public class MatricaPod {
 	private static void ispisiMatricu(int[][] mat, int n, int m) {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
-				System.out.print(mat[i][j] + " ");
+				logger.debug(mat[i][j] + " ");
 			}
-			System.out.println();
+			logger.debug("\n");
 		}		
 	}
 
