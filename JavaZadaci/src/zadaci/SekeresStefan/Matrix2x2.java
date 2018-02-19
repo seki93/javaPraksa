@@ -2,7 +2,7 @@ package zadaci.SekeresStefan;
 
 import java.util.Scanner;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+import org.apache.log4j.Logger;
 
 public class Matrix2x2 {
 	
