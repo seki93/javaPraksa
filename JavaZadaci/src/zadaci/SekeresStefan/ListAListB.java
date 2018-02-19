@@ -12,13 +12,13 @@ public class ListAListB {
 		ArrayList<Integer> merged = new ArrayList<Integer>();
 		
 		
-		listA.add(1);
+		listA.add(2);
 		listA.add(3);
-		listA.add(5);
+		listA.add(4);
 		
 		listB.add(1);
-		listB.add(5);
-		listB.add(6);
+		listB.add(1);
+		listB.add(1);
 		
 		System.out.println("List A: "+listA);
 		System.out.println("List B: "+listB);
@@ -31,32 +31,26 @@ public class ListAListB {
 	}
 	
 	public static void mergeList(ArrayList<Integer> listA, ArrayList<Integer> listB, ArrayList<Integer> merged) {
-		int j  = 0 ;
-		int tmpA = listA.get(0);
-		int tmpB = listB.get(0);
-		for(int i = 0; i < listA.size(); i++) {
-			while( j < listB.size()) {
-				if (listA.get(i) <= listB.get(j)) {
-					tmpA = listA.get(i);
-					tmpB = listB.get(j);
-					break;
-				}
-				else {
-					tmpB = listB.get(j);
-				}
+		int i = 0,j  = 0 ;
+		
+		while(i < listA.size() && j < listB.size()) {
+			if(listA.get(i) < listB.get(j)) {
+				merged.add(listA.get(i));
+				i++;
+			}else {
+				merged.add(listB.get(j));
 				j++;
 			}
-			if(tmpA > tmpB ) {
-				merged.add(tmpB);
-				merged.add(tmpA);
-			}else if( tmpA == tmpB) {
-				merged.add(tmpB);
-				merged.add(tmpA);
-			}else{
-				merged.add(tmpA);
-				merged.add(tmpB);
-			}
-			j = i + 1;
+		}
+		
+		while( i < listA.size()) {
+			merged.add(listA.get(i));
+			i++;
+		}
+		
+		while(j < listB.size()) {
+			merged.add(listB.get(j));
+			j++;
 		}
 	}
 
