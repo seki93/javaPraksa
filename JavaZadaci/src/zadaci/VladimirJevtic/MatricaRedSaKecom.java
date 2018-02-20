@@ -30,7 +30,7 @@ public class MatricaRedSaKecom {
 							j++;
 						                  }
 				                    }
-		                                    }
+		                      }
 	
 		
 		}
@@ -46,8 +46,6 @@ public class MatricaRedSaKecom {
 				
 		
 		
-	  
-	}
-	}
+	  }
 	}	
-	
+}	
