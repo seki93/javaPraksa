@@ -39,6 +39,20 @@
             <scope>test</scope>
         </dependency>
         
+ <dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.2.3</version><!--$NO-MVN-MAN-VER$-->
+		    <scope>test</scope>
+		</dependency>
+		
+		
+		<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-jdk14</artifactId>
+	</dependency>
+		
+
         
 
 		
