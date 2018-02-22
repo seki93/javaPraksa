@@ -17,9 +17,9 @@ import hello.repos.KompanijaRepository;
 public class KompanijaController {
 
 	@Autowired
-	private AdresaRepository AdresaRepository;
+	private AdresaRepository adresaRepository;
     @Autowired
-	private KompanijaRepository KompanijaRepository;
+	private KompanijaRepository kompanijaRepository;
     
     
     @GetMapping(path="/add")
@@ -33,7 +33,7 @@ public class KompanijaController {
 		a.getAdresa_id();
 		k.setAdresa(a);;
 		
-		KompanijaRepository.save(k);
+		kompanijaRepository.save(k);
 		return " Sacuvana Kompanija u bazu ";
 		
 		
@@ -43,7 +43,7 @@ public class KompanijaController {
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Kompanija> getAllKompanija(){
 		
-		return KompanijaRepository.findAll();
+		return kompanijaRepository.findAll();
 		
 	}
 	
@@ -53,21 +53,21 @@ public class KompanijaController {
 			 @RequestParam (required = false) String naziv,
 			 @RequestParam (required = false) Integer adresa_id ) {
 		 
-		 Iterable<Adresa> allAdresa = AdresaRepository.findAll();
-		 Iterable<Kompanija> allKompanija = KompanijaRepository.findAll();
+		 Iterable<Adresa> allAdresa = adresaRepository.findAll();
+		 Iterable<Kompanija> allKompanija = kompanijaRepository.findAll();
 		 
 		 for (Kompanija a: allKompanija ) {
 			 if (a.getKompanija_id() == kompanija_id) {
 			 if(naziv != null) a.setNaziv(naziv);
 			 if(adresa_id != null) {
 				 Adresa adresa = new Adresa();
-				 adresa = AdresaRepository.findOne(adresa_id);
+				 adresa = adresaRepository.findOne(adresa_id);
 				 adresa.setAdresa_id(adresa_id);
 				 a.setAdresa(adresa);
 				 
 				 
 			 }
-			 KompanijaRepository.save(a);
+			 kompanijaRepository.save(a);
 			 return " Updated kompanija ";
 			 }
 		 }
@@ -85,7 +85,7 @@ public class KompanijaController {
 	         k.setKompanija_id(kompanija_id);
 
 	         
-	         KompanijaRepository.delete(k);
+	         kompanijaRepository.delete(k);
 	       return "Obrisano";
 	          
 	        		 

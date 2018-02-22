@@ -18,9 +18,9 @@ public class AdresaController {
 
 	
 	@Autowired
-	private AdresaRepository AdresaRepository;
+	private AdresaRepository adresaRepository;
     @Autowired
-	private KompanijaRepository KompanijaRepository;
+	private KompanijaRepository kompanijaRepository;
     
     
     
@@ -36,14 +36,14 @@ public class AdresaController {
 		a.setBroj(broj);
 		a.setSprat(sprat);
 
-		AdresaRepository.save(a);
+		adresaRepository.save(a);
 		return "Saved";
 	}
     
     @GetMapping(path="/all")
 	public @ResponseBody Iterable<Adresa> getAllAdresa() {
 		
-		return AdresaRepository.findAll();
+		return adresaRepository.findAll();
 	}
     
     
@@ -55,7 +55,7 @@ public class AdresaController {
 	   @RequestParam(required = false) Integer broj,
 	   @RequestParam(required = false) Integer sprat) {
 	  
-	  Iterable<Adresa> sveAdrese = AdresaRepository.findAll();
+	  Iterable<Adresa> sveAdrese = adresaRepository.findAll();
 	  
 	  for(Adresa a: sveAdrese) {
 	   if(a.getAdresa_id() == adresa_id) {
@@ -64,7 +64,7 @@ public class AdresaController {
 	    if(ulica != null) a.setUlica(ulica);
 	    if(broj != null) a.setBroj(broj);
 	    if(sprat != null) a.setSprat(sprat);
-	    AdresaRepository.save(a);
+	    adresaRepository.save(a);
 	    return "Apdejtovana adresa!";
 	   }
 	  }
@@ -83,7 +83,7 @@ public class AdresaController {
          c.setAdresa_id(adresa_id);
 
          
-         AdresaRepository.delete(c);
+         adresaRepository.delete(c);
        return "Obrisano";
           
         		 

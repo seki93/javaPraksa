@@ -20,17 +20,17 @@ public class RadnikController {
 	
 	
 	@Autowired
-	private AdresaRepository AdresaRepository;
+	private AdresaRepository adresaRepository;
     @Autowired
-	private KompanijaRepository KompanijaRepository;
+	private KompanijaRepository kompanijaRepository;
     @Autowired
-    private RadnikRepository RadnikRepository;
+    private RadnikRepository radnikRepository;
     
     
     @GetMapping(path="/all")
 	public @ResponseBody Iterable<Radnik> getAllRadnik(){
 		
-		return RadnikRepository.findAll();
+		return radnikRepository.findAll();
 		
 	}
     
@@ -58,7 +58,7 @@ public class RadnikController {
   		r.setKompanija(k);
   	
   		
-  		RadnikRepository.save(r);
+  		radnikRepository.save(r);
   		return " Sacuvan Radnik u bazu ";
  }
     @GetMapping("/delete")
@@ -73,7 +73,7 @@ public class RadnikController {
         
 
          
-         RadnikRepository.delete(r);
+         radnikRepository.delete(r);
        return "Obrisan Radnik";
           
         		 
@@ -88,7 +88,7 @@ public class RadnikController {
 			@RequestParam(required = false) Integer kompanija_id,
 			@RequestParam(required = false) String bracni_status) {
 		
-		for(Radnik r: RadnikRepository.findAll()) {
+		for(Radnik r: radnikRepository.findAll()) {
 			if(r.getJmbg() == jmbg) {
 				if(ime != null) {
 					r.setIme(ime);
@@ -100,14 +100,14 @@ public class RadnikController {
 					r.setGodine(godine);
 				}
 				if(adresa_id != null) {
-					for(Adresa a: AdresaRepository.findAll()) {
+					for(Adresa a: adresaRepository.findAll()) {
 						if(a.getAdresa_id() == adresa_id) {
 							r.setAdresa(a);
 						}
 					}
 				}
 				if(kompanija_id != null) {
-					for(Kompanija k: KompanijaRepository.findAll()) {
+					for(Kompanija k: kompanijaRepository.findAll()) {
 						if(k.getKompanija_id() == kompanija_id) {
 							r.setKompanija(k);
 						}
