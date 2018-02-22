@@ -79,30 +79,47 @@ public class RadnikController {
         		 
     }
     
-//    @GetMapping(path="/edit")
-//	 public @ResponseBody String updateRadnik(@RequestParam Integer jmbg, 
-//			 @RequestParam (required = false) String ime,
-//			 @RequestParam (required = false) String prezime,
-//			 @RequestParam (required = false) Integer godina, 
-//			 @RequestParam (required = false) Integer adresa_id, 
-//			 @RequestParam (required = false) Integer kompanija_id, 
-//			 @RequestParam (required = false) String bracniStatus) {
-//		 
-//		 Iterable<Adresa> allAdresa = AdresaRepository.findAll();
-//		 Iterable<Kompanija> allKompanija = KompanijaRepository.findAll();
-//		 Iterable<Radnik> allRadnik = RadnikRepository.findAll();
-//		 
-//		 for (Radnik r: allRadnik ) {
-//			
-//				 
-//				 
-//			 }
-//			 
-//			 return " Updated Radnik ";
-//			 }
-//		 }
-//		 return " No ID od kompanije ";
-//	 }
+    @GetMapping(path = "/update")
+	public @ResponseBody String updateRadnik(@RequestParam Integer jmbg,
+			@RequestParam(required = false) String ime,
+			@RequestParam(required = false) String prezime,
+			@RequestParam(required = false) Integer godine,
+			@RequestParam(required = false) Integer adresa_id,
+			@RequestParam(required = false) Integer kompanija_id,
+			@RequestParam(required = false) String bracni_status) {
+		
+		for(Radnik r: RadnikRepository.findAll()) {
+			if(r.getJmbg() == jmbg) {
+				if(ime != null) {
+					r.setIme(ime);
+				}
+				if(prezime != null) {
+					r.setPrezime(prezime);
+				}
+				if(godine != null) {
+					r.setGodine(godine);
+				}
+				if(adresa_id != null) {
+					for(Adresa a: AdresaRepository.findAll()) {
+						if(a.getAdresa_id() == adresa_id) {
+							r.setAdresa(a);
+						}
+					}
+				}
+				if(kompanija_id != null) {
+					for(Kompanija k: KompanijaRepository.findAll()) {
+						if(k.getKompanija_id() == kompanija_id) {
+							r.setKompanija(k);
+						}
+					}
+				}
+				return "Radnik je update!";
+			}
+		}
+		
+		return "Ne postoji radnik, da bi mogao da se updatejtuje!";
+		
+	}
     
     
     
