@@ -9,13 +9,13 @@ public class StringAnagrama {
 		
 		ArrayList<String> anagramsInOrder = new ArrayList<String>();
 		
-		anagramsInOrder.add("abc");
+		anagramsInOrder.add("abcd");
 		anagramsInOrder.add("cfrtg");
-		anagramsInOrder.add("bca");
-		anagramsInOrder.add("cba");
-		anagramsInOrder.add("sek");
-		anagramsInOrder.add("esk");
-		anagramsInOrder.add("kse");
+		anagramsInOrder.add("dcba");
+		anagramsInOrder.add("dfrt");
+		anagramsInOrder.add("frtd");
+		anagramsInOrder.add("amnj");
+		anagramsInOrder.add("retulkj");
 		anagramsInOrder.add("rftd");
 		
 		
@@ -29,15 +29,27 @@ public class StringAnagrama {
 	
 	public static void changeStringOder(ArrayList<String> anagram) {
 		
+		boolean anagramFalse = false;
+		int brojac = 0;
+		
 		for( int i = 0; i < anagram.size(); i++) {
+			anagramFalse = false;
+			
 			for( int j = i + 1; j < anagram.size(); j++ ) {
 				if(isAnagram(anagram.get(i), anagram.get(j))) {
 					String  tmp = anagram.get(j);
 					anagram.remove(j);
 					anagram.add(i+1, tmp);
-					
+					anagramFalse = true;
+					++brojac;
+				}else if(j == anagram.size()-1 && anagramFalse == false && brojac == 0) {
+					anagram.add(anagram.get(i));
+					anagram.remove(i);
 				}
 			}
+			
+			i = i + brojac;
+			brojac = 0;
 		}
 		
 	}
