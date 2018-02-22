@@ -8,7 +8,7 @@ public class StringAnagrama {
 	public static void main(String[] args) {
 		
 		ArrayList<String> anagramsInOrder = new ArrayList<String>();
-		ArrayList<String> newList = new ArrayList<String>();
+		
 		anagramsInOrder.add("abc");
 		anagramsInOrder.add("cfrtg");
 		anagramsInOrder.add("bca");
@@ -20,24 +20,23 @@ public class StringAnagrama {
 		
 		
 		System.out.println(anagramsInOrder);
-		changeStringOder(anagramsInOrder, newList);
-		System.out.println(newList);
+		changeStringOder(anagramsInOrder);
+		System.out.println(anagramsInOrder);
 		//System.out.println(""+isAnagram("abc", "cba"));
 		
 	}
 	
 	
-	public static void changeStringOder(ArrayList<String> anagram, ArrayList<String> newList) {
+	public static void changeStringOder(ArrayList<String> anagram) {
 		
 		for( int i = 0; i < anagram.size(); i++) {
-			newList.add(anagram.get(i));
 			for( int j = i + 1; j < anagram.size(); j++ ) {
 				if(isAnagram(anagram.get(i), anagram.get(j))) {
-					newList.add(anagram.get(j));
-					anagram.remove(anagram.get(j));
-					--j;
+					String  tmp = anagram.get(j);
+					anagram.remove(j);
+					anagram.add(i+1, tmp);
+					
 				}
-				
 			}
 		}
 		
