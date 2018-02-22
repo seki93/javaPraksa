@@ -24,7 +24,7 @@ public class AdresaController {
     
     
     
-    @GetMapping(path="/addAdresa")
+    @GetMapping(path="/add")
     public @ResponseBody String addNewAdresa (@RequestParam Integer adresa_id, @RequestParam String drzava
 			, @RequestParam String grad, @RequestParam String ulica, @RequestParam Integer broj, @RequestParam Integer sprat) {
 		
@@ -40,14 +40,14 @@ public class AdresaController {
 		return "Saved";
 	}
     
-    @GetMapping(path="/allAdresa")
+    @GetMapping(path="/all")
 	public @ResponseBody Iterable<Adresa> getAllAdresa() {
 		
 		return AdresaRepository.findAll();
 	}
     
     
-    @GetMapping(path="/editAdresa")
+    @GetMapping(path="/edit")
 	 public @ResponseBody String updateAdresa (@RequestParam Integer adresa_id,
 	   @RequestParam(required = false) String drzava,
 	   @RequestParam(required = false) String grad,
@@ -72,7 +72,7 @@ public class AdresaController {
 	  return "Ne postoji dati id!";
 	 }
     
-    @GetMapping("/deleteAdresa")
+    @GetMapping("/delete")
     public @ResponseBody String deleteAdresa (@RequestParam Integer adresa_id ) {
        
     	 if(adresa_id == null) 

@@ -22,7 +22,7 @@ public class KompanijaController {
 	private KompanijaRepository KompanijaRepository;
     
     
-    @GetMapping(path="/addKomp")
+    @GetMapping(path="/add")
 	public @ResponseBody String addNewKompanija (@RequestParam Integer kompanija_id, @RequestParam String naziv, @RequestParam Integer adresa_id) {
 		
 		Kompanija k = new Kompanija();
@@ -40,7 +40,7 @@ public class KompanijaController {
 		
 	}
     
-	@GetMapping(path="/allKompanija")
+	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Kompanija> getAllKompanija(){
 		
 		return KompanijaRepository.findAll();
@@ -48,7 +48,7 @@ public class KompanijaController {
 	}
 	
 	 
-	 @GetMapping(path="/editKomp")
+	 @GetMapping(path="/edit")
 	 public @ResponseBody String updateKompanija(@RequestParam Integer kompanija_id, 
 			 @RequestParam (required = false) String naziv,
 			 @RequestParam (required = false) Integer adresa_id ) {
@@ -74,7 +74,7 @@ public class KompanijaController {
 		 return " No ID od kompanije ";
 	 }
 	 
-	 @GetMapping("/deleteKomp")
+	 @GetMapping("/delete")
 	    public @ResponseBody String deleteKompanija (@RequestParam Integer kompanija_id ) {
 	       
 	    	 if(kompanija_id == null) 
