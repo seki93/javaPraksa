@@ -9,18 +9,20 @@ public class StringAnagrama {
 		
 		ArrayList<String> anagramsInOrder = new ArrayList<String>();
 		ArrayList<String> newList = new ArrayList<String>();
-		anagramsInOrder.add("abcd");
+		anagramsInOrder.add("abc");
 		anagramsInOrder.add("cfrtg");
-		anagramsInOrder.add("dcba");
-		anagramsInOrder.add("dfrt");
-		anagramsInOrder.add("frtd");
-		anagramsInOrder.add("amnj");
-		anagramsInOrder.add("retulkj");
+		anagramsInOrder.add("bca");
+		anagramsInOrder.add("cba");
+		anagramsInOrder.add("sek");
+		anagramsInOrder.add("esk");
+		anagramsInOrder.add("kse");
 		anagramsInOrder.add("rftd");
 		
+		
+		System.out.println(anagramsInOrder);
 		changeStringOder(anagramsInOrder, newList);
 		System.out.println(newList);
-		//System.out.println(""+isAnagram("abcd", "cfrtg"));
+		//System.out.println(""+isAnagram("abc", "cba"));
 		
 	}
 	
@@ -33,7 +35,9 @@ public class StringAnagrama {
 				if(isAnagram(anagram.get(i), anagram.get(j))) {
 					newList.add(anagram.get(j));
 					anagram.remove(anagram.get(j));
+					--j;
 				}
+				
 			}
 		}
 		
