@@ -2,10 +2,10 @@ package hello.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import hello.model.Kompanija;
+import hello.model.Company;
 
 
-public interface KompanijaRepository extends CrudRepository<Kompanija, Integer> {
+public interface CompanyRepository extends CrudRepository<Company, Integer> {
 	
 	public void deleteById(Integer kompanija_id);
 	

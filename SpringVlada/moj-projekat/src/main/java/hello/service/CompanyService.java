@@ -4,7 +4,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-public interface KompanijeService {
+public interface CompanyService {
 	
 	public void deleteById(Integer id);
 

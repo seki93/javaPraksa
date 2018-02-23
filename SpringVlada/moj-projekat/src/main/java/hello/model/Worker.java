@@ -1,16 +1,20 @@
 package hello.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Radnik {
+@Table( name = "radnik")
+public class Worker {
  
 	
 	@Id
-	private Integer jmbg;
+	@Column( name = "jmbg")
+	private Integer id;
 	
 	private String ime;
 	
@@ -20,21 +24,21 @@ public class Radnik {
 	
 	 @ManyToOne
      @JoinColumn(name = "kompanija_id") 
-	private Kompanija kompanija;
+	private Company kompanija;
 	
 
 	@ManyToOne
 	@JoinColumn(name = "adresa_id") 
-    private Adresa adresa;
+    private Address adresa;
 	
 	private String bracniStatus;
 
-	public Integer getJmbg() {
-		return jmbg;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setJmbg(Integer jmbg) {
-		this.jmbg = jmbg;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getIme() {
@@ -61,19 +65,19 @@ public class Radnik {
 		this.godine = godine;
 	}
 
-	public Kompanija getKompanija() {
+	public Company getKompanija() {
 		return kompanija;
 	}
 
-	public void setKompanija(Kompanija kompanija) {
+	public void setKompanija(Company kompanija) {
 		this.kompanija = kompanija;
 	}
 
-	public Adresa getAdresa() {
+	public Address getAdresa() {
 		return adresa;
 	}
 
-	public void setAdresa(Adresa adresa) {
+	public void setAdresa(Address adresa) {
 		this.adresa = adresa;
 	}
 

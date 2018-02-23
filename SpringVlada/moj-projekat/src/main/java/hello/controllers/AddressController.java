@@ -7,43 +7,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.model.Adresa;
-import hello.repository.AdresaRepository;
-import hello.repository.KompanijaRepository;
-
+import hello.model.Address;
+import hello.repository.AddressRepository;
 
 @Controller
 @RequestMapping(path="/address")
-public class AdresaController {
+public class AddressController {
 
 	
 	@Autowired
-	private AdresaRepository adresaRepository;
-    @Autowired
-	private KompanijaRepository kompanijaRepository;
-    
-    
+	private AddressRepository addressRepository;
     
     @GetMapping(path="/add")
-    public @ResponseBody String addNewAdresa (@RequestParam Integer adresa_id, @RequestParam String drzava
-			, @RequestParam String grad, @RequestParam String ulica, @RequestParam Integer broj, @RequestParam Integer sprat) {
+    public @ResponseBody String addNewAdresa (@RequestParam Integer adresa_id, 
+    		@RequestParam String drzava, 
+    		@RequestParam String grad, 
+			@RequestParam String ulica, 
+			@RequestParam Integer broj, 
+			@RequestParam Integer sprat) {
 		
-		Adresa a = new Adresa();
-		a.setAdresa_id(adresa_id);
+		Address a = new Address();
+		a.setId(adresa_id);
 		a.setDrzava(drzava);
 		a.setGrad(grad);
 		a.setUlica(ulica);
 		a.setBroj(broj);
 		a.setSprat(sprat);
 
-		adresaRepository.save(a);
+		addressRepository.save(a);
 		return "Saved";
 	}
     
     @GetMapping(path="/all")
-	public @ResponseBody Iterable<Adresa> getAllAdresa() {
+	public @ResponseBody Iterable<Address> getAllAdresa() {
 		
-		return adresaRepository.findAll();
+		return addressRepository.findAll();
 	}
     
     
@@ -55,36 +53,36 @@ public class AdresaController {
 	   @RequestParam(required = false) Integer broj,
 	   @RequestParam(required = false) Integer sprat) {
 	  
-	  Iterable<Adresa> sveAdrese = adresaRepository.findAll();
-	  
-	  for(Adresa a: sveAdrese) {
-	   if(a.getAdresa_id() == adresa_id) {
+	  for(Address a: addressRepository.findAll()) {
+	   if(a.getId() == adresa_id) {
 	    if(drzava != null) a.setDrzava(drzava);
 	    if(grad != null) a.setGrad(grad);
 	    if(ulica != null) a.setUlica(ulica);
 	    if(broj != null) a.setBroj(broj);
 	    if(sprat != null) a.setSprat(sprat);
-	    adresaRepository.save(a);
-	    return "Apdejtovana adresa!";
+	    
+	    addressRepository.save(a);
+	    
+	    return "Update address";
 	   }
 	  }
 	  
-	  return "Ne postoji dati id!";
+	  return "No address with this id";
 	 }
     
     @GetMapping("/delete")
     public @ResponseBody String deleteAdresa (@RequestParam Integer adresa_id ) {
        
     	 if(adresa_id == null) 
-             return " Ne postoji ta adresa ";
+             return "Wrong address id";
     	 
-    	Adresa c = new Adresa();
+    	Address c = new Address();
        
-         c.setAdresa_id(adresa_id);
+         c.setId(adresa_id);
 
          
-         adresaRepository.delete(c);
-       return "Obrisano";
+         addressRepository.delete(c);
+       return "Delete";
           
         		 
     }

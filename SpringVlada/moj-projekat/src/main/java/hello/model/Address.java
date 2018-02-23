@@ -1,16 +1,20 @@
 package hello.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-public class Adresa {
+@Table(name = "adresa")
+public class Address {
 	
 	@Id
-    private Integer adresa_id;
+	@Column( name = "adresa_id")
+    private Integer id;
 
     private String drzava;
 
@@ -21,13 +25,15 @@ public class Adresa {
     private Integer broj;
     
     private Integer sprat;
+    
+    
 
-	public Integer getAdresa_id() {
-		return adresa_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setAdresa_id(Integer adresa_id) {
-		this.adresa_id = adresa_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDrzava() {

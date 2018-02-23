@@ -8,34 +8,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import hello.model.Adresa;
-import hello.model.Kompanija;
-import hello.repository.AdresaRepository;
-import hello.repository.KompanijaRepository;
-import hello.service.KompanijeService;
+import hello.model.Address;
+import hello.model.Company;
+import hello.repository.AddressRepository;
+import hello.repository.CompanyRepository;
+import hello.service.CompanyService;
 
 @Controller
 @RequestMapping(path="/company")
-public class KompanijaController {
+public class CompanyController {
 
 	@Autowired
-	private AdresaRepository adresaRepository;
+	private AddressRepository adresaRepository;
     @Autowired
-	private KompanijaRepository kompanijaRepository;
+	private CompanyRepository kompanijaRepository;
     
     @Autowired
-	private KompanijeService kompanijeService;
+	private CompanyService kompanijeService;
     
     
     @GetMapping(path="/add")
 	public @ResponseBody String addNewKompanija (@RequestParam Integer kompanija_id, @RequestParam String naziv, @RequestParam Integer adresa_id) {
 		
-		Kompanija k = new Kompanija();
+		Company k = new Company();
 		k.setId(kompanija_id);
 		k.setNaziv(naziv);
-		Adresa a = new Adresa();
-		a.setAdresa_id(adresa_id);
-		a.getAdresa_id();
+		Address a = new Address();
+		a.setId(adresa_id);
+		a.getId();
 		k.setAdresa(a);;
 		
 		kompanijaRepository.save(k);
@@ -46,7 +46,7 @@ public class KompanijaController {
 	}
     
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Kompanija> getAllKompanija(){
+	public @ResponseBody Iterable<Company> getAllKompanija(){
 		
 		return kompanijaRepository.findAll();
 		
@@ -58,15 +58,15 @@ public class KompanijaController {
 			 @RequestParam (required = false) String naziv,
 			 @RequestParam (required = false) Integer adresa_id ) {
 		 
-		 Iterable<Kompanija> allKompanija = kompanijaRepository.findAll();
+		 Iterable<Company> allKompanija = kompanijaRepository.findAll();
 		 
-		 for (Kompanija a: allKompanija ) {
+		 for (Company a: allKompanija ) {
 			 if (a.getId() == kompanija_id) {
 			 if(naziv != null) a.setNaziv(naziv);
 			 if(adresa_id != null) {
-				 Adresa adresa = new Adresa();
+				 Address adresa = new Address();
 				 adresa = adresaRepository.findOne(adresa_id);
-				 adresa.setAdresa_id(adresa_id);
+				 adresa.setId(adresa_id);
 				 a.setAdresa(adresa);
 				 
 				 

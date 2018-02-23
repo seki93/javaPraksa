@@ -5,14 +5,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hello.repository.KompanijaRepository;
+import hello.repository.CompanyRepository;
 
 
 @Service
-public class KompanijeServiceImpl implements KompanijeService {
+public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	KompanijaRepository kompanijeRepository;
+	CompanyRepository kompanijeRepository;
 
 	@Override
 	@Transactional

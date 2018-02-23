@@ -5,9 +5,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Kompanija{
+@Table(name = "kompanija")
+public class Company{
 
 	
 	
@@ -19,14 +21,14 @@ public class Kompanija{
 	 
 	 @ManyToOne
 	 @JoinColumn(name = "adresa_id") 
-	 private Adresa adresa;
+	 private Address adresa;
 	 
 	 
-	public Adresa getAdresa() {
+	public Address getAdresa() {
 		return adresa;
 	}
 
-	public void setAdresa(Adresa adresa) {
+	public void setAdresa(Address adresa) {
 		this.adresa = adresa;
 	}
 

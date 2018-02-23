@@ -7,36 +7,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.model.Adresa;
-import hello.model.Kompanija;
-import hello.model.Radnik;
-import hello.repository.AdresaRepository;
-import hello.repository.KompanijaRepository;
-import hello.repository.RadnikRepository;
+import hello.model.Address;
+import hello.model.Company;
+import hello.model.Worker;
+import hello.repository.AddressRepository;
+import hello.repository.CompanyRepository;
+import hello.repository.WorkerRepository;
 
 @Controller
-@RequestMapping(path="/radnik")
-public class RadnikController {
+@RequestMapping(path="/worker")
+public class WorkerController {
 	
 	
 	@Autowired
-	private AdresaRepository adresaRepository;
+	private AddressRepository addressRepository;
     @Autowired
-	private KompanijaRepository kompanijaRepository;
+	private CompanyRepository companyRepository;
     @Autowired
-    private RadnikRepository radnikRepository;
+    private WorkerRepository workerRepository;
     
     
     @GetMapping(path="/all")
-	public @ResponseBody Iterable<Radnik> getAllRadnik(){
+	public @ResponseBody Iterable<Worker> getAllWorker(){
 		
-		return radnikRepository.findAll();
+		return workerRepository.findAll();
 		
 	}
     
    
     @GetMapping(path="/add")
-  	public @ResponseBody String addNewRadnik (@RequestParam Integer jmbg, 
+  	public @ResponseBody String addNewWorker (@RequestParam Integer jmbg, 
   			@RequestParam String ime, 
   			@RequestParam String prezime, 
   			@RequestParam Integer godine, 
@@ -44,19 +44,19 @@ public class RadnikController {
   			@RequestParam Integer kompanija_id,
   			@RequestParam String bracniStatus ) {
   		
-  		Radnik r = new Radnik();
+  		Worker r = new Worker();
 
-  		r.setJmbg(jmbg);
+  		r.setId(jmbg);
   		r.setIme(ime);
   		r.setPrezime(prezime);
   		r.setGodine(godine);
   		r.setBracniStatus(bracniStatus);
   		
-  		Adresa a = new Adresa();
-  		a.setAdresa_id(adresa_id);
-  		a.getAdresa_id();
+  		Address a = new Address();
+  		a.setId(adresa_id);
+  		a.getId();
   		
-  		Kompanija k = new Kompanija();
+  		Company k = new Company();
   		k.setId(kompanija_id);
   		k.getId();
   		
@@ -64,29 +64,29 @@ public class RadnikController {
   		r.setKompanija(k);
   	
   		
-  		radnikRepository.save(r);
-  		return " Sacuvan Radnik u bazu ";
+  		workerRepository.save(r);
+  		return "Saved";
  }
     @GetMapping("/delete")
-    public @ResponseBody String deleteRadnik (@RequestParam Integer jmbg ) {
+    public @ResponseBody String deleteWorker (@RequestParam Integer jmbg ) {
        
     	 if(jmbg == null) 
-             return " Ne postoji taj radnik ";
+             return "Wrong id worker";
     	 
-    	Radnik r = new Radnik();
+    	Worker r = new Worker();
        
-        r.setJmbg(jmbg);
+        r.setId(jmbg);
         
 
          
-         radnikRepository.delete(r);
-       return "Obrisan Radnik";
+         workerRepository.delete(r);
+       return "Deleted";
           
         		 
     }
     
     @GetMapping(path = "/update")
-	public @ResponseBody String updateRadnik(@RequestParam Integer jmbg,
+	public @ResponseBody String updateWorker(@RequestParam Integer jmbg,
 			@RequestParam(required = false) String ime,
 			@RequestParam(required = false) String prezime,
 			@RequestParam(required = false) Integer godine,
@@ -94,8 +94,8 @@ public class RadnikController {
 			@RequestParam(required = false) Integer kompanija_id,
 			@RequestParam(required = false) String bracni_status) {
 		
-		for(Radnik r: radnikRepository.findAll()) {
-			if(r.getJmbg() == jmbg) {
+		for(Worker r: workerRepository.findAll()) {
+			if(r.getId() == jmbg) {
 				if(ime != null) {
 					r.setIme(ime);
 				}
@@ -106,24 +106,24 @@ public class RadnikController {
 					r.setGodine(godine);
 				}
 				if(adresa_id != null) {
-					for(Adresa a: adresaRepository.findAll()) {
-						if(a.getAdresa_id() == adresa_id) {
+					for(Address a: addressRepository.findAll()) {
+						if(a.getId() == adresa_id) {
 							r.setAdresa(a);
 						}
 					}
 				}
 				if(kompanija_id != null) {
-					for(Kompanija k: kompanijaRepository.findAll()) {
+					for(Company k: companyRepository.findAll()) {
 						if(k.getId() == kompanija_id) {
 							r.setKompanija(k);
 						}
 					}
 				}
-				return "Radnik je update!";
+				return "Updated worker!";
 			}
 		}
 		
-		return "Ne postoji radnik, da bi mogao da se updatejtuje!";
+		return "Wrong id worker";
 		
 	}
     
