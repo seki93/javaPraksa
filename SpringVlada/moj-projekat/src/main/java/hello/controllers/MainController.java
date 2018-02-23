@@ -27,9 +27,9 @@ import hello.repos.KompanijaRepository;
 public class MainController {
 	
 	@Autowired
-	private AdresaRepository AdresaRepository;
+	private AdresaRepository adresaRepository;
     @Autowired
-	private KompanijaRepository KompanijaRepository;
+	private KompanijaRepository kompanijaRepository;
 	
 
 	
