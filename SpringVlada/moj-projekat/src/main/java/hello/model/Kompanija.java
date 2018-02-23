@@ -1,4 +1,5 @@
-package hello.entity;
+package hello.model;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,7 +12,8 @@ public class Kompanija{
 	
 	
 	@Id
-	 private Integer kompanija_id;
+	@Column(name = "kompanija_id")
+	 private Integer id;
 	
 	 private String naziv;
 	 
@@ -28,12 +30,12 @@ public class Kompanija{
 		this.adresa = adresa;
 	}
 
-	public Integer getKompanija_id() {
-		return kompanija_id;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setKompanija_id(Integer kompanija_id) {
-		this.kompanija_id = kompanija_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNaziv() {

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.entity.Adresa;
-import hello.entity.Kompanija;
-import hello.entity.Radnik;
-import hello.repos.AdresaRepository;
-import hello.repos.KompanijaRepository;
-import hello.repos.RadnikRepository;
+import hello.model.Adresa;
+import hello.model.Kompanija;
+import hello.model.Radnik;
+import hello.repository.AdresaRepository;
+import hello.repository.KompanijaRepository;
+import hello.repository.RadnikRepository;
 
 @Controller
 @RequestMapping(path="/radnik")
@@ -36,7 +36,13 @@ public class RadnikController {
     
    
     @GetMapping(path="/add")
-  	public @ResponseBody String addNewRadnik (@RequestParam Integer jmbg, @RequestParam String ime, @RequestParam String prezime, @RequestParam Integer godine, @RequestParam Integer adresa_id, @RequestParam Integer kompanija_id, @RequestParam String bracniStatus ) {
+  	public @ResponseBody String addNewRadnik (@RequestParam Integer jmbg, 
+  			@RequestParam String ime, 
+  			@RequestParam String prezime, 
+  			@RequestParam Integer godine, 
+  			@RequestParam Integer adresa_id, 
+  			@RequestParam Integer kompanija_id,
+  			@RequestParam String bracniStatus ) {
   		
   		Radnik r = new Radnik();
 
@@ -51,8 +57,8 @@ public class RadnikController {
   		a.getAdresa_id();
   		
   		Kompanija k = new Kompanija();
-  		k.setKompanija_id(kompanija_id);
-  		k.getKompanija_id();
+  		k.setId(kompanija_id);
+  		k.getId();
   		
   		r.setAdresa(a);
   		r.setKompanija(k);
@@ -108,7 +114,7 @@ public class RadnikController {
 				}
 				if(kompanija_id != null) {
 					for(Kompanija k: kompanijaRepository.findAll()) {
-						if(k.getKompanija_id() == kompanija_id) {
+						if(k.getId() == kompanija_id) {
 							r.setKompanija(k);
 						}
 					}

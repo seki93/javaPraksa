@@ -1,8 +1,8 @@
-package hello.repos;
+package hello.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import hello.entity.Adresa;
+import hello.model.Adresa;
 
 public interface AdresaRepository extends CrudRepository<Adresa, Integer> {
 

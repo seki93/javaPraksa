@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.entity.Adresa;
-import hello.entity.Kompanija;
-import hello.repos.AdresaRepository;
-import hello.repos.KompanijaRepository;
+
+import hello.model.Adresa;
+import hello.model.Kompanija;
+import hello.repository.AdresaRepository;
+import hello.repository.KompanijaRepository;
+import hello.service.KompanijeService;
 
 @Controller
-@RequestMapping(path="/komp")
+@RequestMapping(path="/company")
 public class KompanijaController {
 
 	@Autowired
@@ -21,12 +23,15 @@ public class KompanijaController {
     @Autowired
 	private KompanijaRepository kompanijaRepository;
     
+    @Autowired
+	private KompanijeService kompanijeService;
+    
     
     @GetMapping(path="/add")
 	public @ResponseBody String addNewKompanija (@RequestParam Integer kompanija_id, @RequestParam String naziv, @RequestParam Integer adresa_id) {
 		
 		Kompanija k = new Kompanija();
-		k.setKompanija_id(kompanija_id);
+		k.setId(kompanija_id);
 		k.setNaziv(naziv);
 		Adresa a = new Adresa();
 		a.setAdresa_id(adresa_id);
@@ -48,16 +53,15 @@ public class KompanijaController {
 	}
 	
 	 
-	 @GetMapping(path="/edit")
+	 @GetMapping(path="/update")
 	 public @ResponseBody String updateKompanija(@RequestParam Integer kompanija_id, 
 			 @RequestParam (required = false) String naziv,
 			 @RequestParam (required = false) Integer adresa_id ) {
 		 
-		 Iterable<Adresa> allAdresa = adresaRepository.findAll();
 		 Iterable<Kompanija> allKompanija = kompanijaRepository.findAll();
 		 
 		 for (Kompanija a: allKompanija ) {
-			 if (a.getKompanija_id() == kompanija_id) {
+			 if (a.getId() == kompanija_id) {
 			 if(naziv != null) a.setNaziv(naziv);
 			 if(adresa_id != null) {
 				 Adresa adresa = new Adresa();
@@ -80,12 +84,8 @@ public class KompanijaController {
 	    	 if(kompanija_id == null) 
 	             return " Ne postoji ta kompanija ";
 	    	 
-	    	Kompanija k = new Kompanija();
-	       
-	         k.setKompanija_id(kompanija_id);
-
-	         
-	         kompanijaRepository.delete(k);
+	    	 kompanijeService.deleteById(kompanija_id);
+	    	 
 	       return "Obrisano";
 	          
 	        		 

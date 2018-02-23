@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.entity.Adresa;
-import hello.repos.AdresaRepository;
-import hello.repos.KompanijaRepository;
+import hello.model.Adresa;
+import hello.repository.AdresaRepository;
+import hello.repository.KompanijaRepository;
 
 
 @Controller
-@RequestMapping(path="/adresa")
+@RequestMapping(path="/address")
 public class AdresaController {
 
 	
@@ -47,7 +47,7 @@ public class AdresaController {
 	}
     
     
-    @GetMapping(path="/edit")
+    @GetMapping(path="/update")
 	 public @ResponseBody String updateAdresa (@RequestParam Integer adresa_id,
 	   @RequestParam(required = false) String drzava,
 	   @RequestParam(required = false) String grad,
