@@ -4,12 +4,12 @@ import hello.model.Sportsman;
 
 public interface SportsmanService {
 
-	Iterable<Sportsman> findAll();
+	public Iterable<Sportsman> findAll();
 
-	void save(Sportsman s);
+	public void save(Sportsman s);
 
-	void deleteById(Integer id);
+	public void deleteById(Integer id);
 
-	Sportsman findById(Integer id);
+	public Sportsman findById(Integer id);
 
 }

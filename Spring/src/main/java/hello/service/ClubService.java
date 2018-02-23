@@ -4,12 +4,12 @@ import hello.model.Club;
 
 public interface ClubService {
 
-	Iterable<Club> findAll();
+	public Iterable<Club> findAll();
 
-	void save(Club c);
+	public void save(Club c);
 
-	void deleteById(Integer id);
+	public void deleteById(Integer id);
 
-	Club findById(Integer id);
+	public Club findById(Integer id);
 
 }
