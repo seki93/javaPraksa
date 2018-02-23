@@ -11,19 +11,19 @@ import hello.model.Address;
 import hello.model.Club;
 import hello.model.Sportsman;
 import hello.service.AddressService;
-import hello.service.ClubService;
-import hello.service.SportsmanService;
+import hello.service.ClubRepository;
+import hello.service.SportsmanRepository;
 
 @Controller
 @RequestMapping(path = "/sportsman")
 public class SportsmanController {
 	
 	@Autowired
-	private SportsmanService sportsmanService;
+	private SportsmanRepository sportsmanService;
 	@Autowired
 	private AddressService addressService;
 	@Autowired
-	private ClubService clubService;
+	private ClubRepository clubService;
 	
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<Sportsman> getAllSportsman() {

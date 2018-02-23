@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hello.model.Address;
 import hello.model.Club;
 import hello.service.AddressService;
-import hello.service.ClubService;
+import hello.service.ClubRepository;
 
 
 @Controller
@@ -20,7 +20,7 @@ public class ClubController {
 	@Autowired
 	private AddressService addressService;
     @Autowired
-	private ClubService clubService;
+	private ClubRepository clubService;
         
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Club> getAllClub(){

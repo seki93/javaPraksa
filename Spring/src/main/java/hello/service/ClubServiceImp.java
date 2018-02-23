@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import hello.model.Club;
 
 @Service
-public class ClubServiceImp implements ClubService {
+public class ClubServiceImp implements ClubRepository {
 
 	@Autowired
-	public ClubService clubService;
+	public ClubRepository clubRepository;
 	
 	@Override
 	public Iterable<Club> findAll() {
 		
-		Iterable<Club> clubs = clubService.findAll();
+		Iterable<Club> clubs = clubRepository.findAll();
 		
 		if(clubs != null) {
 			return clubs;
@@ -29,7 +29,7 @@ public class ClubServiceImp implements ClubService {
 	@Transactional
 	public void save(Club c) {
 		
-		clubService.save(c);
+		clubRepository.save(c);
 		
 	}
 
@@ -37,14 +37,14 @@ public class ClubServiceImp implements ClubService {
 	@Transactional
 	public void deleteById(Integer id) {
 		
-		clubService.deleteById(id);
+		clubRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Club findById(Integer id) {
 		
-		Club c = clubService.findById(id);
+		Club c = clubRepository.findById(id);
 		
 		if(c != null) {
 			return c;

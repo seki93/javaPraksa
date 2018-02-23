@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import hello.model.Sportsman;
 
 @Service
-public class SportsmanServiceImp implements SportsmanService {
+public class SportsmanServiceImp implements SportsmanRepository {
 
 	@Autowired 
-	private SportsmanService sportsmanService;
+	private SportsmanRepository sportsmanRepository;
 	
 	@Override
 	public Iterable<Sportsman> findAll() {
 		
-		Iterable<Sportsman> sportsmans = sportsmanService.findAll();
+		Iterable<Sportsman> sportsmans = sportsmanRepository.findAll();
 		
 		if(sportsmans != null) {
 			return sportsmans;
@@ -29,7 +29,7 @@ public class SportsmanServiceImp implements SportsmanService {
 	@Transactional
 	public void save(Sportsman s) {
 		
-		sportsmanService.save(s);
+		sportsmanRepository.save(s);
 		
 	}
 
@@ -37,14 +37,14 @@ public class SportsmanServiceImp implements SportsmanService {
 	@Transactional
 	public void deleteById(Integer id) {
 		
-		sportsmanService.deleteById(id);
+		sportsmanRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Sportsman findById(Integer id) {
 		
-		Sportsman s = sportsmanService.findById(id);
+		Sportsman s = sportsmanRepository.findById(id);
 		
 		if(s != null) {
 			return s;
