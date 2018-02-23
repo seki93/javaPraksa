@@ -14,10 +14,13 @@ public class Worker {
 	@Id
 	@Column( name = "jmbg")
 	private Integer id;
+	
 	@Column(name = "ime")
 	private String firstName;
+	
 	@Column(name = "prezime")
 	private String lastName;
+	
 	@Column(name = "godine")
 	private int age;
 	

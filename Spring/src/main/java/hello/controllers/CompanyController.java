@@ -65,23 +65,22 @@ public class CompanyController {
 			 @RequestParam (required = false) Integer address_id ) {
 		 
 		 Company c = companyService.findById(id);
-			 if (c.getId() == id) {
-				 if(name != null) {
-					 c.setName(name);
-				 }
-				 if(address_id != null) {
-					 Address address = new Address();
-					 address = addressService.findById(address_id);
-					 address.setId(address_id);
-					 c.setAddress(address);				 
+		 if (c.getId() == id) {
+			 if(name != null) {
+				 c.setName(name);
+			 }
+			 if(address_id != null) {
+				 Address address = new Address();
+				 address = addressService.findById(address_id);
+				 c.setAddress(address);				 
 			 }
 			 
-			 companyService.save(c);			 
-			 return "Updated company";
+		 companyService.save(c);			 
+		 return "Updated company";
 			 
-			 }
+		}
 		 
-		 return "Wrong id company";
+		return "Wrong id company";
 		 
 	 }
 	

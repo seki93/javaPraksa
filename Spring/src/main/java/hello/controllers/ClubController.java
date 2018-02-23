@@ -64,25 +64,24 @@ public class ClubController {
 			 @RequestParam (required = false) String name,
 			 @RequestParam (required = false) String sport ) {
 		 
-		 Club c = clubService.findById(id);
-			 if (c.getId() == id) {
-				 if(name != null) {
-					 c.setName(name);
-				 }
-				 if(sport != null) {
-					 c.setSport(sport);
-				 }
-				 if(address_id != null) {
-					 Address address = new Address();
-					 address = addressService.findById(address_id);
-					 address.setId(address_id);
-					 c.setAddress(address);				 
+		Club c = clubService.findById(id);
+		if (c.getId() == id) {
+			 if(name != null) {
+				 c.setName(name);
 			 }
-			 
-			 clubService.save(c);			 
-			 return "Updated club";
-			 
+			 if(sport != null) {
+				 c.setSport(sport);
 			 }
+			 if(address_id != null) {
+				 Address address = new Address();
+				 address = addressService.findById(address_id);
+				 c.setAddress(address);				 
+			}
+			 
+			clubService.save(c);			 
+			return "Updated club";
+		
+		}
 		 
 		 return "Wrong id club";
 		 

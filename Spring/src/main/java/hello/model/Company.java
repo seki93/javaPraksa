@@ -9,14 +9,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "kompanija")
 public class Company{
-
-	
 	
 	@Id
 	@Column(name = "kompanija_id")
 	private Integer id;
+	
 	@Column(name = "naziv")
 	private String name;	 
+	
 	@ManyToOne
 	@JoinColumn(name = "adresa_id") 
 	private Address address;

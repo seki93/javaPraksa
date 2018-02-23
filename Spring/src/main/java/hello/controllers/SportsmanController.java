@@ -15,7 +15,7 @@ import hello.service.ClubService;
 import hello.service.SportsmanService;
 
 @Controller
-@RequestMapping( path = "/sportsman")
+@RequestMapping(path = "/sportsman")
 public class SportsmanController {
 	
 	@Autowired
@@ -25,14 +25,14 @@ public class SportsmanController {
 	@Autowired
 	private ClubService clubService;
 	
-	@GetMapping( path = "/all")
+	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<Sportsman> getAllSportsman() {
 		
 		return sportsmanService.findAll();
 		
 	}
 	
-	@GetMapping( path = "/add")
+	@GetMapping(path = "/add")
 	public @ResponseBody String addNewSportsman (@RequestParam Integer id, 
 			@RequestParam String firstName, 
 			@RequestParam String lastName,
@@ -55,7 +55,7 @@ public class SportsmanController {
 		
 	}
 	
-	@GetMapping( path = "/delete")
+	@GetMapping(path = "/delete")
 	public @ResponseBody String deleteSportsman(@RequestParam Integer id) {
 		
 		if(id == null) {
@@ -67,7 +67,7 @@ public class SportsmanController {
 		
 	}
 	
-	@GetMapping( path = "/update")
+	@GetMapping(path = "/update")
 	public @ResponseBody String updateSportsman (@RequestParam Integer id, 
 			@RequestParam(required = false) String firstName, 
 			@RequestParam(required = false) String lastName,

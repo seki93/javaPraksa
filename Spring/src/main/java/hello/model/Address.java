@@ -13,14 +13,19 @@ public class Address {
 	@Id
 	@Column( name = "adresa_id")
     private Integer id;
+	
 	@Column(name = "drzava")
     private String country;
+	
 	@Column(name = "grad")
     private String city;
+	
 	@Column(name = "ulica")
     private String street;
+	
 	@Column(name = "broj")
     private Integer number;
+	
 	@Column(name = "sprat")
     private Integer floor;
 	

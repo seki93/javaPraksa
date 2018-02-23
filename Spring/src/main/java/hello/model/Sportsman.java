@@ -14,16 +14,20 @@ public class Sportsman {
 	@Id
 	@Column( name = "jmbg")
 	private Integer id;
+	
 	@Column( name = "ime")
 	private String firstName;
+	
 	@Column( name = "prezime")
 	private String lastName;
+	
 	@Column( name = "godine")
 	private Integer age;
-	@Column( name = "adresa_id")
+	
 	@ManyToOne
 	@JoinColumn( name = "adresa_id")
 	private Address address;
+	
 	@ManyToOne
 	@JoinColumn( name = "klub_id")
 	private Club club;

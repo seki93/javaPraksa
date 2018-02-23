@@ -51,17 +51,11 @@ public class WorkerController {
   		w.setAge(age);
   		w.setMarriage(marriage);
   		
-  		Address a = new Address();
-  		a.setId(address_id);
-  		a.getId();
-  		
-  		Company c = new Company();
-  		c.setId(company_id);
-  		c.getId();
-  		
+  		Address a = addressSevice.findById(address_id);
   		w.setAddress(a);
-  		w.setCompany(c);
-  	
+  		
+  		Company c = companyService.findById(company_id);  		
+  		w.setCompany(c);  	
   		
   		workerService.save(w);
   		return "Saved worker";
@@ -70,12 +64,12 @@ public class WorkerController {
     @GetMapping(path="/delete")
     public @ResponseBody String deleteWorker (@RequestParam Integer id ) {
        
-    	if(id == null) 
-    		return "Wrong id worker";      
+    	if(id == null) {
+    		return "Wrong id worker";  
+    	}    		    
         
-       workerService.deleteById(id);
-       return "Deleted worker";
-          
+        workerService.deleteById(id);
+        return "Deleted worker";          
         		 
     }
     
@@ -100,20 +94,16 @@ public class WorkerController {
 					w.setAge(age);
 				}
 				if(address_id != null) {
-					for(Address a: addressSevice.findAll()) {
-						if(a.getId() == address_id) {
-							w.setAddress(a);
-						}
-					}
+					Address a = addressSevice.findById(address_id);
+					w.setAddress(a);
 				}
 				if(company_id != null) {
-					for(Company k: companyService.findAll()) {
-						if(k.getId() == company_id) {
-							w.setCompany(k);
-						}
-					}
+					Company c = companyService.findById(company_id);
+					w.setCompany(c);
 				}
+				
 				return "Updated worker";
+				
 			}
 		
 		return "Wrong id worker";

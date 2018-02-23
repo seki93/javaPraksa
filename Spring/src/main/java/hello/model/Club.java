@@ -14,11 +14,14 @@ public class Club {
 	@Id
 	@Column(name = "klub_id")
 	private Integer id;
+	
 	@ManyToOne
 	@JoinColumn(name = "adresa_id")
 	private Address address;
+	
 	@Column(name = "naziv")
 	private String name;
+	
 	@Column(name = "sport")
 	private String sport;
 	
