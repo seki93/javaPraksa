@@ -102,6 +102,7 @@ public class WorkerController {
 					w.setCompany(c);
 				}
 				
+				workerService.save(w);
 				return "Updated worker";
 				
 			}
