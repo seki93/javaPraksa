@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hello.model.Address;
-import hello.repository.AddressRepository;
+import hello.service.AddressService;
 
 @Controller
 @RequestMapping(path="/address")
@@ -16,12 +16,18 @@ public class AddressController {
 
 	
 	@Autowired
-	private AddressRepository addressRepository;
+	private AddressService addressService;
     
     @GetMapping(path="/all")
 	public @ResponseBody Iterable<Address> getAllAddress() {
-		
-		return addressRepository.findAll();
+
+		Iterable<Address> addresses = addressService.findAll();
+    	
+    	if(addresses != null) {
+    		return addresses;
+    	}else {
+			return null;
+		}
 		
 	}
     
@@ -41,7 +47,7 @@ public class AddressController {
 		a.setNumber(number);
 		a.setFloor(floor);
 
-		addressRepository.save(a);
+		addressService.save(a);
 		return "Saved";
 	}    
     
@@ -51,7 +57,7 @@ public class AddressController {
     	 if(id == null) 
              return "Wrong address id";
     	 
-    	addressRepository.deleteById(id);         
+    	addressService.deleteById(id);         
         return "Delete address";          
         		 
     }
@@ -63,9 +69,9 @@ public class AddressController {
 	   @RequestParam(required = false) String street,
 	   @RequestParam(required = false) Integer number,
 	   @RequestParam(required = false) Integer floor) {
-	  
-	  for(Address a: addressRepository.findAll()) {
-		  if(a.getId() == id) {
+	 
+    	Address a = addressService.findById(id);
+		  if(a != null) {
 			  if(country != null) {
 				  a.setCountry(country);
 			  }
@@ -83,10 +89,9 @@ public class AddressController {
 				  a.setFloor(floor);
 			  }
 	    
-			  addressRepository.save(a);	    
+			  addressService.save(a);	    
 			  return "Update address";
 		  }
-	  }
 	  
 	  return "No address with this id";
 	  
