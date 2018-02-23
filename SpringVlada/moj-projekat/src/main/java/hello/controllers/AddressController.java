@@ -82,8 +82,7 @@ public class AddressController {
 				  a.setStreet(street);
 			  }
 			  if(number != null) {
-				  a.setNumber(number);
-	    
+				  a.setNumber(number);	    
 			  }
 			  if(floor != null) {
 				  a.setFloor(floor);

@@ -3,10 +3,12 @@ package hello.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hello.model.Address;
 import hello.repository.AddressRepository;
 
+@Service
 public class AddressServiceImp implements AddressService{
 
 	@Autowired
