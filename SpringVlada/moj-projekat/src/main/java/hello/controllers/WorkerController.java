@@ -49,7 +49,7 @@ public class WorkerController {
   		w.setFirstName(firstName);
   		w.setLastName(lastName);
   		w.setAge(age);
-  		w.setBracniStatus(marriage);
+  		w.setMarriage(marriage);
   		
   		Address a = new Address();
   		a.setId(address_id);
@@ -59,12 +59,12 @@ public class WorkerController {
   		c.setId(company_id);
   		c.getId();
   		
-  		w.setAdresa(a);
-  		w.setKompanija(c);
+  		w.setAddress(a);
+  		w.setCompany(c);
   	
   		
   		workerRepository.save(w);
-  		return "Saved";
+  		return "Saved worker";
   		
  }
     @GetMapping("/delete")
@@ -77,7 +77,7 @@ public class WorkerController {
         r.setId(id);      
         
        workerRepository.delete(r);
-       return "Deleted";
+       return "Deleted worker";
           
         		 
     }
@@ -105,14 +105,14 @@ public class WorkerController {
 				if(address_id != null) {
 					for(Address a: addressRepository.findAll()) {
 						if(a.getId() == address_id) {
-							r.setAdresa(a);
+							r.setAddress(a);
 						}
 					}
 				}
 				if(company_id != null) {
 					for(Company k: companyRepository.findAll()) {
 						if(k.getId() == company_id) {
-							r.setKompanija(k);
+							r.setCompany(k);
 						}
 					}
 				}

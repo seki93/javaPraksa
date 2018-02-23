@@ -25,7 +25,13 @@ public class CompanyController {
     
     @Autowired
 	private CompanyService companyService;
-    
+        
+	@GetMapping(path="/all")
+	public @ResponseBody Iterable<Company> getAlCompany(){
+		
+		return companyRepository.findAll();
+		
+	}
     
     @GetMapping(path="/add")
 	public @ResponseBody String addNewCompany (@RequestParam Integer id, 
@@ -44,15 +50,18 @@ public class CompanyController {
 		
 		return "Saved company";		
 		
-	}
-    
-	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Company> getAlCompany(){
-		
-		return companyRepository.findAll();
-		
-	}
-	
+	}	
+	 
+	 @GetMapping("/delete")
+	 public @ResponseBody String deleteCompany (@RequestParam Integer id ) {
+	       
+	    	 if(id == null) 
+	             return "Wrong id company";
+	    	 
+	    	 companyService.deleteById(id);	    	 
+	    	 return "Deleted company";	          
+	        		 
+	 }
 	 
 	 @GetMapping(path="/update")
 	 public @ResponseBody String updateCompany(@RequestParam Integer id, 
@@ -72,23 +81,13 @@ public class CompanyController {
 			 }
 			 
 			 companyRepository.save(a);			 
-			 return " Updated kompanija ";
+			 return " Updated company ";
 			 
 			 }
 		 }
+		 
 		 return " Wrong id company";
+		 
 	 }
-	 
-	 @GetMapping("/delete")
-	    public @ResponseBody String deleteKompanija (@RequestParam Integer id ) {
-	       
-	    	 if(id == null) 
-	             return " Ne postoji ta kompanija ";
-	    	 
-	    	 companyService.deleteById(id);
-	    	 
-	       return "Obrisano";	          
-	        		 
-	    }
 	
 }

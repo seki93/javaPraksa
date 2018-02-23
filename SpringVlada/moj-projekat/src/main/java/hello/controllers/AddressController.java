@@ -18,6 +18,13 @@ public class AddressController {
 	@Autowired
 	private AddressRepository addressRepository;
     
+    @GetMapping(path="/all")
+	public @ResponseBody Iterable<Address> getAllAddress() {
+		
+		return addressRepository.findAll();
+		
+	}
+    
     @GetMapping(path="/add")
     public @ResponseBody String addNewAddress (@RequestParam Integer id, 
     		@RequestParam String country, 
@@ -36,15 +43,18 @@ public class AddressController {
 
 		addressRepository.save(a);
 		return "Saved";
-	}
+	}    
     
-    @GetMapping(path="/all")
-	public @ResponseBody Iterable<Address> getAllAddress() {
-		
-		return addressRepository.findAll();
-		
-	}
-    
+    @GetMapping("/delete")
+    public @ResponseBody String deleteAddress (@RequestParam Integer id ) {
+       
+    	 if(id == null) 
+             return "Wrong address id";
+    	 
+    	addressRepository.deleteById(id);         
+        return "Delete address";          
+        		 
+    }
     
     @GetMapping(path="/update")
 	 public @ResponseBody String updateAddress (@RequestParam Integer id,
@@ -82,14 +92,4 @@ public class AddressController {
 	  
 	 }
     
-    @GetMapping("/delete")
-    public @ResponseBody String deleteAddress (@RequestParam Integer id ) {
-       
-    	 if(id == null) 
-             return "Wrong address id";
-    	 
-    	addressRepository.deleteById(id);         
-        return "Delete";          
-        		 
-    }
 }

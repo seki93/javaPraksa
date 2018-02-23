@@ -23,14 +23,14 @@ public class Worker {
 	
 	@ManyToOne
     @JoinColumn(name = "kompanija_id") 
-	private Company kompanija;
+	private Company company;
 	
 	@ManyToOne
 	@JoinColumn(name = "adresa_id") 
-    private Address adresa;
+    private Address address;
 	
-	@Column(name = "")
-	private String bracniStatus;
+	@Column(name = "bracni_status")
+	private String marriage;
 	
 	public Integer getId() {
 		return id;
@@ -64,28 +64,28 @@ public class Worker {
 		this.age = age;
 	}
 	
-	public Company getKompanija() {
-		return kompanija;
+	public Company getCompany() {
+		return company;
 	}
 	
-	public void setKompanija(Company kompanija) {
-		this.kompanija = kompanija;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
-	public Address getAdresa() {
-		return adresa;
+	public Address getAddress() {
+		return address;
 	}
 	
-	public void setAdresa(Address adresa) {
-		this.adresa = adresa;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
-	public String getBracniStatus() {
-		return bracniStatus;
+	public String getMarriage() {
+		return marriage;
 	}
 	
-	public void setBracniStatus(String bracniStatus) {
-		this.bracniStatus = bracniStatus;
+	public void setMarriage(String marriage) {
+		this.marriage = marriage;
 	}
 	
 }
