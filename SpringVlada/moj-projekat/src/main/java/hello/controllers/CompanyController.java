@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import hello.model.Address;
 import hello.model.Company;
-import hello.repository.AddressRepository;
-import hello.repository.CompanyRepository;
+import hello.service.AddressService;
 import hello.service.CompanyService;
 
 @Controller
@@ -19,17 +18,14 @@ import hello.service.CompanyService;
 public class CompanyController {
 
 	@Autowired
-	private AddressRepository addressRepository;
-    @Autowired
-	private CompanyRepository companyRepository;
-    
+	private AddressService addressService;
     @Autowired
 	private CompanyService companyService;
         
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Company> getAlCompany(){
 		
-		return companyRepository.findAll();
+		return companyService.findAll();
 		
 	}
     
@@ -46,7 +42,7 @@ public class CompanyController {
 		a.getId();
 		c.setAddress(a);;
 		
-		companyRepository.save(c);
+		companyService.save(c);
 		
 		return "Saved company";		
 		
@@ -66,25 +62,24 @@ public class CompanyController {
 	 @GetMapping(path="/update")
 	 public @ResponseBody String updateCompany(@RequestParam Integer id, 
 			 @RequestParam (required = false) String name,
-			 @RequestParam (required = false) Integer adress_id ) {
+			 @RequestParam (required = false) Integer address_id ) {
 		 
-		 for (Company a: companyRepository.findAll()) {
-			 if (a.getId() == id) {
+		 Company c = companyService.findById(id);
+			 if (c.getId() == id) {
 				 if(name != null) {
-					 a.setName(name);
+					 c.setName(name);
 				 }
-				 if(adress_id != null) {
-					 Address adresa = new Address();
-					 adresa = addressRepository.findOne(adress_id);
-					 adresa.setId(adress_id);
-					 a.setAddress(adresa);				 
+				 if(address_id != null) {
+					 Address address = new Address();
+					 address = addressService.findById(address_id);
+					 address.setId(address_id);
+					 c.setAddress(address);				 
 			 }
 			 
-			 companyRepository.save(a);			 
+			 companyService.save(c);			 
 			 return " Updated company ";
 			 
 			 }
-		 }
 		 
 		 return " Wrong id company";
 		 

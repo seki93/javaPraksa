@@ -48,7 +48,7 @@ public class AddressController {
 		a.setFloor(floor);
 
 		addressService.save(a);
-		return "Saved";
+		return "Saved address";
 	}    
     
     @GetMapping("/delete")

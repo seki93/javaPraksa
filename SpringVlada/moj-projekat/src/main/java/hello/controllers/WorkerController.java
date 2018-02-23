@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hello.model.Address;
 import hello.model.Company;
 import hello.model.Worker;
-import hello.repository.AddressRepository;
-import hello.repository.CompanyRepository;
-import hello.repository.WorkerRepository;
+import hello.service.AddressService;
+import hello.service.CompanyService;
+import hello.service.WorkerService;
 
 @Controller
 @RequestMapping(path="/worker")
@@ -20,17 +20,17 @@ public class WorkerController {
 	
 	
 	@Autowired
-	private AddressRepository addressRepository;
+	private AddressService addressSevice;
     @Autowired
-	private CompanyRepository companyRepository;
+	private CompanyService companyService;
     @Autowired
-    private WorkerRepository workerRepository;
+    private WorkerService workerService;
     
     
     @GetMapping(path="/all")
 	public @ResponseBody Iterable<Worker> getAllWorker(){
 		
-		return workerRepository.findAll();
+		return workerService.findAll();
 		
 	}
     
@@ -63,7 +63,7 @@ public class WorkerController {
   		w.setCompany(c);
   	
   		
-  		workerRepository.save(w);
+  		workerService.save(w);
   		return "Saved worker";
   		
  }
@@ -71,12 +71,9 @@ public class WorkerController {
     public @ResponseBody String deleteWorker (@RequestParam Integer id ) {
        
     	if(id == null) 
-    		return "Wrong id worker";
-    	 
-    	Worker r = new Worker();      
-        r.setId(id);      
+    		return "Wrong id worker";      
         
-       workerRepository.delete(r);
+       workerService.deleteById(id);
        return "Deleted worker";
           
         		 
@@ -91,34 +88,33 @@ public class WorkerController {
 			@RequestParam(required = false) Integer company_id,
 			@RequestParam(required = false) String marriage) {
 		
-		for(Worker r: workerRepository.findAll()) {
-			if(r.getId() == id) {
+		Worker w = workerService.findById(id);
+			if(w.getId() == id) {
 				if(firstName != null) {
-					r.setFirstName(firstName);
+					w.setFirstName(firstName);
 				}
 				if(lastName != null) {
-					r.setLastName(lastName);
+					w.setLastName(lastName);
 				}
 				if(age != null) {
-					r.setAge(age);
+					w.setAge(age);
 				}
 				if(address_id != null) {
-					for(Address a: addressRepository.findAll()) {
+					for(Address a: addressSevice.findAll()) {
 						if(a.getId() == address_id) {
-							r.setAddress(a);
+							w.setAddress(a);
 						}
 					}
 				}
 				if(company_id != null) {
-					for(Company k: companyRepository.findAll()) {
+					for(Company k: companyService.findAll()) {
 						if(k.getId() == company_id) {
-							r.setCompany(k);
+							w.setCompany(k);
 						}
 					}
 				}
 				return "Updated worker!";
 			}
-		}
 		
 		return "Wrong id worker";
 		
