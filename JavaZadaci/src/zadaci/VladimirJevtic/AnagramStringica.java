@@ -5,7 +5,7 @@ import java.io.*;
 public class AnagramStringica {
 	
 	public static boolean isAnagram(String string1, String string2){
-	    int[] brojSlova = new int[500];
+	    int[] brojSlova = new int[20];
 	    for(int i = 0; i < string1.length(); i++){
 	        brojSlova[string1.charAt(i)]++;
 	    }
@@ -17,6 +17,11 @@ public class AnagramStringica {
 	    }
 	    return true;
 	}
+	
+
+	
+	
+	
 	
 	public static void main(String[] args) {
 		
