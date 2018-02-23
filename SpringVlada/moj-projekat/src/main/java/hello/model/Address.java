@@ -15,68 +15,63 @@ public class Address {
 	@Id
 	@Column( name = "adresa_id")
     private Integer id;
-
-    private String drzava;
-
-    private String grad;
-    
-    private String ulica;
-    
-    private Integer broj;
-    
-    private Integer sprat;
-    
-    
-
+	@Column(name = "drzava")
+    private String country;
+	@Column(name = "grad")
+    private String city;
+	@Column(name = "ulica")
+    private String street;
+	@Column(name = "broj")
+    private Integer number;
+	@Column(name = "sprat")
+    private Integer floor;
+	
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getDrzava() {
-		return drzava;
+	
+	public String getCountry() {
+		return country;
 	}
-
-	public void setDrzava(String drzava) {
-		this.drzava = drzava;
+	
+	public void setCountry(String country) {
+		this.country = country;
 	}
-
-	public String getGrad() {
-		return grad;
+	
+	public String getCity() {
+		return city;
 	}
-
-	public void setGrad(String grad) {
-		this.grad = grad;
+	
+	public void setCity(String city) {
+		this.city = city;
 	}
-
-	public String getUlica() {
-		return ulica;
+	
+	public String getStreet() {
+		return street;
 	}
-
-	public void setUlica(String ulica) {
-		this.ulica = ulica;
+	
+	public void setStreet(String street) {
+		this.street = street;
 	}
-
-	public Integer getBroj() {
-		return broj;
+	
+	public Integer getNumber() {
+		return number;
 	}
-
-	public void setBroj(Integer broj) {
-		this.broj = broj;
+	
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
-
-	public Integer getSprat() {
-		return sprat;
+	
+	public Integer getFloor() {
+		return floor;
 	}
-
-	public void setSprat(Integer sprat) {
-		this.sprat = sprat;
+	
+	public void setFloor(Integer floor) {
+		this.floor = floor;
 	}
-    
-
-
-
+    	
 }

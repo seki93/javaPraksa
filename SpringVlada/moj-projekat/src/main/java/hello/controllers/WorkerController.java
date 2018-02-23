@@ -36,85 +36,82 @@ public class WorkerController {
     
    
     @GetMapping(path="/add")
-  	public @ResponseBody String addNewWorker (@RequestParam Integer jmbg, 
-  			@RequestParam String ime, 
-  			@RequestParam String prezime, 
-  			@RequestParam Integer godine, 
-  			@RequestParam Integer adresa_id, 
-  			@RequestParam Integer kompanija_id,
-  			@RequestParam String bracniStatus ) {
+  	public @ResponseBody String addNewWorker (@RequestParam Integer id, 
+  			@RequestParam String firstName, 
+  			@RequestParam String lastName, 
+  			@RequestParam Integer age, 
+  			@RequestParam Integer address_id, 
+  			@RequestParam Integer company_id,
+  			@RequestParam String marriage ) {
   		
-  		Worker r = new Worker();
-
-  		r.setId(jmbg);
-  		r.setIme(ime);
-  		r.setPrezime(prezime);
-  		r.setGodine(godine);
-  		r.setBracniStatus(bracniStatus);
+  		Worker w = new Worker();
+  		w.setId(id);
+  		w.setFirstName(firstName);
+  		w.setLastName(lastName);
+  		w.setAge(age);
+  		w.setBracniStatus(marriage);
   		
   		Address a = new Address();
-  		a.setId(adresa_id);
+  		a.setId(address_id);
   		a.getId();
   		
-  		Company k = new Company();
-  		k.setId(kompanija_id);
-  		k.getId();
+  		Company c = new Company();
+  		c.setId(company_id);
+  		c.getId();
   		
-  		r.setAdresa(a);
-  		r.setKompanija(k);
+  		w.setAdresa(a);
+  		w.setKompanija(c);
   	
   		
-  		workerRepository.save(r);
+  		workerRepository.save(w);
   		return "Saved";
+  		
  }
     @GetMapping("/delete")
-    public @ResponseBody String deleteWorker (@RequestParam Integer jmbg ) {
+    public @ResponseBody String deleteWorker (@RequestParam Integer id ) {
        
-    	 if(jmbg == null) 
-             return "Wrong id worker";
+    	if(id == null) 
+    		return "Wrong id worker";
     	 
-    	Worker r = new Worker();
-       
-        r.setId(jmbg);
+    	Worker r = new Worker();      
+        r.setId(id);      
         
-
-         
-         workerRepository.delete(r);
+       workerRepository.delete(r);
        return "Deleted";
           
         		 
     }
     
     @GetMapping(path = "/update")
-	public @ResponseBody String updateWorker(@RequestParam Integer jmbg,
-			@RequestParam(required = false) String ime,
-			@RequestParam(required = false) String prezime,
-			@RequestParam(required = false) Integer godine,
-			@RequestParam(required = false) Integer adresa_id,
-			@RequestParam(required = false) Integer kompanija_id,
-			@RequestParam(required = false) String bracni_status) {
+	public @ResponseBody String updateWorker(@RequestParam Integer id,
+			@RequestParam(required = false) String firstName,
+			@RequestParam(required = false) String lastName,
+			@RequestParam(required = false) Integer age,
+			@RequestParam(required = false) Integer address_id,
+			@RequestParam(required = false) Integer company_id,
+			@RequestParam(required = false) String marriage) {
 		
 		for(Worker r: workerRepository.findAll()) {
-			if(r.getId() == jmbg) {
-				if(ime != null) {
-					r.setIme(ime);
+			if(r.getId() == id) {
+				if(firstName != null) {
+					r.setFirstName(firstName);
 				}
-				if(prezime != null) {
-					r.setPrezime(prezime);
+				if(lastName != null) {
+					r.setLastName(lastName);
 				}
-				if(godine != null) {
-					r.setGodine(godine);
+				if(age != null) {
+					r.setAge(age);
 				}
-				if(adresa_id != null) {
+				if(address_id != null) {
 					for(Address a: addressRepository.findAll()) {
-						if(a.getId() == adresa_id) {
+						if(a.getId() == address_id) {
 							r.setAdresa(a);
 						}
 					}
 				}
-				if(kompanija_id != null) {
+				if(company_id != null) {
 					for(Company k: companyRepository.findAll()) {
-						if(k.getId() == kompanija_id) {
+						if(k.getId() == company_id) {
 							r.setKompanija(k);
 						}
 					}
@@ -125,10 +122,6 @@ public class WorkerController {
 		
 		return "Wrong id worker";
 		
-	}
-    
-    
-    
-    
+	}   
 
 }

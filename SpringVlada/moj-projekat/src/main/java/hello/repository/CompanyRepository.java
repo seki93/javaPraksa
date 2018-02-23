@@ -7,6 +7,6 @@ import hello.model.Company;
 
 public interface CompanyRepository extends CrudRepository<Company, Integer> {
 	
-	public void deleteById(Integer kompanija_id);
+	public void deleteById(Integer id);
 	
 }

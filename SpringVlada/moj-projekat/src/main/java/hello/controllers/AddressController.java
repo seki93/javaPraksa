@@ -19,71 +19,77 @@ public class AddressController {
 	private AddressRepository addressRepository;
     
     @GetMapping(path="/add")
-    public @ResponseBody String addNewAdresa (@RequestParam Integer adresa_id, 
-    		@RequestParam String drzava, 
-    		@RequestParam String grad, 
-			@RequestParam String ulica, 
-			@RequestParam Integer broj, 
-			@RequestParam Integer sprat) {
+    public @ResponseBody String addNewAddress (@RequestParam Integer id, 
+    		@RequestParam String country, 
+    		@RequestParam String city, 
+			@RequestParam String street, 
+			@RequestParam Integer number, 
+			@RequestParam Integer floor) {
 		
 		Address a = new Address();
-		a.setId(adresa_id);
-		a.setDrzava(drzava);
-		a.setGrad(grad);
-		a.setUlica(ulica);
-		a.setBroj(broj);
-		a.setSprat(sprat);
+		a.setId(id);
+		a.setCountry(country);
+		a.setCity(city);
+		a.setStreet(street);
+		a.setNumber(number);
+		a.setFloor(floor);
 
 		addressRepository.save(a);
 		return "Saved";
 	}
     
     @GetMapping(path="/all")
-	public @ResponseBody Iterable<Address> getAllAdresa() {
+	public @ResponseBody Iterable<Address> getAllAddress() {
 		
 		return addressRepository.findAll();
+		
 	}
     
     
     @GetMapping(path="/update")
-	 public @ResponseBody String updateAdresa (@RequestParam Integer adresa_id,
-	   @RequestParam(required = false) String drzava,
-	   @RequestParam(required = false) String grad,
-	   @RequestParam(required = false) String ulica,
-	   @RequestParam(required = false) Integer broj,
-	   @RequestParam(required = false) Integer sprat) {
+	 public @ResponseBody String updateAddress (@RequestParam Integer id,
+	   @RequestParam(required = false) String country,
+	   @RequestParam(required = false) String city,
+	   @RequestParam(required = false) String street,
+	   @RequestParam(required = false) Integer number,
+	   @RequestParam(required = false) Integer floor) {
 	  
 	  for(Address a: addressRepository.findAll()) {
-	   if(a.getId() == adresa_id) {
-	    if(drzava != null) a.setDrzava(drzava);
-	    if(grad != null) a.setGrad(grad);
-	    if(ulica != null) a.setUlica(ulica);
-	    if(broj != null) a.setBroj(broj);
-	    if(sprat != null) a.setSprat(sprat);
+		  if(a.getId() == id) {
+			  if(country != null) {
+				  a.setCountry(country);
+			  }
+			  if(city != null) {
+				  a.setCity(city);
+			  }
+			  if(street != null) {
+				  a.setStreet(street);
+			  }
+			  if(number != null) {
+				  a.setNumber(number);
 	    
-	    addressRepository.save(a);
+			  }
+			  if(floor != null) {
+				  a.setFloor(floor);
+			  }
 	    
-	    return "Update address";
-	   }
+			  addressRepository.save(a);	    
+			  return "Update address";
+		  }
 	  }
 	  
 	  return "No address with this id";
+	  
 	 }
     
     @GetMapping("/delete")
-    public @ResponseBody String deleteAdresa (@RequestParam Integer adresa_id ) {
+    public @ResponseBody String deleteAddress (@RequestParam Integer id ) {
        
-    	 if(adresa_id == null) 
+    	 if(id == null) 
              return "Wrong address id";
     	 
-    	Address c = new Address();
-       
-         c.setId(adresa_id);
-
-         
-         addressRepository.delete(c);
-       return "Delete";
-          
+    	addressRepository.deleteById(id);         
+        return "Delete";          
         		 
     }
 }

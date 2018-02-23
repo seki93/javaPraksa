@@ -19,75 +19,75 @@ import hello.service.CompanyService;
 public class CompanyController {
 
 	@Autowired
-	private AddressRepository adresaRepository;
+	private AddressRepository addressRepository;
     @Autowired
-	private CompanyRepository kompanijaRepository;
+	private CompanyRepository companyRepository;
     
     @Autowired
-	private CompanyService kompanijeService;
+	private CompanyService companyService;
     
     
     @GetMapping(path="/add")
-	public @ResponseBody String addNewKompanija (@RequestParam Integer kompanija_id, @RequestParam String naziv, @RequestParam Integer adresa_id) {
+	public @ResponseBody String addNewCompany (@RequestParam Integer id, 
+			@RequestParam String name, 
+			@RequestParam Integer address_id) {
 		
-		Company k = new Company();
-		k.setId(kompanija_id);
-		k.setNaziv(naziv);
+		Company c = new Company();
+		c.setId(id);
+		c.setName(name);
 		Address a = new Address();
-		a.setId(adresa_id);
+		a.setId(address_id);
 		a.getId();
-		k.setAdresa(a);;
+		c.setAddress(a);;
 		
-		kompanijaRepository.save(k);
-		return " Sacuvana Kompanija u bazu ";
+		companyRepository.save(c);
 		
-		
+		return "Saved company";		
 		
 	}
     
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Company> getAllKompanija(){
+	public @ResponseBody Iterable<Company> getAlCompany(){
 		
-		return kompanijaRepository.findAll();
+		return companyRepository.findAll();
 		
 	}
 	
 	 
 	 @GetMapping(path="/update")
-	 public @ResponseBody String updateKompanija(@RequestParam Integer kompanija_id, 
-			 @RequestParam (required = false) String naziv,
-			 @RequestParam (required = false) Integer adresa_id ) {
+	 public @ResponseBody String updateCompany(@RequestParam Integer id, 
+			 @RequestParam (required = false) String name,
+			 @RequestParam (required = false) Integer adress_id ) {
 		 
-		 Iterable<Company> allKompanija = kompanijaRepository.findAll();
-		 
-		 for (Company a: allKompanija ) {
-			 if (a.getId() == kompanija_id) {
-			 if(naziv != null) a.setNaziv(naziv);
-			 if(adresa_id != null) {
-				 Address adresa = new Address();
-				 adresa = adresaRepository.findOne(adresa_id);
-				 adresa.setId(adresa_id);
-				 a.setAdresa(adresa);
-				 
-				 
+		 for (Company a: companyRepository.findAll()) {
+			 if (a.getId() == id) {
+				 if(name != null) {
+					 a.setName(name);
+				 }
+				 if(adress_id != null) {
+					 Address adresa = new Address();
+					 adresa = addressRepository.findOne(adress_id);
+					 adresa.setId(adress_id);
+					 a.setAddress(adresa);				 
 			 }
-			 kompanijaRepository.save(a);
+			 
+			 companyRepository.save(a);			 
 			 return " Updated kompanija ";
+			 
 			 }
 		 }
-		 return " No ID od kompanije ";
+		 return " Wrong id company";
 	 }
 	 
 	 @GetMapping("/delete")
-	    public @ResponseBody String deleteKompanija (@RequestParam Integer kompanija_id ) {
+	    public @ResponseBody String deleteKompanija (@RequestParam Integer id ) {
 	       
-	    	 if(kompanija_id == null) 
+	    	 if(id == null) 
 	             return " Ne postoji ta kompanija ";
 	    	 
-	    	 kompanijeService.deleteById(kompanija_id);
+	    	 companyService.deleteById(id);
 	    	 
-	       return "Obrisano";
-	          
+	       return "Obrisano";	          
 	        		 
 	    }
 	
