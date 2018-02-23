@@ -47,7 +47,7 @@ public class ClubController {
 		
 	}	
 	 
-	 @GetMapping("/delete")
+	 @GetMapping(path="/delete")
 	 public @ResponseBody String deleteClub (@RequestParam Integer id ) {
 	       
 	    	 if(id == null) 
@@ -80,11 +80,11 @@ public class ClubController {
 			 }
 			 
 			 clubService.save(c);			 
-			 return " Updated club ";
+			 return "Updated club";
 			 
 			 }
 		 
-		 return " Wrong id club";
+		 return "Wrong id club";
 		 
 	 }
 

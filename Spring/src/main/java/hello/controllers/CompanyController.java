@@ -48,7 +48,7 @@ public class CompanyController {
 		
 	}	
 	 
-	 @GetMapping("/delete")
+	 @GetMapping(path="/delete")
 	 public @ResponseBody String deleteCompany (@RequestParam Integer id ) {
 	       
 	    	 if(id == null) 
@@ -77,11 +77,11 @@ public class CompanyController {
 			 }
 			 
 			 companyService.save(c);			 
-			 return " Updated company ";
+			 return "Updated company";
 			 
 			 }
 		 
-		 return " Wrong id company";
+		 return "Wrong id company";
 		 
 	 }
 	

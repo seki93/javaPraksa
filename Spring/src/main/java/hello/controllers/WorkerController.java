@@ -67,7 +67,7 @@ public class WorkerController {
   		return "Saved worker";
   		
  }
-    @GetMapping("/delete")
+    @GetMapping(path="/delete")
     public @ResponseBody String deleteWorker (@RequestParam Integer id ) {
        
     	if(id == null) 
@@ -113,7 +113,7 @@ public class WorkerController {
 						}
 					}
 				}
-				return "Updated worker!";
+				return "Updated worker";
 			}
 		
 		return "Wrong id worker";

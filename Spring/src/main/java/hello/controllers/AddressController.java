@@ -51,7 +51,7 @@ public class AddressController {
 		return "Saved address";
 	}    
     
-    @GetMapping("/delete")
+    @GetMapping(path="/delete")
     public @ResponseBody String deleteAddress (@RequestParam Integer id ) {
        
     	 if(id == null) 
