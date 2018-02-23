@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hello.model.Club;
+import hello.repository.ClubRepository;
 
 @Service
-public class ClubServiceImp implements ClubRepository {
+public class ClubServiceImp implements ClubService {
 
 	@Autowired
 	public ClubRepository clubRepository;
@@ -44,7 +45,7 @@ public class ClubServiceImp implements ClubRepository {
 	@Override
 	public Club findById(Integer id) {
 		
-		Club c = clubRepository.findById(id);
+		Club c = clubRepository.findOne(id);
 		
 		if(c != null) {
 			return c;

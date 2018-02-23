@@ -2,7 +2,7 @@ package hello.service;
 
 import hello.model.Club;
 
-public interface ClubRepository {
+public interface ClubService {
 
 	public Iterable<Club> findAll();
 

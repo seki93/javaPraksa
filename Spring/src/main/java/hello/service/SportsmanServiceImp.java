@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hello.model.Sportsman;
+import hello.repository.SportsmanRepository;
 
 @Service
-public class SportsmanServiceImp implements SportsmanRepository {
+public class SportsmanServiceImp implements SportsmanService {
 
 	@Autowired 
-	private SportsmanRepository sportsmanRepository;
+	SportsmanRepository sportsmanRepository;
 	
 	@Override
 	public Iterable<Sportsman> findAll() {
@@ -44,7 +45,7 @@ public class SportsmanServiceImp implements SportsmanRepository {
 	@Override
 	public Sportsman findById(Integer id) {
 		
-		Sportsman s = sportsmanRepository.findById(id);
+		Sportsman s = sportsmanRepository.findOne(id);
 		
 		if(s != null) {
 			return s;

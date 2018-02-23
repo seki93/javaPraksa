@@ -2,7 +2,7 @@ package hello.service;
 
 import hello.model.Sportsman;
 
-public interface SportsmanRepository {
+public interface SportsmanService {
 
 	public Iterable<Sportsman> findAll();
 
