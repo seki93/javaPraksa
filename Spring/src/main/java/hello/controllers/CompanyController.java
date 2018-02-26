@@ -23,7 +23,7 @@ public class CompanyController {
 	private CompanyService companyService;
         
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Company> getAlCompany(){
+	public @ResponseBody Iterable<Company> getAllCompany(){
 		
 		return companyService.findAll();
 		
