@@ -62,7 +62,7 @@ public class ClubController {
 	 public @ResponseBody String updateClub(@RequestParam Integer id, 
 			 @RequestParam (required = false) Integer address_id,
 			 @RequestParam (required = false) String name,
-			 @RequestParam (required = false) String sport ) {
+			 @RequestParam (required = false) String sport) {
 		 
 		Club c = clubService.findById(id);
 		if (c.getId() == id) {

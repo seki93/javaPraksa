@@ -1,6 +1,9 @@
 package hello.service;
 
+import java.util.List;
+
 import hello.model.League;
+import hello.model.Sportsman;
 
 public interface LeagueService {
 	

@@ -41,7 +41,7 @@ public class LeagueController {
 		Club c = clubService.findById(club_id);
 		c.setId(club_id);
 		
-		l.setClub(c);
+//		l.addClub(c);
 		leagueService.save(l);
 		
 		return "Saved league";
@@ -64,8 +64,7 @@ public class LeagueController {
 	public @ResponseBody String updateLeague(@RequestParam Integer id,
 			@RequestParam(required = false) String name,
 			@RequestParam(required = false) Integer rank,
-			@RequestParam(required = false) String country,
-			@RequestParam(required = false) Integer club_id) {
+			@RequestParam(required = false) String country) {
 		
 		League l = leagueService.findById(id);
 		
@@ -79,10 +78,6 @@ public class LeagueController {
 			if(country != null) {
 				l.setCountry(country);
 			}
-			if(club_id != null) {
-				Club c = clubService.findById(club_id);
-				l.setClub(c);
-			}
 			
 			leagueService.save(l);
 			return "Updated league";
@@ -91,4 +86,5 @@ public class LeagueController {
 		return "Wrong id league";
 				
 	}
+		
 }

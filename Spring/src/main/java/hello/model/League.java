@@ -1,12 +1,11 @@
 package hello.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,10 +26,6 @@ public class League {
 	@Column(name = "drzava")
 	private String country;
 	
-	@ManyToOne
-	@JoinColumn(name = "klub_id")
-	private Club club;
-
 	public Integer getId() {
 		return id;
 	}
@@ -63,14 +58,5 @@ public class League {
 		this.country = country;
 	}
 
-	public Club getClub() {
-		return club;
-	}
-
-	public void setClub(Club club) {
-		this.club = club;
-	}
-	
-	
 
 }

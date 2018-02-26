@@ -19,6 +19,10 @@ public class Club {
 	@JoinColumn(name = "adresa_id")
 	private Address address;
 	
+	@ManyToOne
+	@JoinColumn(name = "liga_id")
+	private League league;
+	
 	@Column(name = "naziv")
 	private String name;
 	
@@ -56,5 +60,13 @@ public class Club {
 	public void setSport(String sport) {
 		this.sport = sport;
 	}
-	 
+
+	public League getLeague() {
+		return league;
+	}
+
+	public void setLeague(League league) {
+		this.league = league;
+	}
+	
 }

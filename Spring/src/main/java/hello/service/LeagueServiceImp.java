@@ -47,6 +47,5 @@ public class LeagueServiceImp implements LeagueService {
 			return null;
 		}
 	}
-
 	
 }

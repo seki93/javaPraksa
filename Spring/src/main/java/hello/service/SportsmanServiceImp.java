@@ -1,5 +1,7 @@
 package hello.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,18 @@ public class SportsmanServiceImp implements SportsmanService {
 			return s;
 		} else {
 			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Sportsman> findByRank(Integer rank) {
+		List<Sportsman> s = sportsmanRepository.findByRank(rank);
+		
+		if(s != null) {
+			return s;
+		} else {
+			return null;	
 		}
 		
 	}

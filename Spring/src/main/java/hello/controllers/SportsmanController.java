@@ -102,5 +102,12 @@ public class SportsmanController {
 		return "Wrong id sportsman";
 		
 	}
+	
+	@GetMapping(path = "/getByRank")
+	public @ResponseBody Iterable<Sportsman> getSportsmanByRank(@RequestParam Integer rank) {
+		
+		return sportsmanService.findByRank(rank);
+		
+	}
 
 }
