@@ -32,7 +32,7 @@ public class SabiranjeBrojeva {
 			
 			if(b == 0) break;
 		}
-		System.out.println("Secund list: "+number2);
+		System.out.println("Second list: "+number2);
 		
 		int n1 = 0, n2 = 0, r = 0;
 		
@@ -44,7 +44,7 @@ public class SabiranjeBrojeva {
 		for(int i = number2.size() - 1 ; i >= 0; i--) {
 			n2 = n2 * 10 + number2.get(i);
 		}
-		System.out.println("Secund number: "+n2);
+		System.out.println("Second number: "+n2);
 		
 		r = n1 + n2;
 		System.out.println("Result: "+r);
