@@ -1,5 +1,6 @@
 package hello.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,9 @@ public class Sponsorship {
 	@ManyToOne
 	@JoinColumn(name = "klub_id")
 	private Club club;
+	
+	@Column(name = "godina")
+	private Integer age;
 
 	public Integer getId() {
 		return id;
@@ -47,8 +51,13 @@ public class Sponsorship {
 	public void setClub(Club club) {
 		this.club = club;
 	}
-	
-	
-	
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 	
 }

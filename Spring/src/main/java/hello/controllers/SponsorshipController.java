@@ -38,7 +38,8 @@ public class SponsorshipController {
 	@GetMapping(path = "/add")
 	public @ResponseBody String addNewSponsorShip(@RequestParam Integer id,
 			@RequestParam Integer company_id,
-			@RequestParam Integer club_id) {
+			@RequestParam Integer club_id,
+			@RequestParam Integer age) {
 		
 		Sponsorship s = new Sponsorship();
 		s.setId(id);
@@ -48,6 +49,7 @@ public class SponsorshipController {
 		
 		Company comp = companyService.findById(company_id);		
 		s.setCompany(comp);
+		s.setAge(age);
 		
 		sponsorshipService.save(s);
 		
@@ -70,7 +72,8 @@ public class SponsorshipController {
 	@GetMapping(path = "/update")
 	public @ResponseBody String updateLeague(@RequestParam Integer id,
 			@RequestParam(required = false) Integer company_id,
-			@RequestParam(required = false) Integer club_id) {
+			@RequestParam(required = false) Integer club_id,
+			@RequestParam(required = false) Integer age) {
 		
 		Sponsorship s = sponsorshipService.findById(id);
 		
@@ -82,6 +85,9 @@ public class SponsorshipController {
 			if(club_id != null) {
 				Club c = clubService.findById(club_id);
 				s.setClub(c);
+			}
+			if(age != null) {
+				s.setAge(age);
 			}
 			
 			sponsorshipService.save(s);
