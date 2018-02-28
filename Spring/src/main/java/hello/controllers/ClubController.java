@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import hello.model.Address;
 import hello.model.Club;
+import hello.model.League;
 import hello.service.AddressService;
 import hello.service.ClubService;
+import hello.service.LeagueService;
 
 
 @Controller
@@ -21,6 +23,8 @@ public class ClubController {
 	private AddressService addressService;
     @Autowired
 	private ClubService clubService;
+    @Autowired
+	private LeagueService leagueService;
         
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Club> getAllClub(){
@@ -62,7 +66,8 @@ public class ClubController {
 	 public @ResponseBody String updateClub(@RequestParam Integer id, 
 			 @RequestParam (required = false) Integer address_id,
 			 @RequestParam (required = false) String name,
-			 @RequestParam (required = false) String sport) {
+			 @RequestParam (required = false) String sport,
+			 @RequestParam (required = false) Integer league_id) {
 		 
 		Club c = clubService.findById(id);
 		if (c.getId() == id) {
@@ -76,7 +81,12 @@ public class ClubController {
 				 Address address = new Address();
 				 address = addressService.findById(address_id);
 				 c.setAddress(address);				 
-			}
+			 }
+			 if(league_id != null) {
+				 League league = new League();
+				 league = leagueService.findById(league_id);
+				 c.setLeague(league);				 
+			 }
 			 
 			clubService.save(c);			 
 			return "Updated club";

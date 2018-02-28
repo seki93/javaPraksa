@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.model.Club;
 import hello.model.League;
-import hello.service.ClubService;
 import hello.service.LeagueService;
 
 @Controller
@@ -18,8 +16,6 @@ public class LeagueController {
 	
 	@Autowired
 	private LeagueService leagueService;
-	@Autowired
-	private ClubService clubService;
 	
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<League> getAllLeague(){
@@ -30,18 +26,13 @@ public class LeagueController {
 	@GetMapping(path = "/add")
 	public @ResponseBody String addNewLeague(@RequestParam String name,
 			@RequestParam Integer rank,
-			@RequestParam String country,
-			@RequestParam Integer club_id) {
+			@RequestParam String country) {
 		
 		League l = new League();
 		l.setName(name);
 		l.setRank(rank);
 		l.setCountry(country);
 		
-		Club c = clubService.findById(club_id);
-		c.setId(club_id);
-		
-//		l.addClub(c);
 		leagueService.save(l);
 		
 		return "Saved league";
