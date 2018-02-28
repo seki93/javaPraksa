@@ -33,18 +33,6 @@ public class Club {
 	
 	@Column(name = "sport")
 	private String sport;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "sponzorstvo", joinColumns = @JoinColumn(name = "klub_id"), inverseJoinColumns = @JoinColumn(name = "kompanija_id"))
-	private Set<Company> companies; 
-	
-	public Set<Company> getCompanies() {
-		return companies;
-	}
-
-	public void setCompanies(Set<Company> companies) {
-		this.companies = companies;
-	}
 
 	public Integer getId() {
 		return id;

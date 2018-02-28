@@ -23,17 +23,6 @@ public class Company{
 	@ManyToOne
 	@JoinColumn(name = "adresa_id") 
 	private Address address;
-	
-	@ManyToMany
-	private Set<Club> clubs;
-	
-	public Set<Club> getClubs() {
-		return clubs;
-	}
-
-	public void setClubs(Set<Club> clubs) {
-		this.clubs = clubs;
-	}
 
 	public Integer getId() {
 		return id;
