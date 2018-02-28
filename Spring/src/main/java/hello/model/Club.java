@@ -1,9 +1,12 @@
 package hello.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,6 +32,18 @@ public class Club {
 	@Column(name = "sport")
 	private String sport;
 	
+	@ManyToMany
+	@Column(name = "klub_id")
+	private Set<Company> companies; 
+	
+	public Set<Company> getCompanies() {
+		return companies;
+	}
+
+	public void setCompanies(Set<Company> companies) {
+		this.companies = companies;
+	}
+
 	public Integer getId() {
 		return id;
 	}

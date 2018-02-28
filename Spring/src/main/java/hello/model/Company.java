@@ -1,8 +1,11 @@
 package hello.model;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,6 +24,18 @@ public class Company{
 	@JoinColumn(name = "adresa_id") 
 	private Address address;
 	
+	@ManyToMany
+	@Column(name = "kompanija_id")
+	private Set<Club> clubs;
+	
+	public Set<Club> getClubs() {
+		return clubs;
+	}
+
+	public void setClubs(Set<Club> clubs) {
+		this.clubs = clubs;
+	}
+
 	public Integer getId() {
 		return id;
 	}
