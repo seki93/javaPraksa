@@ -33,7 +33,7 @@ public class Club {
 	private String sport;
 	
 	@ManyToMany
-	@Column(name = "kompanija_id")
+	@JoinColumn(name = "kompanija_id")
 	private Set<Company> companies; 
 	
 	public Set<Company> getCompanies() {
