@@ -13,7 +13,6 @@ public class Sponsorship {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "sponzorstvo_id")
 	private Integer id;
 	
 	@Column(name = "kompanija_id")

@@ -8,7 +8,7 @@ public class SabiranjeBrojeva {
 		
 		
 		
-		retrunResult(123, 256);
+		retrunResult(1234, 356);
 	}
 	
 	public static void retrunResult(int a, int b) {
