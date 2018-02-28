@@ -16,10 +16,10 @@ public class Sponsorship {
 	private Integer id;
 	
 	@Column(name = "kompanija_id")
-	private Company company;
+	private Integer company_id;
 	
 	@Column(name = "klub_id")
-	private Club club;
+	private Integer club_id;
 
 	public Integer getId() {
 		return id;
@@ -29,20 +29,22 @@ public class Sponsorship {
 		this.id = id;
 	}
 
-	public Company getCompany() {
-		return company;
+	public Integer getCompany_id() {
+		return company_id;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompany_id(Integer company_id) {
+		this.company_id = company_id;
 	}
 
-	public Club getClub() {
-		return club;
+	public Integer getClub_id() {
+		return club_id;
 	}
 
-	public void setClub(Club club) {
-		this.club = club;
+	public void setClub_id(Integer club_id) {
+		this.club_id = club_id;
 	}
+
+	
 	
 }

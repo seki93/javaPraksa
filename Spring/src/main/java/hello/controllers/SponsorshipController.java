@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import hello.model.Club;
-import hello.model.Company;
 import hello.model.Sponsorship;
-import hello.service.ClubService;
-import hello.service.CompanyService;
 import hello.service.SponsorshipService;
 
 @Controller
@@ -20,13 +16,7 @@ public class SponsorshipController {
 
 	@Autowired
 	private SponsorshipService sponsorshipService;
-	
-	@Autowired
-	private ClubService clubService;
-	
-	@Autowired
-	private CompanyService companyService;
-	
+			
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<Sponsorship> getAllSponsorship() {
 		
@@ -41,10 +31,8 @@ public class SponsorshipController {
 		
 		Sponsorship s = new Sponsorship();
 		s.setId(id);
-		Company company = companyService.findById(company_id);
-		s.setCompany(company);
-		Club club = clubService.findById(club_id);
-		s.setClub(club);
+		s.setCompany_id(company_id);
+		s.setClub_id(club_id);
 		sponsorshipService.save(s);
 		
 		return "Saved Sponsorship";
@@ -72,12 +60,10 @@ public class SponsorshipController {
 		
 		if(s.getId() == id) {
 			if(company_id != null) {
-				Company company = companyService.findById(company_id);
-				s.setCompany(company);
+				s.setCompany_id(company_id);
 			}
 			if(club_id != null) {
-				Club club = clubService.findById(club_id);
-				s.setClub(club);
+				s.setClub_id(club_id);
 			}
 			
 			sponsorshipService.save(s);

@@ -2,10 +2,12 @@ package hello.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -32,8 +34,8 @@ public class Club {
 	@Column(name = "sport")
 	private String sport;
 	
-	@ManyToMany
-	@JoinColumn(name = "kompanija_id")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "sponzorstvo", joinColumns = @JoinColumn(name = "klub_id"), inverseJoinColumns = @JoinColumn(name = "kompanija_id"))
 	private Set<Company> companies; 
 	
 	public Set<Company> getCompanies() {

@@ -25,7 +25,6 @@ public class Company{
 	private Address address;
 	
 	@ManyToMany
-	@JoinColumn(name = "klub_id")
 	private Set<Club> clubs;
 	
 	public Set<Club> getClubs() {
