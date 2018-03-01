@@ -2,7 +2,7 @@ package zadaci.SekeresStefan;
 
 import java.util.Scanner;
 
-public class MatrixTransport {
+public class MatrixTranspose {
 	
 	private static Scanner sc;
 	
@@ -23,8 +23,17 @@ public class MatrixTransport {
 		fillTheMatrix(n, m, matrix);
 		System.out.println("Original matrix:");
 		printMatrix(matrix, n, m);
-		transpose(matrix, n, m);
-		System.out.println("After transpose matrix: ");
+		if(n == m ){
+			transposeSquare(matrix, n, m);
+			System.out.println("After transpose matrix: ");
+			printMatrix(matrix, n, m);
+		}
+		else{
+			int [][] transpose = new int[m][n];
+			transpose(matrix, transpose, n, m);
+			System.out.println("After transpose matrix: ");
+			printMatrix(transpose, m, n);
+		}
 		
 		
 	}
@@ -40,14 +49,27 @@ public class MatrixTransport {
 		
 	}
 	
-	public static void transpose(int [][] matrix, int n, int m) {
-		for(int i = 0; i < m; i++) {
-			for(int j = 0 ; j < n; j++) {
-				int tmp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = tmp;
+
+	public static void transpose(int [][] matrix, int [][] transpose, int n , int m){
+		
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j++){
+				transpose[j][i] = matrix[i][j];
 			}
 		}
+		
+	}
+	
+	public static void transposeSquare(int [][] matrix, int n, int m) {
+		
+			for(int i = 0; i < n; i++) {
+				for(int j = 0 ; j < i; j++) {
+					int tmp = matrix[i][j];
+	                matrix[i][j] = matrix[j][i];
+	                matrix[j][i] = tmp;
+				}
+			}
+		
 	}
 	
 	
