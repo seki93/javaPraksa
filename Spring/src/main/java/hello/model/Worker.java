@@ -44,6 +44,7 @@ public class Worker {
 	}
 	
 	public String getFirstName() {
+		System.out.println("Ime: "+firstName);
 		return firstName;
 	}
 	
