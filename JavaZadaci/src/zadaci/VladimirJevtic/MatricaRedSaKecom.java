@@ -31,21 +31,13 @@ public class MatricaRedSaKecom {
 						                  }
 				                    }
 		                      }
-	
-		
 		}
-
-			
-		
+	
 		for (int i = 0; i < red; i++) {
             for (int j = 0; j < kolona; j++) {
                 System.out.print(niz[i][j] + " ");
             }
             System.out.println();
-		
-				
-		
-		
-	  }
+		}
 	}	
 }	
