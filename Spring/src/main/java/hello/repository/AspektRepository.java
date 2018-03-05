@@ -1,8 +1,11 @@
 package hello.repository;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.springframework.data.repository.CrudRepository;
 
-public @interface AspektRepository {
+import hello.model.Aspekt;
 
+public interface AspektRepository extends CrudRepository<Aspekt, Integer> {
+
+	public void deleteById(Integer id);
+	
 }

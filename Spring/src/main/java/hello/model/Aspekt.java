@@ -1,11 +1,12 @@
 package hello.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.aspectj.lang.annotation.Aspect;
-
-@Aspect
+@Entity
+@Table(name = "aspektprimer")
 public class Aspekt {
 	
 	@Id
@@ -15,7 +16,7 @@ public class Aspekt {
 	private String name;
 	
 	@Column(name = "pocetak")
-	private String begin;
+	private Long begin;
 	
 	@Column(name = "kraj")
 	private String end;
@@ -36,11 +37,11 @@ public class Aspekt {
 		this.name = name;
 	}
 
-	public String getBegin() {
+	public Long getBegin() {
 		return begin;
 	}
 
-	public void setBegin(String begin) {
+	public void setBegin(Long begin) {
 		this.begin = begin;
 	}
 
