@@ -1,5 +1,7 @@
 package hello.model;
 
+import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,10 +18,10 @@ public class Aspekt {
 	private String name;
 	
 	@Column(name = "pocetak")
-	private Long begin;
+	private String begin;
 	
 	@Column(name = "kraj")
-	private Long end;
+	private String end;
 
 	public Integer getId() {
 		return id;
@@ -37,19 +39,19 @@ public class Aspekt {
 		this.name = name;
 	}
 
-	public Long getBegin() {
+	public String getBegin() {
 		return begin;
 	}
 
-	public void setBegin(Long begin) {
+	public void setBegin(String begin) {
 		this.begin = begin;
 	}
 
-	public Long getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(Long end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 	
