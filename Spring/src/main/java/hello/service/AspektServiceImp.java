@@ -1,5 +1,6 @@
 package hello.service;
 
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class AspektServiceImp implements AspektService {
 	AspektRepository aspektRepository;
 
 	@Override
+	@Transactional
 	public void save(Aspekt aspect) {
 		
 		aspektRepository.save(aspect);		

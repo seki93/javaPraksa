@@ -12,14 +12,14 @@ public class Aspekt {
 	@Id
 	private Integer id;
 	
-	@Column(name = "naziv")
+	@Column(name = "ime")
 	private String name;
 	
 	@Column(name = "pocetak")
 	private Long begin;
 	
 	@Column(name = "kraj")
-	private String end;
+	private Long end;
 
 	public Integer getId() {
 		return id;
@@ -45,11 +45,11 @@ public class Aspekt {
 		this.begin = begin;
 	}
 
-	public String getEnd() {
+	public Long getEnd() {
 		return end;
 	}
 
-	public void setEnd(String end) {
+	public void setEnd(Long end) {
 		this.end = end;
 	}
 	
