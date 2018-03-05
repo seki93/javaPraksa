@@ -19,18 +19,16 @@ public class AspektAnnotationAspect {
 	AspektRepository aspektRepository;
 
 	@Before("@annotation(mojaAnotacija)")
-	public void mojaAnotacija(JoinPoint joinPoint){
+	public void mojaAnotacijaBefore(JoinPoint joinPoint){
 		Aspekt a =  new Aspekt();
-		
 		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss.SSS");
 		String trenutnoVreme = formater.format(System.currentTimeMillis());
 		a.setId(3);
-		a.setName("Worker Metoda Anotacija Test 2");
+		a.setName("Worker Metoda Izvrsena");
 		a.setBegin(trenutnoVreme);
 		a.setEnd(trenutnoVreme);
 		aspektRepository.save(a);
 		System.out.println("Vreme pocetka metode je logovano!");
 	}
-	
 	
 }
