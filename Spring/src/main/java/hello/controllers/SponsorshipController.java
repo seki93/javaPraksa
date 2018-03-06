@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hello.model.Club;
 import hello.model.Company;
 import hello.model.Sponsorship;
-import hello.repository.CompanyRepository;
 import hello.service.ClubService;
 import hello.service.CompanyService;
 import hello.service.SponsorshipService;

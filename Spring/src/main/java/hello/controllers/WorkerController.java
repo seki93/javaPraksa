@@ -34,6 +34,13 @@ public class WorkerController {
 		return workerService.findAll();
 		
 	}
+    
+    @GetMapping(path="/all1")
+	public @ResponseBody Iterable<Worker> getAllWorkerr(){
+		
+		throw new RuntimeException("Dummy Exception");
+		
+	}
   
     @mojaAnotacija
     @GetMapping(path="/add")
