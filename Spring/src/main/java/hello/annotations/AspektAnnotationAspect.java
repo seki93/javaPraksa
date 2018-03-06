@@ -1,4 +1,4 @@
-package hello.service;
+package hello.annotations;
 
 import java.text.SimpleDateFormat;
 

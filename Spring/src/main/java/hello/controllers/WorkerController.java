@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import hello.annotations.mojaAnotacija;
 import hello.model.Address;
 import hello.model.Company;
 import hello.model.Worker;
 import hello.service.AddressService;
 import hello.service.CompanyService;
 import hello.service.WorkerService;
-import hello.service.mojaAnotacija;
 
 @Controller
 @RequestMapping(path="/worker")
