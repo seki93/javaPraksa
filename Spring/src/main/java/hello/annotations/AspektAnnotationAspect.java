@@ -27,12 +27,6 @@ public class AspektAnnotationAspect {
 	@Autowired
 	ServiceRepository serviceRepository;
 	
-	public static String getFullURL(HttpServletRequest request) {
-		StringBuffer requestURL = request.getRequestURL();
-		return requestURL.toString();
-		
-	}
-
 	@Before("@annotation(mojaAnotacija)")
 	public void mojaAnotacijaBefore(JoinPoint joinPoint){
 		Aspekt a =  new Aspekt();
@@ -46,18 +40,24 @@ public class AspektAnnotationAspect {
 		System.out.println("Vreme pocetka metode je logovano!");
 	}
 	
-	@Around("execution(* hello.service.WorkerService.*(..))")
-	public Object serviceService(ProceedingJoinPoint joinPoint) throws Throwable {
+	@Around("execution(* hello.controllers.WorkerController.getAllWorker(..)) && args(request)")
+	public Object serviceService(ProceedingJoinPoint joinPoint, HttpServletRequest request) throws Throwable {
+
 		Long pocetnoVreme = System.currentTimeMillis();
 
 		Object proceed = joinPoint.proceed();
 		
+		
 		Long izvrsnoVreme = System.currentTimeMillis() - pocetnoVreme;
-	
+
+		String serv = request.getRequestURI().toString();
+		String url = request.getRequestURL().toString();
+		
+
 		Service s = new Service();
-		s.setName("Ime1");
+		s.setName(serv);
 		s.setTime(izvrsnoVreme);
-		s.setUrl("Test Url1");
+		s.setUrl(url);
 
 		serviceRepository.save(s);
 		

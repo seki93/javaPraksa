@@ -15,6 +15,7 @@ public class Service {
 	
 	@Column(name = "vreme")
 	private Long time;
+	
 	@Column(name = "url")
 	private String url;
 
