@@ -2,6 +2,7 @@ package hello.model;
 
 public enum Supporter {
 	
+	NISTAPAMETNO(" "),
 	OBOZAVA("o"),
 	NAVIJA("n"),
 	PODRZAVA("p"),
