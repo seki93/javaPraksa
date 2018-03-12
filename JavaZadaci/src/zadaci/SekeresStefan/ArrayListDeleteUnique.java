@@ -69,7 +69,7 @@ public class ArrayListDeleteUnique {
 		
 		boolean exists = false;
 		
-		int broj = 0;
+		int numberOfMovedSstring = 0;
 		
 		for(int i = 0; i < list.size(); i++){
 			int j = i + 1;
@@ -79,8 +79,7 @@ public class ArrayListDeleteUnique {
 					String tmp = list.get(j);
 					list.remove(j);
 					list.add(i+1,tmp);
-					//i++;
-					broj++;
+					numberOfMovedSstring++;
 				}
 				j++;
 			}
@@ -89,10 +88,10 @@ public class ArrayListDeleteUnique {
 				list.remove(i);
 				i--;
 			}else{
-				i = i + broj;
+				i = i + numberOfMovedSstring;
 			}
 			exists = false;
-			broj = 0;
+			numberOfMovedSstring = 0;
 		}
 	}
 }
