@@ -1,11 +1,8 @@
 package hello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.classic.net.SyslogAppender;
 import hello.model.Club;
 import hello.repository.ClubRepository;
 
