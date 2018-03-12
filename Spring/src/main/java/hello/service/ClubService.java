@@ -11,5 +11,7 @@ public interface ClubService {
 	public void deleteById(Integer id);
 
 	public Club findById(Integer id);
+	
+	public Club findByName(String name);
 
 }
