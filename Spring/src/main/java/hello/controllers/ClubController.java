@@ -2,6 +2,7 @@ package hello.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,12 @@ public class ClubController {
 	@Autowired
 	private AddressService addressService;
     @Autowired
+    @Qualifier("Dummy")
 	private ClubService clubService;
+    
+    @Autowired
+	private ClubService clubServicePr;
+    
     @Autowired
 	private LeagueService leagueService;
         
@@ -98,11 +104,22 @@ public class ClubController {
 		 
 	 }
 	 
-	 @GetMapping(path = "/dummy")
 	 @Qualifier("Dummy")
+	 @GetMapping(path = "/dummy")
+	 public  @ResponseBody Club findByDummyName(@RequestParam String name) {
+		 
+		 Club c = new Club();
+		 c.setName(name);
+		 System.out.println("Ime: "+c.getName());
+		 
+		return clubService.findByName(name);
+	 }
+	 
+	 @Primary
+	 @GetMapping(path = "/primary")
 	 public  @ResponseBody Club findByName(@RequestParam String name) {
 		 
-		 return clubService.findByName(name);
+		return clubServicePr.findByName(name);
 	 }
 
 }

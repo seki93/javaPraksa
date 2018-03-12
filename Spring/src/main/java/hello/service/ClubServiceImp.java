@@ -3,6 +3,7 @@ package hello.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import hello.repository.ClubRepository;
 import hello.repository.CustomClubRepository;
 
 @Service
-@Component("Primary")
+@Primary
 public class ClubServiceImp implements ClubService {
 
 	@Autowired
@@ -61,7 +62,7 @@ public class ClubServiceImp implements ClubService {
 	@Override
 	public Club findByName(String name) {
 		
-		Club c = clubRepository.findByName(name);
+		Club c =  clubRepository.findByName(name);
 		
 		if (c != null) {
 			return c;

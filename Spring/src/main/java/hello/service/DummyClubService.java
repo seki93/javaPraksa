@@ -1,14 +1,15 @@
 package hello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.classic.net.SyslogAppender;
 import hello.model.Club;
 import hello.repository.ClubRepository;
 
-@Service
-@Component("Dummy")
+@Service("Dummy")
 public class DummyClubService implements ClubService  {
 	
 	@Autowired
@@ -40,15 +41,11 @@ public class DummyClubService implements ClubService  {
 
 	@Override
 	public Club findByName(String name) {
+	
 		Club c = new Club();
 		c.setName("DummyClubName");
-		c = clubRepository.findByName(name);
 		
-		if(c != null) {
-			return c;
-		} else {
-			return null;
-		}
+		return c;
 	}
 
 }
