@@ -28,7 +28,8 @@ public class ArrayListDeleteUnique {
 		System.out.println("List before method:");
 		System.out.println(list);
 		
-		list = deleteUnique(list);
+		deleteUnq(list);
+		//list = deleteUnique(list);
 		System.out.println("After: ");
 		System.out.println(list);
 		
@@ -62,5 +63,36 @@ public class ArrayListDeleteUnique {
 		}
 		
 		return  sec;
+	}
+	
+	public static void deleteUnq(ArrayList<String> list){
+		
+		boolean exists = false;
+		
+		int broj = 0;
+		
+		for(int i = 0; i < list.size(); i++){
+			int j = i + 1;
+			while( j < list.size()){
+				if(list.get(i) == list.get(j)){
+					exists = true;
+					String tmp = list.get(j);
+					list.remove(j);
+					list.add(i+1,tmp);
+					//i++;
+					broj++;
+				}
+				j++;
+			}
+			
+			if(!exists) {
+				list.remove(i);
+				i--;
+			}else{
+				i = i + broj;
+			}
+			exists = false;
+			broj = 0;
+		}
 	}
 }
