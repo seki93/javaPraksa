@@ -1,8 +1,11 @@
 package hello.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import hello.model.Address;
 import hello.model.Club;
 import hello.model.Sportsman;
+import hello.repository.SportsmanCriteriaRepository;
 import hello.service.AddressService;
 import hello.service.ClubService;
+import hello.service.SearchCriteria;
 import hello.service.SportsmanService;
+import hello.service.SportsmanSpecification;
 
 @Controller
 @RequestMapping(path = "/sportsman")
@@ -26,6 +32,9 @@ public class SportsmanController {
 	private AddressService addressService;
 	@Autowired
 	private ClubService clubService;
+	
+	@Autowired
+	private SportsmanCriteriaRepository criteria;
 	
 	@GetMapping(path = "/all")
 	public @ResponseBody Iterable<Sportsman> getAllSportsman() {
@@ -116,6 +125,22 @@ public class SportsmanController {
 	public @ResponseBody Iterable<Sportsman> findByLastName(@RequestParam String lastName){
 		
 		return sportsmanService.findByLastName(lastName, new PageRequest(2, 2, Direction.ASC,"firstName"));
+	}
+	
+	@GetMapping(path = "/criteria")
+	public @ResponseBody Iterable<Sportsman> criteria(@RequestParam (required = false) String key1,
+			@RequestParam String key2,
+			@RequestParam (required = false) String operation1,
+			@RequestParam (required = false) String operation2,
+			@RequestParam (required = false) String value1,
+			@RequestParam (required = false) String value2) {
+		
+		SportsmanSpecification spec1 = new SportsmanSpecification(new SearchCriteria(key1,operation1, value1));
+		SportsmanSpecification spec2 = new SportsmanSpecification(new SearchCriteria(key2,operation2, value2));
+		
+		List<Sportsman> results = criteria.findAll(Specifications.where(spec1).and(spec2));
+		
+		return results;
 	}
 
 }
