@@ -2,6 +2,8 @@ package hello.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import hello.model.Sportsman;
 
 public interface SportsmanService {
@@ -15,5 +17,7 @@ public interface SportsmanService {
 	public Sportsman findById(Integer id);
 	
 	public List<Sportsman> findByRank(Integer rank);
+	
+	public List<Sportsman> findByLastName(String lastName, Pageable pageable);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import hello.model.Sportsman;
@@ -67,6 +68,12 @@ public class SportsmanServiceImp implements SportsmanService {
 			return null;	
 		}
 		
+	}
+
+	@Override
+	public List<Sportsman> findByLastName(String lastName, Pageable pageable) {
+		
+		return sportsmanRepository.findByLastName(lastName, pageable);
 	}
 
 }

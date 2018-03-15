@@ -1,6 +1,8 @@
 package hello.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -108,6 +110,12 @@ public class SportsmanController {
 		
 		return sportsmanService.findByRank(rank);
 		
+	}
+	
+	@GetMapping(path = "/getByLastName")
+	public @ResponseBody Iterable<Sportsman> findByLastName(@RequestParam String lastName){
+		
+		return sportsmanService.findByLastName(lastName, new PageRequest(2, 2, Direction.ASC,"firstName"));
 	}
 
 }
