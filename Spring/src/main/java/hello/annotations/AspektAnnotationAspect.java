@@ -1,14 +1,20 @@
 package hello.annotations;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +69,21 @@ public class AspektAnnotationAspect {
 		
 		System.out.println(" Vreme izvrsenja servisa : " + izvrsnoVreme + "ms.");
 		return proceed;
+		
+	}
+	
+	@Before("execution(* hello.controllers.WorkerController.getAllWorker(..)) && args(request)")
+	public void saveURLScreenshot(JoinPoint joinPoint, HttpServletRequest request) throws Throwable {
+
+		WebDriver driver = new FirefoxDriver();
+		driver.get(request.getRequestURL().toString());
+//		driver.get("http://www.google.com");
+		
+
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	FileUtils.copyFile(scrFile, new File("---OVDE UBACI GDE DA CUVA SCREENSHOT---"));
+    	
+    	driver.close();
 		
 	}
 }
