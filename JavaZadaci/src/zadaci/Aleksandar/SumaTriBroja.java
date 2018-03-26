@@ -21,10 +21,7 @@ public class SumaTriBroja {
 				System.out.println("Niz tri uzastopna broja ciji je zbir veci od broja " + k + " su "
 				                     + niz[i] + ", " + niz[i + 1] + ", " + niz[i + 2]);
 				
-			} else {
-				System.out.println("Ne postoji niz sa sumom vecom od broja " + k);
-				break;
-			}
+			} 
 		}
 
 	}
