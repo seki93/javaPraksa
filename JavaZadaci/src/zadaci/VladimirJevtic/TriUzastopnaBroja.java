@@ -8,7 +8,7 @@ public class TriUzastopnaBroja {
 	
 	Scanner sc = new Scanner(System.in);
 	
-	Integer niz[] = {3, 7, 9 , 2, 11};
+	Integer niz[] = {1, 9, 3, 4, 5, 2, 7, 8, 6};
 	
 	System.out.println("Unesite sumu : " );
 	
@@ -24,6 +24,9 @@ public class TriUzastopnaBroja {
 			System.out.println(niz[i+2]);
 			
 			
+			} else {
+				System.out.println("Ne postoji niz sa sumom vece od zadate");
+				break;
 			}
 		
 		}
