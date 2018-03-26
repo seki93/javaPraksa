@@ -24,9 +24,6 @@ public class TriUzastopnaBroja {
 			System.out.println(niz[i+2]);
 			
 			
-			} else {
-				System.out.println("Ne postoji niz sa sumom vece od zadate");
-				break;
 			}
 		
 		}
