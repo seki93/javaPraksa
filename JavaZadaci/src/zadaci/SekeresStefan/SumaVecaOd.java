@@ -32,7 +32,7 @@ public class SumaVecaOd {
 				}
 				sum = 0;
 				numberToAdd = 0;
-				i = i - 2;
+				i = i - 3;
 			}
 		}
 		
