@@ -10,14 +10,12 @@ public class SortingsSequenceOfTree {
 	
 	public static void main(String[] args) {
 		
-		int [] sequence = {4,5,6,4,1,0,9,8,1,4,0,5};
+		//int [] sequence = {4,5,6,4,1,0,9,8,1,4,0,5};
 		//int [] sequence = {1,9,7,5,4,1,0,1,2,4,3,0};
-		//int [] sequence = {1,2,3,4};
-		if(sequence.length % 3 == 0) {
-			sortSumOfThree(sequence);
-		}else {
-			logger.debug("Seq % 3 !=0 ");
-		}
+		int [] sequence = {7,8,1,1,2,3,4,5,6,9};
+		
+		sortSumOfThree(sequence);
+		
 		
 	}
 	
@@ -28,9 +26,13 @@ public class SortingsSequenceOfTree {
 		int [] position = new int [sequence.length/3];
 		int poz = 0;
 		int c = 0;
+		int n = sequence.length;
+		if( n % 3 != 0 ) {
+			n = sequence.length - (sequence.length%3);
+		}
 		
 		// Ovde sam samo sabrao 3 po 3 broja i pisao njihove sume u poseban niz i napravio jos jedan niz koji mi govori njihove pozicije
-		for(int i = 0; i < sequence.length; i = i +3) {
+		for(int i = 0; i < n; i = i +3) {
 			sum += sequence[i];
 			sum += sequence[i+1];
 			sum += sequence[i+2];
@@ -67,13 +69,17 @@ public class SortingsSequenceOfTree {
 		int numberOfLoop = 0;
 		
 		//Ovde sam iz originalnog niza pisao u pomocni niz 
-		for(int i = 0; i < sequence.length; i++) { 
+		for(int i = 0; i < n; i++) { 
 			seq[i] = sequence[position[b] * 3 + numberOfLoop];
 			numberOfLoop++;
 			 if(numberOfLoop > 2) {
 				 b++;
 				 numberOfLoop = 0;
 			 }
+		}
+		
+		while( n < sequence.length) {
+			seq[n] = sequence[n++];
 		}
 		
 		for(int i = 0; i < seq.length; i++) {
