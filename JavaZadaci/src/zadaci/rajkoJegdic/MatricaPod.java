@@ -18,7 +18,7 @@ public class MatricaPod {
 		int[][] podMatrica = new int[2][2];
 		
 		if(n <2 || m <2) {
-			logger.error("Matrica mora da ima bar dva reda i dve kolone!");
+			logger.debug("Matrica mora da ima bar dva reda i dve kolone!");
 		}
 		podMatrica = maksPodMatrica(matrica, n, m);
 		
@@ -65,7 +65,6 @@ public class MatricaPod {
 			for(int j = 0; j < m; j++) {
 				logger.debug(mat[i][j] + " ");
 			}
-			logger.debug("\n");
 		}		
 	}
 
