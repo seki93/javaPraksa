@@ -2,6 +2,8 @@ package zadaci.VladimirJevtic;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 public class TriUzastopnaBroja {
 	
 	public static void main(String[] args) {
@@ -14,6 +16,8 @@ public class TriUzastopnaBroja {
 	
 	int broj = sc.nextInt();
 	
+	sc.close();
+	
 	for (int i = 0; i < niz.length-2; i++) {
 		
 		if ((niz[i]+ niz[i+1] + niz[i+2]) > broj){
@@ -22,6 +26,7 @@ public class TriUzastopnaBroja {
 			System.out.println(niz[i]);
 			System.out.println(niz[i+1]);
 			System.out.println(niz[i+2]);
+			
 			
 			
 			}
