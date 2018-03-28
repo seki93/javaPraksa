@@ -45,7 +45,7 @@ public class WorkerController {
     	Worker w  = new Worker();
 		 w = workerService.findById(125477561);
 		int size = CacheManager.ALL_CACHE_MANAGERS.get(0).getCache("hello.model.Worker").getSize();
-		if(size > 0) System.out.println("Ima nesto u kesu");
+		if(size > 0) System.out.println("Ima nesto u kesu ");
 		else System.out.println("Nema nista u kesu");
 		return workerService.findAll();
 		
