@@ -13,7 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 @Entity
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table( name = "radnik")
 public class Worker {
 	

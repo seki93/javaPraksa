@@ -2,10 +2,7 @@ package hello.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +16,8 @@ import hello.model.Worker;
 import hello.service.AddressService;
 import hello.service.CompanyService;
 import hello.service.WorkerService;
+import net.sf.ehcache.CacheManager;
+
 
 @Controller
 @RequestMapping(path="/worker")
@@ -43,7 +42,12 @@ public class WorkerController {
     @GetMapping(path="/all1")
 	public @ResponseBody Iterable<Worker> getAllWorkerr(){
 		
-		throw new RuntimeException("Dummy Exception");
+    	Worker w  = new Worker();
+		 w = workerService.findById(125477561);
+		int size = CacheManager.ALL_CACHE_MANAGERS.get(0).getCache("hello.model.Worker").getSize();
+		if(size > 0) System.out.println("Ima nesto u kesu");
+		else System.out.println("Nema nista u kesu");
+		return workerService.findAll();
 		
 	}
   
