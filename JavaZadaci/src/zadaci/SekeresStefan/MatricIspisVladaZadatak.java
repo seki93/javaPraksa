@@ -60,16 +60,16 @@ public class MatricIspisVladaZadatak {
 		}
 		
 		q.add(sequnce.get(sequnce.size()-1));
-
-		System.out.println(q);
 		
 		for(int i = 0; q.size() > 0; i++) {
 			pom[j++] = q.remove();
 		}
-		
+		String result = "";
 		for(int i = 0; i < pom.length; i++) {
-			System.out.print(" "+pom[i]);
+			result +=pom[i]+" ";
 		}
+		
+		logger.debug(result);
 		
 		
 		
