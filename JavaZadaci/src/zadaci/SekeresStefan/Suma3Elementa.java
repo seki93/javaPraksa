@@ -3,7 +3,11 @@ package zadaci.SekeresStefan;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.apache.log4j.Logger;
+
 public class Suma3Elementa {
+	
+	private static final Logger logger = Logger.getLogger(LoggerTest.class);
 	
 	public static void main(String[] args) {
 		
@@ -23,7 +27,7 @@ public class Suma3Elementa {
 				sum+=sequnce[j];
 				sum+=sequnce[k];
 				
-				if(find(sequnce, sum) != -1) System.out.println(" "+sequnce[find(sequnce, sum)]);
+				if(find(sequnce, sum) != -1) logger.debug(sequnce[find(sequnce, sum)]);
 				j++;
 				sum = 0;
 			}
@@ -33,7 +37,7 @@ public class Suma3Elementa {
 				sum+=sequnce[j];
 				sum+=sequnce[k];
 				
-				if(find(sequnce, sum) != -1) System.out.println(" "+sequnce[find(sequnce, sum)]);
+				if(find(sequnce, sum) != -1) logger.debug(sequnce[find(sequnce, sum)]);
 				k++;
 				sum = 0;
 			}
