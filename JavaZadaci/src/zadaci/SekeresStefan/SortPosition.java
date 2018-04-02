@@ -13,20 +13,33 @@ public class SortPosition {
 		int [] sequenceNumbers = {20,11,45,32,31,68};
 		int [] sequencePositions = {5,0,2,1,4,3};
 		
-		sortPosition(sequenceNumbers, sequencePositions);
+		//int [] sequenceNumbers = {4,2,5};
+		//int [] sequencePositions = {2,0,1};
+		
+		sequenceNumbers = sortPosition(sequenceNumbers, sequencePositions);
+		print(sequenceNumbers);
+		
 	}
 	
-	public static void sortPosition(int [] sequenceNumbers, int [] sequencePositions) {
+	public static int[] sortPosition(int [] sequenceNumbers, int [] sequencePositions) {
 		
 		HashMap<Integer, Integer> map = new HashMap<>();
-		String result = "";
 		
 		for(int i = 0; i < sequenceNumbers.length; i++) {
 			map.put(sequencePositions[i], sequenceNumbers[i]);
 		}
 		
-		for(int i = 0; i < map.size(); i++) {
-			result+=map.get(i)+" ";
+		for(int i = 0; i < sequenceNumbers.length; i++) {
+			sequenceNumbers[i] = map.get(i);
+		}
+		
+		return sequenceNumbers;
+	}
+	
+	public static void print(int [] sequenceNumbers) {
+		String result = "";
+		for(int i = 0; i < sequenceNumbers.length; i++) {
+			result+=sequenceNumbers[i]+" ";
 		}
 		
 		logger.debug(result);
