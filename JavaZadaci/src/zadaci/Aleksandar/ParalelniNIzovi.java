@@ -1,6 +1,7 @@
 package zadaci.Aleksandar;
 
-import java.util.HashMap;
+
+import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
@@ -12,25 +13,32 @@ public class ParalelniNIzovi {
 		
 		int []indeksi = {1,3,2,4,0};
 		
-		sortirajNiz(niz, indeksi);
+		logger.debug(Arrays.toString(sortirajNiz(niz, indeksi)));
+		
 
 	}
 	
 	private static final Logger logger = Logger.getLogger(LoggerTest.class);
 	
-	public static void sortirajNiz(int []niz, int []indeksi) {
+	public static int [] sortirajNiz(int []niz, int []indeksi) {
 		
-		HashMap<Integer, Integer> map = new HashMap<>();
+		for(int i = 0;i < niz.length; i++) {
 		
-		for(int i = 0;i < niz.length;i++) {
-			
-			if(niz != null && indeksi != null) {
+			for(int j = i + 1;j < niz.length; j++) {
 				
-				map.put(indeksi[i], niz[i]);
+				if(indeksi[i] > indeksi[j]) {
+					
+					int pom = indeksi[i];
+					indeksi[i] = indeksi[j];
+					indeksi[j] = pom;
+					
+					int pom1 = niz[i];
+					niz[i] = niz[j];
+					niz[j] = pom1;
+				}
 			}
 		}
-		
-	   logger.debug(map.values());
+		return niz;
 		
 	}
 
