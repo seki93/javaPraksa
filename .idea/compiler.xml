@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="FootStats" />
+        <module name="moj-projekat" />
+        <module name="Stringic" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FootStats" target="1.8" />
+      <module name="moj-projekat" target="1.8" />
+      <module name="Stringic" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
