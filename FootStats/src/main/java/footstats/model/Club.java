@@ -11,7 +11,7 @@ public class Club {
 
     private String name;
 
-    @OneToMany
+    @ManyToOne
     private Competition competition;
 
     @OneToOne

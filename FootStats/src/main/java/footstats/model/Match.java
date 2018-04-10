@@ -9,13 +9,13 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany
+    @OneToOne
     private Club homeClub;
 
-    @OneToMany
+    @OneToOne
     private Club awayClub;
 
-    @OneToMany
+    @ManyToOne
     private Referee referee;
 
     @OneToOne

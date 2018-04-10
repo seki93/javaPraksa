@@ -12,9 +12,9 @@ public class NationalTeam {
     private String name;
 
     @OneToOne
-    private Country countryl;
+    private Country country;
 
-    @OneToMany
+    @ManyToOne
     private Competition competition;
 
     public Integer getId() {
@@ -34,11 +34,11 @@ public class NationalTeam {
     }
 
     public Country getCountryl() {
-        return countryl;
+        return country;
     }
 
-    public void setCountryl(Country countryl) {
-        this.countryl = countryl;
+    public void setCountryl(Country country) {
+        this.country = country;
     }
 
     public Competition getCompetition() {
