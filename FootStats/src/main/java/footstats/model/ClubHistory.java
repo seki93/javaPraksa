@@ -9,7 +9,11 @@ public class ClubHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+<<<<<<< HEAD
     @OneToOne
+=======
+    @ManyToOne
+>>>>>>> acaffe7166d5a6b7eb271c879029a16f9ec8c884
     private Player player;
 
     public Integer getId() {
