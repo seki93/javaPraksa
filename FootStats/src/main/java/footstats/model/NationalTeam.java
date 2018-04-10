@@ -15,7 +15,7 @@ public class NationalTeam {
     private Country countryl;
 
     @OneToMany
-    private City.Competition competition;
+    private Competition competition;
 
     public Integer getId() {
         return id;
@@ -41,11 +41,11 @@ public class NationalTeam {
         this.countryl = countryl;
     }
 
-    public City.Competition getCompetition() {
+    public Competition getCompetition() {
         return competition;
     }
 
-    public void setCompetition(City.Competition competition) {
+    public void setCompetition(Competition competition) {
         this.competition = competition;
     }
 }

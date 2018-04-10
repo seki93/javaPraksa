@@ -12,7 +12,7 @@ public class Club {
     private String name;
 
     @OneToMany
-    private City.Competition competition;
+    private Competition competition;
 
     @OneToOne
     private City city;
@@ -36,11 +36,11 @@ public class Club {
         this.name = name;
     }
 
-    public City.Competition getCompetition() {
+    public Competition getCompetition() {
         return competition;
     }
 
-    public void setCompetition(City.Competition competition) {
+    public void setCompetition(Competition competition) {
         this.competition = competition;
     }
 
