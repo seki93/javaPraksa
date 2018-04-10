@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-1">
+        <createTable tableName="Igrac">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ime" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-2">
+        <addPrimaryKey columnNames="id" constraintName="IgracPK" tableName="Igrac"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-3">
+        <dropForeignKeyConstraint baseTableName="books" constraintName="author_fk"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-4">
+        <dropUniqueConstraint constraintName="id" tableName="books"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-5">
+        <dropUniqueConstraint constraintName="name" tableName="books"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-6">
+        <dropTable tableName="authors"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915790405-7">
+        <dropTable tableName="books"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-1">
+        <createTable tableName="City">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="CityPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="country_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-2">
+        <createTable tableName="Club">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="ClubPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="city_id" type="INT"/>
+            <column name="competition_id" type="INT"/>
+            <column name="stadium_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-3">
+        <createTable tableName="ClubHistory">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="ClubHistoryPK"/>
+            </column>
+            <column name="player_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-4">
+        <createTable tableName="Competition">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="CompetitionPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="country_id" type="INT"/>
+            <column name="rank_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-5">
+        <createTable tableName="Country">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="CountryPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-6">
+        <createTable tableName="Match">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="MatchPK"/>
+            </column>
+            <column name="awayClub_id" type="INT"/>
+            <column name="homeClub_id" type="INT"/>
+            <column name="matchStats_id" type="INT"/>
+            <column name="referee_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-7">
+        <createTable tableName="MatchStats">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="MatchStatsPK"/>
+            </column>
+            <column name="assistance" type="INT"/>
+            <column name="cards" type="INT"/>
+            <column name="endResult" type="INT"/>
+            <column name="fouls" type="INT"/>
+            <column name="halfTimeResult" type="INT"/>
+            <column name="passes" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-8">
+        <createTable tableName="NationalTeam">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="NationalTeamPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="competition_id" type="INT"/>
+            <column name="country_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-9">
+        <createTable tableName="Person">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="PersonPK"/>
+            </column>
+            <column name="dateOfBirth" type="date"/>
+            <column name="firstName" type="VARCHAR(255)"/>
+            <column name="lastName" type="VARCHAR(255)"/>
+            <column name="cityOfBirth_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-10">
+        <createTable tableName="Player">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="PlayerPK"/>
+            </column>
+            <column name="club_id" type="INT"/>
+            <column name="nationalTeam_id" type="INT"/>
+            <column name="person_id" type="INT"/>
+            <column name="playerStats_id" type="INT"/>
+            <column name="position_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-11">
+        <createTable tableName="PlayerStats">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="PlayerStatsPK"/>
+            </column>
+            <column name="assistance" type="INT"/>
+            <column name="cards" type="INT"/>
+            <column name="fouls" type="INT"/>
+            <column name="goals" type="INT"/>
+            <column name="passes" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-12">
+        <createTable tableName="Position">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="PositionPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-13">
+        <createTable tableName="Rank">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="RankPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-14">
+        <createTable tableName="Referee">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="RefereePK"/>
+            </column>
+            <column name="person_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-15">
+        <createTable tableName="Stadium">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="StadiumPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-16">
+        <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="Club" constraintName="FK_3j5oosrro3364nou5dk2lb3pl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-17">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="Player" constraintName="FK_3k4v1g8nll9y1oh5r5iumbytp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Person"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-18">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="Referee" constraintName="FK_89rhe8wm2one3sr262p3k2fk7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Person"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-19">
+        <addForeignKeyConstraint baseColumnNames="nationalTeam_id" baseTableName="Player" constraintName="FK_fe1dlt2l1o7jvuh4giaqgbg3i" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="NationalTeam"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-20">
+        <addForeignKeyConstraint baseColumnNames="club_id" baseTableName="Player" constraintName="FK_g4vfjfg8nqnyp9quuses90hwp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-21">
+        <addForeignKeyConstraint baseColumnNames="city_id" baseTableName="Club" constraintName="FK_gmaufqu7x6j778jsypdhl4msl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="City"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-22">
+        <addForeignKeyConstraint baseColumnNames="awayClub_id" baseTableName="Match" constraintName="FK_h4aww85fd8nxs0xrlbodsj4ko" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-23">
+        <addForeignKeyConstraint baseColumnNames="rank_id" baseTableName="Competition" constraintName="FK_hbjbk32o32lf7nrp0c5ionrak" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Rank"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-24">
+        <addForeignKeyConstraint baseColumnNames="matchStats_id" baseTableName="Match" constraintName="FK_jxsnxxt0r9lwavgpx6cbt2m8c" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="MatchStats"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-25">
+        <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="NationalTeam" constraintName="FK_kaobo67b0m5918javq41c3jvf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-26">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="City" constraintName="FK_m503bcpirmab9y40lg2ia9d54" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Country"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-27">
+        <addForeignKeyConstraint baseColumnNames="cityOfBirth_id" baseTableName="Person" constraintName="FK_mbhun7muhrilgcaqlitjgbi6e" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="City"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-28">
+        <addForeignKeyConstraint baseColumnNames="playerStats_id" baseTableName="Player" constraintName="FK_or9j5d2jewaywnjf2r2h80nm8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="PlayerStats"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-29">
+        <addForeignKeyConstraint baseColumnNames="referee_id" baseTableName="Match" constraintName="FK_owjk8xlsb796kyr13kehu4vcj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Referee"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-30">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="NationalTeam" constraintName="FK_q26deyvf110jnxjckobeb8884" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Country"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-31">
+        <addForeignKeyConstraint baseColumnNames="homeClub_id" baseTableName="Match" constraintName="FK_qh8p3wv0aqgsavx1e7g551okk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-32">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="Competition" constraintName="FK_qk8sdhsdo6k40vohg37p5052n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Country"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-33">
+        <addForeignKeyConstraint baseColumnNames="position_id" baseTableName="Player" constraintName="FK_qslox644kmgewlytf6io8tcco" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Position"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-34">
+        <addForeignKeyConstraint baseColumnNames="stadium_id" baseTableName="Club" constraintName="FK_s4it79fie4hr2yopdet1icinw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Stadium"/>
+    </changeSet>
+    <changeSet author="rajko.jegdic (generated)" id="1523360712739-35">
+        <addForeignKeyConstraint baseColumnNames="player_id" baseTableName="ClubHistory" constraintName="FK_sspi7po7swn1f6nnah0rqbk27" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Player"/>
+    </changeSet>
+</databaseChangeLog>
