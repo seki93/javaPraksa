@@ -11,7 +11,7 @@ public class City {
 
     private String name;
 
-    @OneToMany
+    @ManyToOne
     private Country country;
 
     public Integer getId() {
