@@ -9,7 +9,7 @@ public class ClubHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany
+    @ManyToOne
     private Player player;
 
     public Integer getId() {
