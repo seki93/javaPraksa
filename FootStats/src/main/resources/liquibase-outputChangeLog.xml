@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"/>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-1">
+        <createTable tableName="authors">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-2">
+        <createTable tableName="books">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-3">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="authors"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-4">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="books"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-5">
+        <addUniqueConstraint columnNames="id" constraintName="id" tableName="books"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-6">
+        <addUniqueConstraint columnNames="name" constraintName="name" tableName="books"/>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-7">
+        <createIndex indexName="author_fk" tableName="books">
+            <column name="author"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="stefan.sekeres (generated)" id="1522915198293-8">
+        <addForeignKeyConstraint baseColumnNames="author" baseTableName="books" constraintName="author_fk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="authors"/>
+    </changeSet>
+</databaseChangeLog>
