@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CompetitionRepository extends CrudRepository<Competition, Integer> {
+
+    public void deleteById(Integer id);
+
 }
