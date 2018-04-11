@@ -14,23 +14,29 @@ public class RefereeServiceImpl implements RefereeService {
 
     @Override
     public Iterable<Referee> findAll() {
-        return null;
+        Iterable<Referee> referees = refereeRepository.findAll();
+
+        if( referees != null) return referees;
+        else return null;
     }
 
     @Override
     public Referee findById(Integer id) {
-        return null;
+        Referee r = refereeRepository.findOne(id);
+
+        if(r != null) return r;
+        else return null;
     }
 
     @Override
     @Transactional
     public void deleteById(Integer id) {
-
+        refereeRepository.delete(id);
     }
 
     @Override
     @Transactional
     public void save(Referee r) {
-
+        refereeRepository.save(r);
     }
 }

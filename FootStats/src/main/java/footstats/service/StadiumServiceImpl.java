@@ -14,23 +14,31 @@ public class StadiumServiceImpl implements  StadiumService{
 
     @Override
     public Iterable<Stadium> findAll() {
-        return null;
+        Iterable<Stadium> stadiums = stadiumRepository.findAll();
+
+        if(stadiums != null) return  stadiums;
+        else  return null;
     }
 
     @Override
     public Stadium findById(Integer id) {
-        return null;
+
+        Stadium s = stadiumRepository.findOne(id);
+
+        if(s != null) return s;
+        else return null;
     }
 
     @Override
     @Transactional
     public void deleteById(Integer id) {
+        stadiumRepository.delete(id);
 
     }
 
     @Override
     @Transactional
     public void save(Stadium s) {
-
+        stadiumRepository.save(s);
     }
 }

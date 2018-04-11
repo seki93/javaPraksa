@@ -14,23 +14,29 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Iterable<City> findAll() {
-        return null;
+        Iterable<City> cities = cityRepository.findAll();
+
+        if(cities != null) return  cities;
+        else return null;
     }
 
     @Override
     public City findById(Integer id) {
-        return null;
+        City c = cityRepository.findOne(id);
+
+        if(c != null) return c;
+        else return null;
     }
 
     @Override
     @Transactional
     public void deleteById(Integer id) {
-
+        cityRepository.delete(id);
     }
 
     @Override
     @Transactional
     public void save(City c) {
-
+        cityRepository.save(c);
     }
 }

@@ -14,23 +14,29 @@ public class PositionServiceImpl implements  PositionService {
 
     @Override
     public Iterable<Position> findAll() {
-        return null;
+        Iterable<Position> positions = positionRepository.findAll();
+
+        if(positions != null) return positions;
+        else return null;
     }
 
     @Override
     public Position findById(Integer id) {
-        return null;
+        Position p = positionRepository.findOne(id);
+
+        if(p != null) return p;
+        else return null;
     }
 
     @Override
     @Transactional
     public void deleteById(Integer id) {
-
+        positionRepository.delete(id);
     }
 
     @Override
     @Transactional
     public void save(Position p) {
-
+        positionRepository.save(p);
     }
 }

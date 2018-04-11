@@ -14,23 +14,29 @@ public class RankServiceImpl implements RankService {
 
     @Override
     public Iterable<Rank> findAll() {
-        return null;
+        Iterable<Rank> ranks = rankRepository.findAll();
+
+        if(ranks != null) return ranks;
+        else return null;
     }
 
     @Override
     public Rank findById(Integer id) {
-        return null;
+        Rank r = rankRepository.findOne(id);
+
+        if(r != null) return  r;
+        else return null;
     }
 
     @Override
     @Transactional
     public void deleteById(Integer id) {
-
+        rankRepository.delete(id);
     }
 
     @Override
     @Transactional
     public void save(Rank r) {
-
+        rankRepository.save(r);
     }
 }
