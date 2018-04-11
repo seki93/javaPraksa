@@ -28,7 +28,13 @@ public class MatchServiceImp implements MatchService {
     @Override
     public Iterable<Match> findAll() {
 
-        return matchRepository.findAll();
+       Iterable<Match> m = matchRepository.findAll();
+
+       if ( m != null){
+           return m;
+       } else {
+           return null;
+       }
     }
 
     @Override

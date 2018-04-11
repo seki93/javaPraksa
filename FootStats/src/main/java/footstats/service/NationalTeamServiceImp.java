@@ -27,7 +27,14 @@ public class NationalTeamServiceImp implements NationalTeamService  {
 
     @Override
     public Iterable<NationalTeam> findAll() {
-        return nationalTeamRepository.findAll();
+
+        Iterable<NationalTeam> nteam = nationalTeamRepository.findAll();
+
+        if( nteam != null){
+            return nteam;
+        } else {
+            return null;
+        }
     }
 
     @Override

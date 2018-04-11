@@ -31,7 +31,13 @@ public class MatchStatsServiceImp implements MatchStatsService {
     @Override
     public Iterable<MatchStats> findAll() {
 
-        return matchStatsRepository.findAll();
+        Iterable<MatchStats> ms = matchStatsRepository.findAll();
+
+        if( ms != null){
+            return ms;
+        } else {
+            return null;
+        }
     }
 
     @Override

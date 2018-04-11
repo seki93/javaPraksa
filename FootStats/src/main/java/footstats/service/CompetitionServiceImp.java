@@ -29,7 +29,13 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     public Iterable<Competition> findAll() {
 
-        return competitionRepository.findAll();
+       Iterable<Competition> c = competitionRepository.findAll();
+
+       if(c != null){
+           return c;
+       } else {
+           return null;
+       }
     }
 
     @Override

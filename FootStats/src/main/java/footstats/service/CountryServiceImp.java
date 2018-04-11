@@ -29,7 +29,13 @@ public class CountryServiceImp implements CountryService {
     @Override
     public Iterable<Country> findAll() {
 
-        return countryRepository.findAll();
+        Iterable<Country> c = countryRepository.findAll();
+
+        if (c != null){
+            return c;
+        } else {
+            return null;
+        }
     }
 
     @Override

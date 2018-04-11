@@ -1,9 +1,6 @@
 package footstats.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class MatchStats {
@@ -12,15 +9,15 @@ public class MatchStats {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer endResult;
-
-    private Integer halfTimeResult;
-
     private Integer assistance;
+
+    private Integer cards;
+
+    private Integer endResult;
 
     private Integer fouls;
 
-    private Integer cards;
+    private Integer halfTimeResult;
 
     private Integer passes;
 
