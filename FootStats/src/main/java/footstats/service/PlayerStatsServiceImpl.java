@@ -30,7 +30,12 @@ public class PlayerStatsServiceImpl implements PlayerStatsService {
     @Override
     public Iterable<PlayerStats> findAll() {
 
-        return playerStatsRepository.findAll();
+        Iterable<PlayerStats> playerStats = playerStatsRepository.findAll();
+        if(playerStats != null) {
+            return playerStats;
+        } else {
+            return null;
+        }
     }
 
     @Override

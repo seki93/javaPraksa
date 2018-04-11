@@ -30,7 +30,13 @@ public class ClubHistoryServiceImpl implements ClubHistoryService {
 
     @Override
     public Iterable<ClubHistory> findAll() {
-        return clubHistoryRepository.findAll();
+
+        Iterable<ClubHistory> clubHistories = clubHistoryRepository.findAll();
+        if(clubHistories != null) {
+            return clubHistories;
+        } else {
+            return null;
+        }
     }
 
     @Override

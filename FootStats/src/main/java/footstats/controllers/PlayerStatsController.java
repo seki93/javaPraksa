@@ -12,7 +12,7 @@ public class PlayerStatsController {
     @Autowired
     private PlayerStatsService playerStatsService;
 
-    @GetMapping(path = "/add")
+    @PostMapping(path = "/add")
     public String addNewPlayerStats(@RequestParam Integer assistance,
                                     @RequestParam Integer cards,
                                     @RequestParam Integer fouls,

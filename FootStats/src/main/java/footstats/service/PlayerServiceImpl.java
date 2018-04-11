@@ -31,7 +31,12 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Iterable<Player> findAll() {
 
-        return playerRepository.findAll();
+        Iterable<Player> players = playerRepository.findAll();
+        if(players != null) {
+            return players;
+        } else {
+            return null;
+        }
     }
 
     @Override

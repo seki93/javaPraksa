@@ -31,7 +31,12 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public Iterable<Club> findAll() {
 
-        return clubRepository.findAll();
+        Iterable<Club> clubs = clubRepository.findAll();
+        if(clubs != null) {
+            return clubs;
+        } else {
+            return null;
+        }
     }
 
     @Override
