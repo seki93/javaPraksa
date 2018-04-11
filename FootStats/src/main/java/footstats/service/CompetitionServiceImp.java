@@ -22,11 +22,13 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     @Transactional
     public void save(Competition competition) {
+
         competitionRepository.save(competition);
     }
 
     @Override
     public Iterable<Competition> findAll() {
+
         return competitionRepository.findAll();
     }
 

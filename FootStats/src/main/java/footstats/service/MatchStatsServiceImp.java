@@ -1,5 +1,6 @@
 package footstats.service;
 
+import footstats.model.Match;
 import footstats.model.MatchStats;
 import footstats.repository.MatchStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,31 @@ public class MatchStatsServiceImp implements MatchStatsService {
     @Override
     @Transactional
     public void deleteById(Integer id) {
+        matchStatsRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public void save(MatchStats matchStats) {
 
+        matchStatsRepository.save(matchStats);
 
     }
 
     @Override
     public Iterable<MatchStats> findAll() {
 
-        return null;
+        return matchStatsRepository.findAll();
     }
 
     @Override
     public MatchStats findById(Integer id) {
 
-        return null;
+        MatchStats ms = matchStatsRepository.findOne(id);
+        if (ms != null){
+            return ms;
+        } else {
+            return null;
+        }
     }
 }
