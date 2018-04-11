@@ -31,7 +31,12 @@ public class PersonSeviceImpl implements PersonService {
     @Override
     public Iterable<Person> findAll() {
 
-        return personRepository.findAll();
+        Iterable<Person> persons = personRepository.findAll();
+        if(persons != null) {
+            return persons;
+        } else {
+            return null;
+        }
     }
 
     @Override
