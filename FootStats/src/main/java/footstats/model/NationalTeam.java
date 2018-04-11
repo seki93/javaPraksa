@@ -33,11 +33,11 @@ public class NationalTeam {
         this.name = name;
     }
 
-    public Country getCountryl() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountryl(Country country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
