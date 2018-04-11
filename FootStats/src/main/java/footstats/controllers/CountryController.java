@@ -25,7 +25,7 @@ public class CountryController {
         return "Added Country";
     }
 
-    @GetMapping(path = "/delete")
+    @PostMapping(path = "/delete")
     public String deleteCountry(@RequestParam Integer id){
         if (id == null)
             return "Wrong Country ID";

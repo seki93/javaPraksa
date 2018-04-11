@@ -44,7 +44,7 @@ public class CompetitionController {
         return " Saved Competition ";
         }
 
-    @GetMapping(path = "/delete")
+    @PostMapping(path = "/delete")
     public String deleteCompetition(@RequestParam Integer id){
         if (id == null)
             return " Wrong Competition ID";

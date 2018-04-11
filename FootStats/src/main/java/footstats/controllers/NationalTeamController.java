@@ -45,7 +45,7 @@ public class NationalTeamController {
         return "Saved National Team";
     }
 
-    @GetMapping(path = "/delete")
+    @PostMapping(path = "/delete")
     public String deleteNationalTeam(@RequestParam Integer id){
         if (id == null){
             return "Wrong National Team ID";

@@ -37,7 +37,7 @@ public class MatchStatsController {
         return "Saved MatchStats";
     }
 
-    @GetMapping(path = "/delete")
+    @PostMapping(path = "/delete")
     public String deleteMatchStats(@RequestParam Integer id){
         if(id == null)
             return "Wrong MatchStats ID";

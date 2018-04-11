@@ -56,7 +56,7 @@ public class MatchController {
         return "Match Saved";
     }
 
-    @GetMapping(path = "/delete")
+    @PostMapping(path = "/delete")
     public String deleteMatch(@RequestParam Integer id){
         if (id == null)
             return "Wrong Match ID";
