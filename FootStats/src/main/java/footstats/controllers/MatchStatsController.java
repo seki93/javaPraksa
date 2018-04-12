@@ -18,19 +18,19 @@ public class MatchStatsController {
     }
 
     @PostMapping(path = "/add")
-    public String addNewMatchStats(@RequestParam Integer endResult,
-                                   @RequestParam Integer halfTimeResult,
-                                   @RequestParam Integer assistance,
-                                   @RequestParam Integer fouls,
+    public String addNewMatchStats(@RequestParam Integer assistance,
                                    @RequestParam Integer cards,
+                                   @RequestParam Integer endResult,
+                                   @RequestParam Integer fouls,
+                                   @RequestParam Integer halfTimeResult,
                                    @RequestParam Integer passes){
 
         MatchStats ms = new MatchStats();
-        ms.setEndResult(endResult);
-        ms.setHalfTimeResult(halfTimeResult);
         ms.setAssistance(assistance);
-        ms.setFouls(fouls);
         ms.setCards(cards);
+        ms.setEndResult(endResult);
+        ms.setFouls(fouls);
+        ms.setHalfTimeResult(halfTimeResult);
         ms.setPasses(passes);
 
         matchStatsService.save(ms);

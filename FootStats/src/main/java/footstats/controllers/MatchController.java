@@ -34,23 +34,24 @@ public class MatchController {
     }
 
     @PostMapping(path = "/add")
-    public String addNewMatch(@RequestParam Integer id_homeclub,
-                              @RequestParam Integer id_awayclub,
-                              @RequestParam Integer id_referee,
-                              @RequestParam Integer id_matchstats){
+    public String addNewMatch(@RequestParam Integer awayclub_id,
+                              @RequestParam Integer homeclub_id,
+                              @RequestParam Integer matchstats_id,
+                              @RequestParam Integer referee_id){
+
         Match m = new Match();
 
-        Club c1 = clubService.findById(id_homeclub);
+        Club c1 = clubService.findById(awayclub_id);
         m.setHomeClub(c1);
 
-        Club c2 = clubService.findById(id_awayclub);
+        Club c2 = clubService.findById(homeclub_id);
         m.setAwayClub(c2);
 
-        Referee referee = refereeService.findById(id_referee);
-        m.setReferee(referee);
-
-        MatchStats ms = matchStatsService.findById(id_matchstats);
+        MatchStats ms = matchStatsService.findById(matchstats_id);
         m.setMatchStats(ms);
+
+        Referee referee = refereeService.findById(referee_id);
+        m.setReferee(referee);
 
         matchService.save(m);
         return "Match Saved";

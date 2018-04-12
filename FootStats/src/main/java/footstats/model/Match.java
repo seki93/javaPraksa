@@ -3,6 +3,7 @@ package footstats.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name= "match")
 public class Match {
 
     @Id
@@ -10,16 +11,20 @@ public class Match {
     private Integer id;
 
     @OneToOne
+    @JoinColumn(name = "awayclub_id")
+    private Club awayClub;
+
+    @OneToOne
+    @JoinColumn(name = "homeclub_id")
     private Club homeClub;
 
     @OneToOne
-    private Club awayClub;
+    @JoinColumn(name = "matchstats_id")
+    private MatchStats matchStats;
 
     @ManyToOne
+    @JoinColumn(name = "referee_id")
     private Referee referee;
-
-    @OneToOne
-    private MatchStats matchStats;
 
     public Integer getId() {
         return id;
