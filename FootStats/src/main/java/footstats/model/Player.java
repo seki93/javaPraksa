@@ -19,9 +19,11 @@ public class Player {
     private Club club;
 
     @OneToOne
+    @JoinColumn(name = "playerstats_id")
     private PlayerStats playerStats;
 
     @OneToOne
+    @JoinColumn(name = "nationalteam_id")
     private NationalTeam nationalTeam;
 
     public Integer getId() {

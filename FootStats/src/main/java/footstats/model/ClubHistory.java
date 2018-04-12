@@ -3,6 +3,7 @@ package footstats.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "clubhistory")
 public class ClubHistory {
 
     @Id
