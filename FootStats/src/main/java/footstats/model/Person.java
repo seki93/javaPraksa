@@ -10,11 +10,17 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "firstname")
     private String firstName;
+
+    @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "dateofbirth")
     private Date dateOfBirth;
 
     @ManyToOne
+    @JoinColumn(name = "cityofbirth_id")
     private City cityOfBirth;
 
     public Integer getId() {
