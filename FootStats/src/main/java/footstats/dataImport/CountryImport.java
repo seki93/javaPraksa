@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class CountryImport {
@@ -16,28 +19,43 @@ public class CountryImport {
         WebDriver driver= new ChromeDriver();
 
         driver.manage().window().maximize();
-        String url = "https://simple.wikipedia.org/wiki/List_of_countries";
+        String url = "https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_country";
         driver.navigate().to(url);
-        ArrayList<String> arrayList = new ArrayList<String>();
-        int j = 0;
-        for (int i = 2; i < 26; i++){
+        ArrayList<String> countries = new ArrayList<String>();
+        for (int i = 1; i < 79; i++){
 
-                String a = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/p[" + i + "]/a[1]")).getText();
-                arrayList.add(a);
+                String a = driver.findElement(By.xpath("//*[@id=\"toc\"]/ul/li["+i+"]/a/span[2]")).getText();
+                countries.add(a);
         }
-        System.out.println(arrayList);
+        driver.close();
+        driver.quit();
+        System.out.println(countries);
+
+        try {
+
+            String myUrl = "jdbc:mysql://localhost:3306/footstats";
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+
+            String query = " Insert into country (name) values(?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            conn.setAutoCommit(false);
+
+
+            for(String s: countries){
+                preparedStmt.setString(1, s);
+                preparedStmt.addBatch();
+            }
+            preparedStmt.executeBatch();
+            conn.commit();
+
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Got an exception!");
+            System.out.println(e.getMessage());
+        }
+
     }
 }
-
-
-//*[@id="mw-content-text"]/div/p[2]/a[1]
-
-
-//*[@id="mw-content-text"]/div/p[25]/a[2]
-
-//*[@id="mw-content-text"]/div/p[20]/a[27]
-
-//*[@id="mw-content-text"]/div/p[19]/a[1]
-
-//*[@id="mw-content-text"]/div/p[25]/a[2]
 
