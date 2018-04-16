@@ -23,9 +23,15 @@ public class CountryImport {
         driver.navigate().to(url);
         ArrayList<String> countries = new ArrayList<String>();
         for (int i = 1; i < 79; i++){
-
-                String a = driver.findElement(By.xpath("//*[@id=\"toc\"]/ul/li["+i+"]/a/span[2]")).getText();
+            if (i == 76){
+                countries.add("England");
+                countries.add("Northern Ireland");
+                countries.add("Scotland");
+                countries.add("Wales");
+            } else {
+                String a = driver.findElement(By.xpath("//*[@id=\"toc\"]/ul/li[" + i + "]/a/span[2]")).getText();
                 countries.add(a);
+            }
         }
         driver.close();
         driver.quit();
@@ -59,3 +65,8 @@ public class CountryImport {
     }
 }
 
+
+//*[@id="toc"]/ul/li[76]/ul/li[1]/a/span[2]
+//*[@id="toc"]/ul/li[76]/ul/li[2]/a/span[2]
+//*[@id="toc"]/ul/li[76]/ul/li[3]/a/span[2]
+//*[@id="toc"]/ul/li[76]/ul/li[4]/a/span[2]
