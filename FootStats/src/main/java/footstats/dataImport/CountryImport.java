@@ -22,6 +22,7 @@ public class CountryImport {
         String url = "https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_country";
         driver.navigate().to(url);
         ArrayList<String> countries = new ArrayList<String>();
+        countries.add("International");
         for (int i = 1; i < 79; i++){
             if (i == 76){
                 countries.add("England");
@@ -38,7 +39,6 @@ public class CountryImport {
         System.out.println(countries);
 
         try {
-
             String myUrl = "jdbc:mysql://localhost:3306/footstats";
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(myUrl, "root", "root");
@@ -47,7 +47,6 @@ public class CountryImport {
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             conn.setAutoCommit(false);
-
 
             for(String s: countries){
                 preparedStmt.setString(1, s);
@@ -64,9 +63,3 @@ public class CountryImport {
 
     }
 }
-
-
-//*[@id="toc"]/ul/li[76]/ul/li[1]/a/span[2]
-//*[@id="toc"]/ul/li[76]/ul/li[2]/a/span[2]
-//*[@id="toc"]/ul/li[76]/ul/li[3]/a/span[2]
-//*[@id="toc"]/ul/li[76]/ul/li[4]/a/span[2]
