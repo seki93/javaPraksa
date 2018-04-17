@@ -1,6 +1,5 @@
 package footstats.service;
 
-import footstats.model.Match;
 import footstats.model.MatchStats;
 import footstats.repository.MatchStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

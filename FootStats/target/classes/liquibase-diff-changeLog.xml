@@ -233,4 +233,50 @@
     <changeSet author="rajko.jegdic (generated)" id="1523360712739-35">
         <addForeignKeyConstraint baseColumnNames="player_id" baseTableName="ClubHistory" constraintName="FK_sspi7po7swn1f6nnah0rqbk27" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Player"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963038135-1">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="gamePK"/>
+            </column>
+            <column name="awayclub_id" type="INT"/>
+            <column name="homeclub_id" type="INT"/>
+            <column name="matchstats_id" type="INT"/>
+            <column name="referee_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963038135-2">
+        <addForeignKeyConstraint baseColumnNames="homeclub_id" baseTableName="game" constraintName="FK_9bsmp9wwg8tfbjgcpair36dk1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963038135-3">
+        <addForeignKeyConstraint baseColumnNames="referee_id" baseTableName="game" constraintName="FK_em059o7ge6ph2ieqs9qjddjlx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Referee"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963038135-4">
+        <addForeignKeyConstraint baseColumnNames="awayclub_id" baseTableName="game" constraintName="FK_hidvtv16oxj0j0lrb44rkg7vk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963038135-5">
+        <addForeignKeyConstraint baseColumnNames="matchstats_id" baseTableName="game" constraintName="FK_oups8sx3hjwknm43hg9ltiy4t" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="matchstats"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963171776-1">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="gamePK"/>
+            </column>
+            <column name="awayclub_id" type="INT"/>
+            <column name="homeclub_id" type="INT"/>
+            <column name="matchstats_id" type="INT"/>
+            <column name="referee_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963171776-2">
+        <addForeignKeyConstraint baseColumnNames="homeclub_id" baseTableName="game" constraintName="FK_9bsmp9wwg8tfbjgcpair36dk1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963171776-3">
+        <addForeignKeyConstraint baseColumnNames="referee_id" baseTableName="game" constraintName="FK_em059o7ge6ph2ieqs9qjddjlx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Referee"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963171776-4">
+        <addForeignKeyConstraint baseColumnNames="awayclub_id" baseTableName="game" constraintName="FK_hidvtv16oxj0j0lrb44rkg7vk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1523963171776-5">
+        <addForeignKeyConstraint baseColumnNames="matchstats_id" baseTableName="game" constraintName="FK_oups8sx3hjwknm43hg9ltiy4t" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="matchstats"/>
+    </changeSet>
 </databaseChangeLog>

@@ -3,8 +3,7 @@ package footstats.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name= "match")
-public class Match {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
