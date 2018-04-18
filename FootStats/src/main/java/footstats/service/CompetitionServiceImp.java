@@ -48,4 +48,9 @@ public class CompetitionServiceImp implements CompetitionService {
             return null;
         }
     }
+
+    @Override
+    public Integer findIdByName(String competitionName) {
+        return competitionRepository.findIdByName(competitionName);
+    }
 }

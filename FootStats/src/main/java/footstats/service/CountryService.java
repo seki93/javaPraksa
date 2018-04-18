@@ -8,4 +8,6 @@ public interface CountryService {
     public void save(Country country);
     public Iterable<Country> findAll();
     public Country findById(Integer id);
+
+    public Integer findIdByName(String countryName);
 }

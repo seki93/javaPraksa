@@ -11,4 +11,6 @@ public interface StadiumService {
     public void deleteById(Integer id);
 
     public void save(Stadium s);
+
+    public Integer findIdByName(String stadiumName);
 }

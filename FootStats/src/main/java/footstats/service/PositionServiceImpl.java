@@ -39,4 +39,9 @@ public class PositionServiceImpl implements  PositionService {
     public void save(Position p) {
         positionRepository.save(p);
     }
+
+    @Override
+    public Integer findByName(String positionName) {
+        return positionRepository.findByName(positionName);
+    }
 }

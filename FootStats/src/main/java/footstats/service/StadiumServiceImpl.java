@@ -41,4 +41,8 @@ public class StadiumServiceImpl implements  StadiumService{
     public void save(Stadium s) {
         stadiumRepository.save(s);
     }
+
+    public Integer findIdByName(String stadiumName) {
+        return stadiumRepository.findIdByName(stadiumName);
+    }
 }

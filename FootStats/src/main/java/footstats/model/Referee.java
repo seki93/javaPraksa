@@ -1,30 +1,23 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
-public class Referee {
+public class Referee extends Person{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer numberOfLicence;
 
-    @OneToOne
-    private Person person;
-
-    public Integer getId() {
-        return id;
+    public Referee( String firstName, String lastName, Date dateOfBirth, City cityOfBirth, Integer numberOfLicence) {
+        super(firstName, lastName, dateOfBirth, cityOfBirth);
+        this.numberOfLicence = numberOfLicence;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getNumberOfLicence() {
+        return numberOfLicence;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setNumberOfLicence(Integer numberOfLicence) {
+        this.numberOfLicence = numberOfLicence;
     }
 }

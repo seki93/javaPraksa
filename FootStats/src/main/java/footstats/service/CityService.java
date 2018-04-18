@@ -11,4 +11,6 @@ public interface CityService {
     public void deleteById(Integer id);
 
     public void save(City c);
+
+    public Integer findIdByName(String cityName);
 }

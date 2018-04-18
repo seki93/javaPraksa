@@ -39,4 +39,9 @@ public class CityServiceImpl implements CityService {
     public void save(City c) {
         cityRepository.save(c);
     }
+
+    @Override
+    public Integer findIdByName(String cityName) {
+        return cityRepository.findIdByName(cityName);
+    }
 }

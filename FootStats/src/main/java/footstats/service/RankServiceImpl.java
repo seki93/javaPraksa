@@ -39,4 +39,9 @@ public class RankServiceImpl implements RankService {
     public void save(Rank r) {
         rankRepository.save(r);
     }
+
+    @Override
+    public Integer findIdByName(String rankName) {
+        return rankRepository.findIdByName(rankName);
+    }
 }

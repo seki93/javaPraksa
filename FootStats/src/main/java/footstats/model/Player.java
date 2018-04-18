@@ -1,16 +1,10 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
-public class Player {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @OneToOne
-    private Person person;
+public class Player extends  Person{
 
     @OneToOne
     private Position position;
@@ -19,27 +13,14 @@ public class Player {
     private Club club;
 
     @OneToOne
-    @JoinColumn(name = "playerstats_id")
-    private PlayerStats playerStats;
-
-    @OneToOne
     @JoinColumn(name = "nationalteam_id")
     private NationalTeam nationalTeam;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
+    public Player(String firstName, String lastName, Date dateOfBirth, City cityOfBirth, Position position, Club club, NationalTeam nationalTeam) {
+        super(firstName, lastName, dateOfBirth, cityOfBirth);
+        this.position = position;
+        this.club = club;
+        this.nationalTeam = nationalTeam;
     }
 
     public Position getPosition() {
@@ -56,14 +37,6 @@ public class Player {
 
     public void setClub(Club club) {
         this.club = club;
-    }
-
-    public PlayerStats getPlayerStats() {
-        return playerStats;
-    }
-
-    public void setPlayerStats(PlayerStats playerStats) {
-        this.playerStats = playerStats;
     }
 
     public NationalTeam getNationalTeam() {

@@ -1,15 +1,12 @@
 package footstats.controllers;
 
-import footstats.model.City;
-import footstats.model.Country;
-import footstats.model.Person;
 import footstats.model.Referee;
 import footstats.service.CityService;
-import footstats.service.CountryService;
 import footstats.service.PersonService;
 import footstats.service.RefereeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.sql.Date;
 
 @RestController
 @RequestMapping(path = "/referee")
@@ -21,20 +18,25 @@ public class RefereeController {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private CityService cityService;
+
     @GetMapping(path = "/all")
     public Iterable<Referee> findAll(){
         return refereeService.findAll();
     }
 
     @PostMapping(path = "/add")
-    public String addReferee(@RequestParam Integer id){
-        Referee r = new Referee();
-        Person p = new Person();
+    public String addReferee(@RequestParam String firstName,
+                             @RequestParam String lastName,
+                             @RequestParam Date dateOfBirth,
+                             @RequestParam String cityName,
+                             @RequestParam Integer numberOfLicense) {
+        Referee referee = new Referee(firstName, lastName, dateOfBirth,
+                cityService.findById(cityService.findByName(cityName)),
+                numberOfLicense);
 
-        p.setId(id);
-
-        r.setPerson(p);
-        refereeService.save(r);
+        refereeService.save(referee);
 
         return "Saved new referee";
     }

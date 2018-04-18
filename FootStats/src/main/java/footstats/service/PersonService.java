@@ -11,4 +11,6 @@ public interface PersonService {
     public Iterable<Person> findAll();
 
     public Person findById(Integer id);
+
+    public Integer findByName(String firstName, String lastName);
 }

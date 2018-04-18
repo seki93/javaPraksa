@@ -47,4 +47,9 @@ public class NationalTeamServiceImp implements NationalTeamService  {
             return null;
         }
     }
+
+    @Override
+    public Integer findIdByName(String nationalTeamName) {
+        return nationalTeamRepository.findIdByName(nationalTeamName);
+    }
 }

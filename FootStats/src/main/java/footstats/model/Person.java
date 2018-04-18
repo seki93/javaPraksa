@@ -23,6 +23,13 @@ public class Person {
     @JoinColumn(name = "cityofbirth_id")
     private City cityOfBirth;
 
+    public Person(String firstName, String lastName, Date dateOfBirth, City cityOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.cityOfBirth = cityOfBirth;
+    }
+
     public Integer getId() {
         return id;
     }

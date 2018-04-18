@@ -12,4 +12,6 @@ public interface RankService {
 
     public void save(Rank r);
 
+    public Integer findIdByName(String rankName);
+
 }

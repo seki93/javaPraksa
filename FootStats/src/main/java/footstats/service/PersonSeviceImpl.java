@@ -50,4 +50,9 @@ public class PersonSeviceImpl implements PersonService {
             return null;
         }
     }
+
+    @Override
+    public Integer findByName(String firstName, String lastName) {
+        return personRepository.findByName(firstName, lastName);
+    }
 }

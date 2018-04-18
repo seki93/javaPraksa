@@ -8,4 +8,6 @@ public interface CompetitionService {
     public void save (Competition competition);
     public Iterable<Competition> findAll();
     public Competition findById(Integer id);
+
+    public Integer findIdByName(String competitionName);
 }

@@ -11,4 +11,6 @@ public interface ClubService {
     public Iterable<Club> findAll();
 
     public Club findById(Integer id);
+
+    public Integer findIdByName(String clubName);
 }

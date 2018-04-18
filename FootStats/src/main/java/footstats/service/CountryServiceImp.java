@@ -48,4 +48,9 @@ public class CountryServiceImp implements CountryService {
             return null;
         }
     }
+
+    @Override
+    public Integer findIdByName(String countryName) {
+        return countryRepository.findIdByName(countryName);
+    }
 }

@@ -11,4 +11,6 @@ public interface PositionService {
     public void deleteById(Integer id);
 
     public void save(Position p);
+
+    public Integer findByName(String positionName);
 }

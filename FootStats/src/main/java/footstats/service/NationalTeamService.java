@@ -7,4 +7,6 @@ public interface NationalTeamService {
     public void save(NationalTeam nationalTeam);
     public Iterable<NationalTeam> findAll();
     public NationalTeam findById(Integer id);
+
+    public Integer findIdByName(String nationalTeamName);
 }
