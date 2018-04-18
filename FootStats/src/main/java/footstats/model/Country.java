@@ -1,9 +1,6 @@
 package footstats.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Country {
@@ -13,6 +10,8 @@ public class Country {
     private Integer id;
 
     private String name;
+
+    private String countryCode;
 
     public Integer getId() {
         return id;
@@ -29,4 +28,13 @@ public class Country {
     public String getName() {
         return name;
     }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
 }

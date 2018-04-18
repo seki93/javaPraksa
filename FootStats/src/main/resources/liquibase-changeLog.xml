@@ -210,4 +210,12 @@
     <changeSet author="rajko.jegdic (generated)" id="1524043055147-35">
         <addForeignKeyConstraint baseColumnNames="stadium_id" baseTableName="Club" constraintName="FK_s4it79fie4hr2yopdet1icinw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Stadium"/>
     </changeSet>
+
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-1">
+        <addColumn schemaName="footstats"
+                   tableName="country">
+            <column name="countrycodes" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

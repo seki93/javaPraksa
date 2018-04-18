@@ -18,9 +18,11 @@ public class CountryController {
     }
 
     @PostMapping(path = "/add")
-    public String addNewCountry(@RequestParam String name){
+    public String addNewCountry(@RequestParam String name,
+                                @RequestParam String countryCode){
         Country c = new Country();
         c.setName(name);
+        c.setCountryCode(countryCode);
         countryService.save(c);
         return "Added Country";
     }
@@ -35,10 +37,16 @@ public class CountryController {
 
     @PostMapping(path = "/update")
     public String updateCountry(@RequestParam Integer id,
-                                @RequestParam String name){
+                                @RequestParam(required = false) String name,
+                                @RequestParam(required = false) String countryCode){
         Country c = new Country();
         if (c.getId() == id){
-            c.setName(name);
+           if ( name != null) {
+               c.setName(name);
+           }
+           if ( countryCode != null){
+               c.setCountryCode(countryCode);
+           }
 
             countryService.save(c);
             return "Updated Country";

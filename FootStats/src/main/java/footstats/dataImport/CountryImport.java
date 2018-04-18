@@ -19,37 +19,39 @@ public class CountryImport {
         WebDriver driver= new ChromeDriver();
 
         driver.manage().window().maximize();
-        String url = "https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_country";
+        String url = "https://country-code.cl/";
         driver.navigate().to(url);
         ArrayList<String> countries = new ArrayList<String>();
+        ArrayList<String> countryCodes = new ArrayList<>();
         countries.add("International");
-        for (int i = 1; i < 79; i++){
-            if (i == 76){
-                countries.add("England");
-                countries.add("Northern Ireland");
-                countries.add("Scotland");
-                countries.add("Wales");
-            } else {
-                String a = driver.findElement(By.xpath("//*[@id=\"toc\"]/ul/li[" + i + "]/a/span[2]")).getText();
+        countryCodes.add("INT");
+
+
+        for (int i = 0; i < 249; i++){
+
+                String a = driver.findElement(By.xpath("//*[@id=\"row"+i+"\"]/td[3]/span[3]")).getText();
+                String b = driver.findElement(By.xpath("//*[@id=\"row"+i+"\"]/td[5]")).getText();
                 countries.add(a);
-            }
+                countryCodes.add(b);
         }
         driver.close();
         driver.quit();
         System.out.println(countries);
+        System.out.println(countryCodes);
 
         try {
             String myUrl = "jdbc:mysql://localhost:3306/footstats";
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(myUrl, "root", "root");
 
-            String query = " Insert into country (name) values(?)";
+            String query = " Insert into country (name, countrycodes) values(?,?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             conn.setAutoCommit(false);
 
-            for(String s: countries){
-                preparedStmt.setString(1, s);
+            for(int i = 0; i < countries.size(); i++){
+                preparedStmt.setString(1, countries.get(i));
+                preparedStmt.setString(2, countryCodes.get(i));
                 preparedStmt.addBatch();
             }
             preparedStmt.executeBatch();
@@ -63,3 +65,12 @@ public class CountryImport {
 
     }
 }
+
+
+//*[@id="row0"]/td[3]/span[3]    //*[@id="row0"]/td[5]
+                                 //*[@id="row1"]/td[5]
+//*[@id="row1"]/td[3]/span[3]
+//*[@id="row2"]/td[3]/span[3]
+//*[@id="row17"]/td[3]/span[3]
+
+//*[@id="row248"]/td[3]/span[3]   //*[@id="row248"]/td[5]
