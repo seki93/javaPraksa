@@ -93,29 +93,40 @@ public class CityImport {
         String url3 = "https://population.mongabay.com/population/spain/";
         driver.get(url3);
 
-        for(int i = 1; i <=  179; i++){
+        for(int i = 1; i <=  569; i++){
             spainCities.add(driver.findElement(By.xpath("//*[@id=\"myTable\"]/tbody/tr["+i+"]/td[1]/a")).getText());
         }
 
         //GERMANY CITIES
-        String url4 = "http://www.citymayors.com/gratis/german_topcities.html";
+        String url4 = "https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Germany";
         driver.get(url4);
 
-        for(int i = 2; i <= 101; i++){
-            germanyCities.add(driver.findElement(By.xpath("/html/body/table/tbody/tr/td[3]/table/tbody/tr["+i+"]/td[2]")).getText());
+        List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table[25]/tbody/td"));
+        rows = driver.findElements(By.xpath(" //*[@id=\"mw-content-text\"]/div/table[25]/tbody/tr[2]/td[1]/ul/li"));
+
+        for(int i = 1; i <= 25; i++){
+            for(int j = 1; j <=3 ; j++){
+                rows = driver.findElements(By.xpath(" //*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr[2]/td["+j+"]/ul/li"));
+                for(int k = 1; k<= rows.size(); k++){
+                    germanyCities.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr[2]/td["+j+"]/ul/li["+k+"]/a")).getText());
+                }
+            }
         }
 
         //FRANCE CITIES
         String url5 = "https://simple.wikipedia.org/wiki/List_of_cities_in_France";
         driver.get(url5);
 
-        for(int i = 1; i <= 122; i++){
+        for(int i = 1; i <= 434; i++){
             franceCities.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr["+i+"]/td[1]")).getText());
         }
-        System.out.println(franceCities);
+
 
         driver.close();
         driver.quit();
+
+        System.out.println(germanyCities.size());
+        System.out.println(germanyCities);
 
         try {
 
