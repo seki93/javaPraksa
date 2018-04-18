@@ -11,4 +11,6 @@ public interface RefereeService {
     public void deleteById(Integer id);
 
     public void save(Referee r);
+
+    public Integer findIdByName(String refereeFirstName, String refereeLastName);
 }

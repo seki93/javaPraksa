@@ -23,14 +23,10 @@ public class PersonController {
     public String addNewPerson(@RequestParam Date date,
                                @RequestParam String firstName,
                                @RequestParam String lastName,
-                               @RequestParam Integer city_id){
+                               @RequestParam String cityName){
 
-        Person person = new Person();
-        person.setDateOfBirth(date);
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        City city = cityService.findById(city_id);
-        person.setCityOfBirth(city);
+        Person person = new Person(firstName, lastName, date,
+                cityService.findById(cityService.findIdByName(cityName)));
 
         personService.save(person);
         return "Person saved";

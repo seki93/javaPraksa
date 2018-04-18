@@ -68,7 +68,8 @@ public class GameController {
     public String updateGame(@RequestParam Integer id,
                               @RequestParam(required = false) Integer id_homeclub,
                               @RequestParam(required = false) Integer id_awayclub,
-                              @RequestParam(required = false) Integer id_referee,
+                              @RequestParam(required = false) String refereeFirstName,
+                             @RequestParam(required = false) String refereeLastName,
                               @RequestParam(required = false) Integer id_matchstats){
         Game g = gameService.findById(id);
         if(g.getId() == id){
@@ -82,9 +83,8 @@ public class GameController {
                 c2 = clubService.findById(id_awayclub);
                 g.setAwayClub(c2);
             }
-            if(id_referee != null){
-                Referee ref = new Referee();
-                ref = refereeService.findById(id_referee);
+            if(refereeFirstName != null && refereeLastName != null){
+                Referee ref = refereeService.findById(refereeService.findIdByName(refereeFirstName, refereeLastName));
                 g.setReferee(ref);
             }
             if(id_matchstats != null){

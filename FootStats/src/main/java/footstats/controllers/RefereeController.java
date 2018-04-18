@@ -33,7 +33,7 @@ public class RefereeController {
                              @RequestParam String cityName,
                              @RequestParam Integer numberOfLicense) {
         Referee referee = new Referee(firstName, lastName, dateOfBirth,
-                cityService.findById(cityService.findByName(cityName)),
+                cityService.findById(cityService.findIdByName(cityName)),
                 numberOfLicense);
 
         refereeService.save(referee);

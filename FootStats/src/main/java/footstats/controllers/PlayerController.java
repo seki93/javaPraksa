@@ -42,10 +42,10 @@ public class PlayerController {
                                @RequestParam String  positionName){
 
         Player player = new Player(firstName, lastName, dateOfBirth,
-                cityService.findById(cityService.findByName(cityName)),
+                cityService.findById(cityService.findIdByName(cityName)),
                 positionService.findById(positionService.findByName(positionName)),
-                clubService.findById(clubService.findByName(clubName)),
-                nationalTeamService.findById(nationalTeamService.findByName(nationalTeamName))
+                clubService.findById(clubService.findIdByName(clubName)),
+                nationalTeamService.findById(nationalTeamService.findIdByName(nationalTeamName))
                 );
 
         playerService.save(player);
