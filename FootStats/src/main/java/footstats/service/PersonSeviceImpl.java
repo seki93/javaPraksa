@@ -51,8 +51,8 @@ public class PersonSeviceImpl implements PersonService {
         }
     }
 
-    @Override
-    public Integer findByName(String firstName, String lastName) {
-        return personRepository.findByName(firstName, lastName);
-    }
+//    @Override
+//    public Integer findByName(String firstName, String lastName) {
+//        return personRepository.findByName(firstName, lastName);
+//    }
 }

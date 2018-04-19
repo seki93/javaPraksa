@@ -49,7 +49,7 @@ public class NationalTeamServiceImp implements NationalTeamService  {
     }
 
     @Override
-    public Integer findIdByName(String nationalTeamName) {
-        return nationalTeamRepository.findIdByName(nationalTeamName);
+    public NationalTeam findByName(String nationalTeamName) {
+        return nationalTeamRepository.findByName(nationalTeamName);
     }
 }

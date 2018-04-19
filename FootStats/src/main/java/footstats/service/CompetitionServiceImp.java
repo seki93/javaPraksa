@@ -50,7 +50,7 @@ public class CompetitionServiceImp implements CompetitionService {
     }
 
     @Override
-    public Integer findIdByName(String competitionName) {
-        return competitionRepository.findIdByName(competitionName);
+    public Competition findByName(String competitionName) {
+        return competitionRepository.findByName(competitionName);
     }
 }

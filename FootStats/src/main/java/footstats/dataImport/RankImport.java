@@ -1,36 +1,25 @@
 package footstats.dataImport;
 
-import java.sql.*;
+import footstats.model.Rank;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RankImport {
 
-    private static void insertToDB() {
+    final static Logger log = Logger.getLogger(StadiumImport.class);
+
+    public static void importRanks() throws InterruptedException{
         try {
-
-            String myUrl = "jdbc:mysql://localhost:3306/footstats";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-
-            String query = " Insert into rank (name) values(?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-
             int i = 1;
             while(i <= 5) {
-                preparedStmt.setString(1, "" + i);
-                preparedStmt.execute();
+                Rank rank = new Rank();
+                rank.setName(i + "");
                 i++;
             }
-
-            conn.close();
         } catch (Exception e) {
-            System.out.println("Got an exception!");
-            System.out.println(e.getMessage());
+            log.debug("Got an exception!");
+            log.debug(e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        insertToDB();
-    }
-
 }

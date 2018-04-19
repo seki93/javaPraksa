@@ -11,6 +11,7 @@ public class Country {
 
     private String name;
 
+    @Column(name = "countrycodes")
     private String countryCode;
 
     public Integer getId() {

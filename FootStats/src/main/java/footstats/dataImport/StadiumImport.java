@@ -1,38 +1,31 @@
 package footstats.dataImport;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import footstats.model.Stadium;
+import footstats.service.StadiumService;
 import org.apache.log4j.Logger;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.events.WebDriverEventListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
-/**
- * Created by Djordje.Ivanovic on 12/01/2015.
- */
+@Service
 public class StadiumImport {
 
     final static Logger log = Logger.getLogger(StadiumImport.class);
 
     private ArrayList<String> stadiums = new ArrayList<String>();
 
-    @Test
-    public void simpleChromeDrivertest() throws InterruptedException{
+    @Autowired
+    StadiumService stadiumService;
+
+    public void importStadiums() throws InterruptedException{
         System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         WebDriver driver= new ChromeDriver();
         log.debug("Opening browser");
@@ -55,40 +48,19 @@ public class StadiumImport {
             }
         }
 
-        for(String a: stadiums){
-            System.out.println(a);
-        }
-
         driver.close();
         driver.quit();
 
-        System.out.println("UKUPNO STADIONA: "+stadiums.size());
+         try {
+             for(String s: stadiums) {
+                 Stadium stadium = new Stadium();
+                 stadium.setName(s);
+                 stadiumService.save(stadium);
+             }
+         } catch (Exception e) {
+             log.debug("Got an exception!");
+             log.debug(e.getMessage());
+         }
 
-        try {
-
-            String myUrl = "jdbc:mysql://localhost:3306/footstats";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-
-            String query = " Insert into stadium (name) values(?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            conn.setAutoCommit(false);
-
-
-            for(String s: stadiums){
-                preparedStmt.setString(1, s);
-                preparedStmt.addBatch();
-            }
-            preparedStmt.executeBatch();
-            conn.commit();
-
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Got an exception!");
-            System.out.println(e.getMessage());
-        }
     }
-
-
 }

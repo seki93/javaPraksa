@@ -6,9 +6,9 @@ import javax.persistence.*;
 @Table(name = "playerstats")
 public class PlayerStats {
 
-    @OneToOne
-    @JoinColumn(table="player", referencedColumnName = "id")
-    private Integer playerId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     private Integer goals;
 
@@ -19,6 +19,14 @@ public class PlayerStats {
     private Integer cards;
 
     private Integer passes;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getGoals() {
         return goals;

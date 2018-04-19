@@ -40,8 +40,8 @@ public class RefereeServiceImpl implements RefereeService {
         refereeRepository.save(r);
     }
 
-    @Override
-    public Integer findIdByName(String refereeFirstName, String refereeLastName) {
-        return refereeRepository.findIdbyName(refereeFirstName, refereeLastName);
-    }
+//    @Override
+//    public Integer findIdByName(String refereeFirstName, String refereeLastName) {
+//        return refereeRepository.findIdbyName(refereeFirstName, refereeLastName);
+//    }
 }

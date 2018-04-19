@@ -41,7 +41,7 @@ public class PositionServiceImpl implements  PositionService {
     }
 
     @Override
-    public Integer findByName(String positionName) {
+    public Position findByName(String positionName) {
         return positionRepository.findByName(positionName);
     }
 }

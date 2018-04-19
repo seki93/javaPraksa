@@ -9,5 +9,5 @@ public interface CompetitionService {
     public Iterable<Competition> findAll();
     public Competition findById(Integer id);
 
-    public Integer findIdByName(String competitionName);
+    public Competition findByName(String competitionName);
 }

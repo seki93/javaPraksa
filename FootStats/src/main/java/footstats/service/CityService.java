@@ -12,5 +12,5 @@ public interface CityService {
 
     public void save(City c);
 
-    public Integer findIdByName(String cityName);
+    public City findByName(String cityName);
 }

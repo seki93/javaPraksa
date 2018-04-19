@@ -10,7 +10,6 @@ public interface CompetitionRepository extends CrudRepository<Competition, Integ
 
     public void deleteById(Integer id);
 
-    @Query("select id from competition c where c.name = ?1")
-    public Integer findIdByName(String competitionName);
+    public Competition findByName(String competitionName);
 
 }

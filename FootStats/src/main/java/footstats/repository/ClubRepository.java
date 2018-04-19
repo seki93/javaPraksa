@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClubRepository extends CrudRepository<Club, Integer> {
 
-    @Query("select id from club c where c.name = ?1")
-    public Integer findIdByName(String clubName);
+//    @Query("select id from club c where c.name = ?1")
+//    public Integer findIdByName(String clubName);
 }

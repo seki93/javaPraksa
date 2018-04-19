@@ -84,8 +84,8 @@ public class GameController {
                 g.setAwayClub(c2);
             }
             if(refereeFirstName != null && refereeLastName != null){
-                Referee ref = refereeService.findById(refereeService.findIdByName(refereeFirstName, refereeLastName));
-                g.setReferee(ref);
+//                Referee ref = refereeService.findById(refereeService.findIdByName(refereeFirstName, refereeLastName));
+//                g.setReferee(ref);
             }
             if(id_matchstats != null){
                 MatchStats ms = new MatchStats();

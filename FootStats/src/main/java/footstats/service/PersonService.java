@@ -12,5 +12,5 @@ public interface PersonService {
 
     public Person findById(Integer id);
 
-    public Integer findByName(String firstName, String lastName);
+//    public Integer findByName(String firstName, String lastName);
 }

@@ -12,5 +12,5 @@ public interface StadiumService {
 
     public void save(Stadium s);
 
-    public Integer findIdByName(String stadiumName);
+    public Stadium findByName(String stadiumName);
 }

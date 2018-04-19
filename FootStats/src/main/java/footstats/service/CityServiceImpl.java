@@ -41,7 +41,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public Integer findIdByName(String cityName) {
-        return cityRepository.findIdByName(cityName);
+    public City findByName(String cityName) {
+        return cityRepository.findByName(cityName);
     }
 }

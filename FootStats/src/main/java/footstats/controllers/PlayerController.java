@@ -41,14 +41,13 @@ public class PlayerController {
                                @RequestParam String nationalTeamName,
                                @RequestParam String  positionName){
 
-        Player player = new Player(firstName, lastName, dateOfBirth,
-                cityService.findById(cityService.findIdByName(cityName)),
-                positionService.findById(positionService.findByName(positionName)),
-                clubService.findById(clubService.findIdByName(clubName)),
-                nationalTeamService.findById(nationalTeamService.findIdByName(nationalTeamName))
-                );
-
-        playerService.save(player);
+//        Player player = new Player(firstName, lastName, dateOfBirth, cityService.findByName(cityName),
+//                positionService.findById(positionService.findByName(positionName)),
+//                clubService.findById(clubService.findIdByName(clubName)),
+//                nationalTeamService.findById(nationalTeamService.findIdByName(nationalTeamName))
+//                );
+//
+//        playerService.save(player);
         return "Player saved";
 
     }

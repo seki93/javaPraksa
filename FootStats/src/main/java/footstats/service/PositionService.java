@@ -12,5 +12,5 @@ public interface PositionService {
 
     public void save(Position p);
 
-    public Integer findByName(String positionName);
+    public Position findByName(String positionName);
 }

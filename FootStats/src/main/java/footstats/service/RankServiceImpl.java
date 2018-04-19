@@ -41,7 +41,7 @@ public class RankServiceImpl implements RankService {
     }
 
     @Override
-    public Integer findIdByName(String rankName) {
-        return rankRepository.findIdByName(rankName);
+    public Rank findByName(String rankName) {
+        return rankRepository.findByName(rankName);
     }
 }

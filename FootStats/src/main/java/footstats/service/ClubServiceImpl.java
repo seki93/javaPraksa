@@ -51,8 +51,8 @@ public class ClubServiceImpl implements ClubService {
         }
     }
 
-    @Override
-    public Integer findIdByName(String clubName) {
-        return clubRepository.findIdByName(clubName);
-    }
+//    @Override
+//    public Integer findIdByName(String clubName) {
+//        return clubRepository.findIdByName(clubName);
+//    }
 }

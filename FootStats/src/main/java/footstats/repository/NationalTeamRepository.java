@@ -1,6 +1,7 @@
 package footstats.repository;
 
 import footstats.model.NationalTeam;
+import jdk.nashorn.internal.objects.NativeArguments;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,5 @@ public interface NationalTeamRepository extends CrudRepository<NationalTeam, Int
 
     public void deleteById(Integer id);
 
-    @Query("select id from nationalteam nt where nt.name = ?1")
-    public Integer findIdByName(String nationalTeamNme);
+    public NationalTeam findByName(String nationalTeamNme);
 }

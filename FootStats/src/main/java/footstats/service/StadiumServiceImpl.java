@@ -42,7 +42,10 @@ public class StadiumServiceImpl implements  StadiumService{
         stadiumRepository.save(s);
     }
 
-    public Integer findIdByName(String stadiumName) {
-        return stadiumRepository.findIdByName(stadiumName);
+    @Override
+    public Stadium findByName(String stadiumName) {
+        return stadiumRepository.findByName(stadiumName);
     }
+
+
 }

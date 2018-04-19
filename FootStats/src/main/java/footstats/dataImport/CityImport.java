@@ -1,71 +1,47 @@
 package footstats.dataImport;
 
+import footstats.model.City;
+import footstats.model.Country;
+import footstats.service.CityService;
+import footstats.service.CountryService;
 import org.apache.log4j.Logger;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CityImport {
 
-
     final static Logger log = Logger.getLogger(StadiumImport.class);
+    public static final String ENG_CODE = "England";
+    public static final String FRN_CODE = "France";
+    public static final String ITL_CODE = "Italy";
+    public static final String GER_CODE = "Germany";
+    public static final String SPA_CODE = "Spain";
 
     private ArrayList<String> englandCities = new ArrayList<String>();
     private ArrayList<String> italyCities = new ArrayList<String>();
     private ArrayList<String> spainCities = new ArrayList<String>();
     private ArrayList<String> germanyCities = new ArrayList<String>();
     private ArrayList<String> franceCities = new ArrayList<String>();
-    private Integer id;
-    private Integer idEngland;
-    private Integer idFrance;
-    private Integer idSpain;
-    private Integer idGermany;
-    private Integer idItaly;
     private static String citiesString = "";
 
-    @Test
-    public void simpleChromeDrivertest() throws InterruptedException{
+    @Autowired
+    CountryService countryService;
+    @Autowired
+    CityService cityService;
+
+    public void importCities() throws InterruptedException{
         System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         WebDriver driver= new ChromeDriver();
         log.debug("Opening browser");
         driver.manage().window().maximize();
-
-        try {
-
-            String myUrl = "jdbc:mysql://localhost:3306/footstats";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-
-            String queryIdCountry = " SELECT * FROM footstats.country where name IN ('England', 'Spain', 'Italy', 'Germany', 'France')";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(queryIdCountry);
-
-            ResultSet rs = preparedStmt.executeQuery();
-
-            while(rs.next()){
-                id = rs.getInt("id");
-                String a = rs.getString("Name");
-                System.out.println("Name: "+a+": "+id);
-                if(a.equals("England")) idEngland = id;
-                else if(a.equals("France")) idFrance = id;
-                else if(a.equals("Germany")) idGermany = id;
-                else if(a.equals("Spain")) idSpain = id;
-                else idItaly = id;
-            }
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Got an exception!");
-            System.out.println(e.getMessage());
-        }
 
         //ENGLAND CITIES
         String url = "https://simple.wikipedia.org/wiki/List_of_cities_and_towns_in_England";
@@ -121,64 +97,55 @@ public class CityImport {
             franceCities.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr["+i+"]/td[1]")).getText());
         }
 
-
         driver.close();
         driver.quit();
 
-        System.out.println(germanyCities.size());
-        System.out.println(germanyCities);
-
         try {
-
-            String myUrl = "jdbc:mysql://localhost:3306/footstats";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-
-            String query = " Insert into city (name, country_id) values(?,?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            conn.setAutoCommit(false);
-
-
+            Country england = countryService.findByName(ENG_CODE);
             for(String s: englandCities){
-                preparedStmt.setString(1, s);
-                preparedStmt.setInt(2, idEngland);
-                preparedStmt.addBatch();
+                City c = new City();
+                c.setName(s);
+                c.setCountry(england);
+                cityService.save(c);
             }
 
+            Country italy = countryService.findByName(ITL_CODE);
             for(String s: italyCities){
-                preparedStmt.setString(1, s);
-                preparedStmt.setInt(2, idItaly);
-                preparedStmt.addBatch();
+                City c = new City();
+                c.setName(s);
+                c.setCountry(italy);
+                cityService.save(c);
             }
 
-            for(String s: spainCities){
-                preparedStmt.setString(1, s);
-                preparedStmt.setInt(2, idSpain);
-                preparedStmt.addBatch();
-            }
-
+            Country germany = countryService.findByName(GER_CODE);
             for(String s: germanyCities){
-                preparedStmt.setString(1, s);
-                preparedStmt.setInt(2, idGermany);
-                preparedStmt.addBatch();
+                City c = new City();
+                c.setName(s);
+                c.setCountry(germany);
+                cityService.save(c);
             }
 
+            Country spain = countryService.findByName(SPA_CODE);
+            for(String s: spainCities){
+                City c = new City();
+                c.setName(s);
+                c.setCountry(spain);
+                cityService.save(c);
+            }
+
+            Country france = countryService.findByName(FRN_CODE);
             for(String s: franceCities){
-                preparedStmt.setString(1, s);
-                preparedStmt.setInt(2, idFrance);
-                preparedStmt.addBatch();
+                City c = new City();
+                c.setName(s);
+                c.setCountry(france);
+                cityService.save(c);
             }
-            preparedStmt.executeBatch();
-            conn.commit();
 
-            conn.close();
         } catch (Exception e) {
-            System.out.println("Got an exception!");
-            System.out.println(e.getMessage());
+            log.debug("Got an exception!");
+            log.debug(e.getMessage());
         }
 
     }
-
 
 }

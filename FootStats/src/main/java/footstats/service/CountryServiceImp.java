@@ -50,7 +50,12 @@ public class CountryServiceImp implements CountryService {
     }
 
     @Override
-    public Integer findIdByName(String countryName) {
-        return countryRepository.findIdByName(countryName);
+    public Country findIdByName(String countryName) {
+        return countryRepository.findByName(countryName);
+    }
+
+    @Override
+    public Country findByName(String countryName) {
+        return countryRepository.findByName(countryName);
     }
 }

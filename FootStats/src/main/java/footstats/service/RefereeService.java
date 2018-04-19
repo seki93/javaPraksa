@@ -12,5 +12,5 @@ public interface RefereeService {
 
     public void save(Referee r);
 
-    public Integer findIdByName(String refereeFirstName, String refereeLastName);
+//    public Integer findIdByName(String refereeFirstName, String refereeLastName);
 }

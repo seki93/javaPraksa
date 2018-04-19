@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StadiumRepository extends CrudRepository<Stadium, Integer> {
 
-    @Query("select id from stadium s where s.name = ?1")
-    public Integer findIdByName(String stadiumName);
+    public Stadium findByName(String stadiumName);
 }

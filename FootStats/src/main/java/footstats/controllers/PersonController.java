@@ -1,6 +1,5 @@
 package footstats.controllers;
 
-import footstats.model.City;
 import footstats.model.Person;
 import footstats.service.CityService;
 import footstats.service.PersonService;
@@ -26,7 +25,7 @@ public class PersonController {
                                @RequestParam String cityName){
 
         Person person = new Person(firstName, lastName, date,
-                cityService.findById(cityService.findIdByName(cityName)));
+                cityService.findByName(cityName));
 
         personService.save(person);
         return "Person saved";

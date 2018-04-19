@@ -8,5 +8,5 @@ public interface NationalTeamService {
     public Iterable<NationalTeam> findAll();
     public NationalTeam findById(Integer id);
 
-    public Integer findIdByName(String nationalTeamName);
+    public NationalTeam findByName(String nationalTeamName);
 }
