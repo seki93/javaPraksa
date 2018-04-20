@@ -27,20 +27,6 @@ public class CompetitionImport {
 
     final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SekiSelenijum.class);
 
-    private ArrayList<String> englandCompetitions = new ArrayList<>();
-    private ArrayList<String> germanyCompetitions = new ArrayList<>();
-    private ArrayList<String> italyCompetitions = new ArrayList<>();
-    private ArrayList<String> spainCompetitions = new ArrayList<>();
-    private ArrayList<String> franceCompetitions = new ArrayList<>();
-    private ArrayList<String> serbiaCompetitions = new ArrayList<>();
-    private ArrayList<String> internationalCompetitions = new ArrayList<>();
-
-    private ArrayList<String> ranks = new ArrayList<>();
-
-    private int id, idEngland, idGermany, idItaly, idSpain, idFrance, idSerbia, idInternational;
-
-    private int firstRank, secondRank, thirdRank, fourthRank, fifthRank;
-
     @Autowired
     CompetitionService competitionService;
 
@@ -63,13 +49,13 @@ public class CompetitionImport {
 
         try {
 
-            int i = 2;
+            /*int i = 2;
 
            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[1]/a")).getText() != null){
 
                Country england = countryService.findByName("England");
                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[2]")).getText().charAt(0)+"";
-               Rank rank = rankService.findByName(rankName + "-st");
+               Rank rank = rankService.findByName(rankName);
                if(rank == null) {
                    break;
                }
@@ -84,20 +70,114 @@ public class CompetitionImport {
                i++;
             }
 
-            /*while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[1]/a")).getText() != null){
+            int j = 2;
+
+            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr["+ j +"]/td[2]/a")).getText() != null) {
 
                 Country germany = countryService.findByName("Germany");
-                Rank rank = rankService.findByName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[2]")).getText().charAt(0)+"" );
+                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr[" + j + "]/td[3]")).getText().charAt(0) + "";
+                Rank rank = rankService.findByName(rankName);
+                if (rank == null) {
+                    break;
+                }
 
                 Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr[" + j + "]/td[2]/a")).getText());
                 competition.setCountry(germany);
                 competition.setRank(rank);
 
                 competitionService.save(competition);
 
-                i++;
+                j++;
+            }
+
+            int m = 2;
+
+            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr["+ m +"]/td[2]/a")).getText() != null){
+
+                Country spain = countryService.findByName("Spain");
+                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr["+ m +"]/td[3]")).getText().charAt(0)+"";
+                Rank rank = rankService.findByName(rankName);
+                if(rank == null) {
+                    break;
+                }
+
+                Competition competition = new Competition();
+                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr["+ m +"]/td[2]/a")).getText());
+                competition.setCountry(spain);
+                competition.setRank(rank);
+
+                competitionService.save(competition);
+
+                m++;
+            }
+
+            int n = 2;
+
+            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr["+ n +"]/td[1]/a")).getText() != null){
+
+                Country france = countryService.findByName("France");
+                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr["+ n +"]/td[2]")).getText().charAt(0)+"";
+                Rank rank = rankService.findByName(rankName);
+                if(rank == null) {
+                    break;
+                }
+
+                Competition competition = new Competition();
+                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr["+ n +"]/td[1]/a")).getText());
+                competition.setCountry(france);
+                competition.setRank(rank);
+
+                competitionService.save(competition);
+
+                n++;
+            }
+
+            int p = 2;
+
+            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ p +"]/td[2]/a")).getText() != null){
+
+                Country serbia = countryService.findByName("Serbia");
+                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[48]/tbody/tr["+ p +"]/td[2]")).getText().charAt(0)+"";
+                Rank rank = rankService.findByName(rankName);
+                if(rank == null) {
+                    break;
+                }
+
+                Competition competition = new Competition();
+                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ p +"]/td[2]/a")).getText());
+                competition.setCountry(serbia);
+                competition.setRank(rank);
+
+                competitionService.save(competition);
+
+                p++;
             }*/
+
+            String url1 = "https://en.wikipedia.org/wiki/Italian_football_league_system";
+            driver.get(url1);
+
+            int k = 3;
+
+            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[3]/tbody/tr["+ k +"]/td[2]/b/a")).getText() != null){
+
+                Country italy = countryService.findByName("Italy");
+                String rankName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[3]/tbody/tr["+ k +"]/td[1]")).getText();
+                Rank rank = rankService.findByName(rankName);
+                if(rank == null) {
+                    break;
+                }
+
+                Competition competition = new Competition();
+                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[3]/tbody/tr["+ k +"]/td[2]/b/a")).getText());
+                competition.setCountry(italy);
+                competition.setRank(rank);
+
+                competitionService.save(competition);
+
+                k++;
+            }
+
         } catch (Exception e) {
             System.out.println("Got an exception!");
             System.out.println(e.getMessage());
@@ -121,6 +201,7 @@ public class CompetitionImport {
 //*[@id="mw-content-text"]/div/table[38]/tbody/tr[2]/td[1]/a
 //*[@id="mw-content-text"]/div/table[39]/tbody/tr[3]/td[1]/a
 //*[@id="mw-content-text"]/div/table[39]/tbody/tr[2]/td[2]
+//*[@id="mw-content-text"]/div/ul[146]/li
 
 
 /* int i = 2;
@@ -137,3 +218,31 @@ while( driver.findElement(By.xpath("*[@id="mw-content-text"]/div/table[39]/tbody
 
 
         */
+
+//*[@id="mw-content-text"]/div/table[50]/tbody/tr[2]/td[2]/a
+
+//*[@id="mw-content-text"]/div/table[50]/tbody/tr[6]/td[2]/a
+
+//*[@id="mw-content-text"]/div/table[50]/tbody/tr[2]/td[3]
+
+//*[@id="mw-content-text"]/div/table[50]/tbody/tr[6]/td[3]
+
+//*[@id="mw-content-text"]/div/table[42]/tbody/tr[2]/td[2]/a
+
+//*[@id="mw-content-text"]/div/table[42]/tbody/tr[6]/td[2]/a
+
+//*[@id="mw-content-text"]/div/table[39]/tbody/tr[2]/td[1]/a
+
+//*[@id="mw-content-text"]/div/table[39]/tbody/tr[6]/td[1]/a
+
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[3]/td[2]/b/a
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[8]/td[2]/b/a
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[6]/td[2]/b
+
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[3]/td[1]
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[4]/td[1]
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[5]/td[1]
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[7]/td[1]
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[8]/td[1]
+
+//*[@id="mw-content-text"]/div/table[3]/tbody/tr[6]/td[1]
