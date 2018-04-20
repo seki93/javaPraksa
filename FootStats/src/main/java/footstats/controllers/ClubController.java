@@ -29,17 +29,23 @@ public class ClubController {
 
     @PostMapping(path = "/add")
     public String addNewClub(@RequestParam String name,
-                             @RequestParam Integer city_id,
-                             @RequestParam Integer competition_id,
-                             @RequestParam Integer stadium_id){
+                             @RequestParam String cityName,
+                             @RequestParam String competitionName,
+                             @RequestParam String stadiumName){
 
         Club club = new Club();
+        if(name == "" || name == null || name.isEmpty()) return "No name";
         club.setName(name);
-        City city = cityService.findById(city_id);
+        City city = cityService.findByName(cityName);
+        if(city == null) return "Wrong city";
         club.setCity(city);
-        Competition competition = competitionService.findById(competition_id);
+
+        Competition competition = competitionService.findByName(competitionName);
+        if(competition == null) return "No competition with that name";
         club.setCompetition(competition);
-        Stadium stadium = stadiumService.findById(stadium_id);
+
+        Stadium stadium = stadiumService.findByName(stadiumName);
+        if(stadium == null) return "No stadium with tath name";
         club.setStadium(stadium);
 
         clubService.save(club);
@@ -47,15 +53,15 @@ public class ClubController {
 
     }
 
-    @DeleteMapping(path = "/delete")
-    public String deleteClub(@RequestParam Integer id){
+    @PostMapping(path = "/delete")
+    public String deleteClub(@RequestParam String name){
+        Club c = clubService.findByName(name);
 
-        if(id == null){
-
+        if(c.getId() == null){
             return "Wrong club id";
         }
 
-        clubService.deleteById(id);
+        clubService.deleteById(c.getId());
         return "Club deleted";
     }
 

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/nationalteam")
+@RequestMapping(path = "/nationalTeam")
 public class NationalTeamController {
 
     @Autowired
@@ -29,16 +29,15 @@ public class NationalTeamController {
 
     @PostMapping(path = "/add")
     public String addNewNationalTeam(@RequestParam String name,
-                                     @RequestParam Integer id_country,
-                                     @RequestParam Integer id_competition){
+                                     @RequestParam String competitionName){
 
         NationalTeam nt = new NationalTeam();
         nt.setName(name);
 
-        Country country = countryService.findById(id_country);
+        Country country = countryService.findByName(name);
         nt.setCountry(country);
 
-        Competition comp = competitionService.findById(id_competition);
+        Competition comp = competitionService.findByName(competitionName);
         nt.setCompetition(comp);
 
         nationalTeamService.save(nt);
@@ -46,38 +45,28 @@ public class NationalTeamController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteNationalTeam(@RequestParam Integer id){
-        if (id == null){
+    public String deleteNationalTeam(@RequestParam String name){
+        NationalTeam nt = nationalTeamService.findByName(name);
+
+        if (nt.getId() == null){
             return "Wrong National Team ID";
         }
-        nationalTeamService.deleteById(id);
+        nationalTeamService.deleteById(nt.getId());
         return "Deleted National Team";
     }
 
     @PostMapping(path = "/update")
-    public String updateNationalTeam(@RequestParam Integer id,
-                                     @RequestParam(required = false) String name,
-                                     @RequestParam(required = false) Integer id_country,
-                                     @RequestParam(required = false) Integer id_competition){
+    public String updateNationalTeam(@RequestParam(required = false) String name,
+                                     @RequestParam(required = false) String competitionName){
 
-        NationalTeam nt = nationalTeamService.findById(id);
-        if (nt.getId() == id){
-            if (name != null){
-                nt.setName(name);
-            }
-            if (id_country != null){
-                Country country = new Country();
-                country = countryService.findById(id_country);
-                nt.setCountry(country);
-            }
-            if(id_competition != null){
-                Competition competition = new Competition();
-                competition = competitionService.findById(id_competition);
-                nt.setCompetition(competition);
-            }
-            nationalTeamService.save(nt);
-            return "Saved National Team";
+        NationalTeam nt = nationalTeamService.findByName(name);
+        Competition c = nt.getCompetition();
+        if(c.getName() != competitionName){
+            Competition competition = competitionService.findByName(competitionName);
+            nt.setCompetition(competition);
         }
-        return "Wrong National Team ID";
+            nationalTeamService.save(nt);
+
+        return "Saved National Team";
     }
 }

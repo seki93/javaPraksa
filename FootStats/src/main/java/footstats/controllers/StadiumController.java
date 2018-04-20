@@ -29,11 +29,13 @@ public class StadiumController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteStadium(@RequestParam Integer id){
+    public String deleteStadium(@RequestParam String name){
+        Stadium s = stadiumService.findByName(name);
 
-        if(id == null) return "Wrong id";
 
-        stadiumService.deleteById(id);
+        if(s.getId() == null) return "Wrong id";
+
+        stadiumService.deleteById(s.getId());
         return "Deleted stadium";
     }
 }

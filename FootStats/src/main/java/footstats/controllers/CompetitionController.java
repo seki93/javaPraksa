@@ -29,15 +29,16 @@ public class CompetitionController {
 
     @PostMapping(path = "/add")
     public String addNewCompetition(@RequestParam String name,
-                                    @RequestParam Integer id_rank,
-                                    @RequestParam Integer id_country){
+                                    @RequestParam String rankName,
+                                    @RequestParam String countryName){
 
         Competition c = new Competition();
         c.setName(name);
-        Rank r = rankService.findById(id_rank);
+
+        Rank r = rankService.findByName(rankName);
         c.setRank(r);
 
-        Country country = countryService.findById(id_country);
+        Country country = countryService.findByName(countryName);
         c.setCountry(country);
 
         competitionService.save(c);
@@ -45,40 +46,43 @@ public class CompetitionController {
         }
 
     @PostMapping(path = "/delete")
-    public String deleteCompetition(@RequestParam Integer id){
-        if (id == null)
+    public String deleteCompetition(@RequestParam String name){
+        Competition c = competitionService.findByName(name);
+
+        if (c.getId() == null)
             return " Wrong Competition ID";
 
-        competitionService.deleteById(id);
+        competitionService.deleteById(c.getId());
         return " Deleted Competition";
     }
 
     @PostMapping(path = "/update")
-    public String updateCompetition(@RequestParam Integer id,
-                                    @RequestParam(required = false) String name,
-                                    @RequestParam(required = false) Integer id_rank,
-                                    @RequestParam(required = false) Integer id_country){
+    public String updateCompetition(@RequestParam String name,
+                                    @RequestParam String rankName,
+                                    @RequestParam String countryName){
 
-        Competition c = competitionService.findById(id);
-        if(c.getId() == id){
-            if(name != null){
+        Competition c = competitionService.findByName(name);
+        Rank r = rankService.findByName(rankName);
+        Country country = countryService.findByName(countryName);
+        if(c.getId() != null){
+
+            if(c.getName() != name){
                 c.setName(name);
             }
-            if(id_rank != null){
-                Rank rank = new Rank();
-                rank = rankService.findById(id_rank);
-                c.setRank(rank);
+
+            if(c.getRank() != r){
+                c.setRank(r);
             }
-            if (id_country != null){
-                Country country = new Country();
-                country = countryService.findById(id_country);
+
+            if(c.getCountry() != country){
                 c.setCountry(country);
             }
+
             competitionService.save(c);
             return " Updated Competition ";
 
         }
-        return "Wrong Competition ID";
+        return "Wrong Competition name";
 
     }
 

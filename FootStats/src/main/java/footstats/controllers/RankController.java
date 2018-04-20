@@ -29,10 +29,12 @@ public class RankController {
     }
 
     @PostMapping(path = "/delete")
-    public String delete(@RequestParam Integer id){
-        if(id == null) return "Wrong id";
+    public String delete(@RequestParam String name){
+        Rank r = rankService.findByName(name);
 
-        rankService.deleteById(id);
+        if(r.getId() == null) return "Wrong id";
+
+        rankService.deleteById(r.getId());
         return "Deleted rank";
     }
 

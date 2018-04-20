@@ -23,23 +23,28 @@ public class CityController {
     }
 
     @PostMapping(path = "/add")
-    public String addCity(@RequestParam String name, @RequestParam Integer id_country){
+    public String addCity(@RequestParam String name,
+                          @RequestParam String countryName){
         City city = new City();
+        if(name == "" || name == null || name.isEmpty()) return "No city name";
         city.setName(name);
-        Country country = countryService.findById(id_country);
 
-        if(country == null) return "No country with that id";
+        Country country = countryService.findByName(countryName);
 
+        if(country == null) return "No country with that name";
         city.setCountry(country);
+
         cityService.save(city);
         return "Saved new city";
     }
 
     @PostMapping(path = "/delete")
-    public String delete(@RequestParam Integer id){
-        if(id == null) return "Wrong id";
+    public String delete(@RequestParam String name){
+        City c = cityService.findByName(name);
 
-        cityService.deleteById(id);
+        if(c.getId() == null) return "Wrong name";
+
+        cityService.deleteById(c.getId());
         return "Deleted city";
     }
 }

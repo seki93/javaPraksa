@@ -28,29 +28,25 @@ public class CountryController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteCountry(@RequestParam Integer id){
-        if (id == null)
+    public String deleteCountry(@RequestParam String name){
+        Country c = countryService.findByName(name);
+
+        if (c.getId() == null)
             return "Wrong Country ID";
-        countryService.deleteById(id);
+        countryService.deleteById(c.getId());
         return "Deleted Country";
     }
 
     @PostMapping(path = "/update")
-    public String updateCountry(@RequestParam Integer id,
-                                @RequestParam(required = false) String name,
-                                @RequestParam(required = false) String countryCode){
-        Country c = new Country();
-        if (c.getId() == id){
-           if ( name != null) {
-               c.setName(name);
-           }
-           if ( countryCode != null){
-               c.setCountryCode(countryCode);
-           }
+    public String updateCountry(@RequestParam String name,
+                                @RequestParam String countryCode){
+        Country c = countryService.findByName(name);
 
+        if (c.getCountryCode() != countryCode){
+            c.setCountryCode(countryCode);
             countryService.save(c);
             return "Updated Country";
         }
-        return "Wrong Country ID";
+        return "Nothing to update";
     }
 }

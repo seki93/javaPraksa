@@ -3,6 +3,7 @@ package footstats.controllers;
 import footstats.model.Position;
 import footstats.repository.PositionRepository;
 import footstats.service.PositionService;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,12 @@ public class PositionController {
     }
 
     @PostMapping(path = "/delete")
-    public String deletePosition(@RequestParam Integer id){
-        if(id == null) return "Wrong id";
+    public String deletePosition(@RequestParam String name){
+        Position p = positionService.findByName(name);
 
-        positionService.deleteById(id);
+        if(p.getId() == null) return "Wrong id";
+
+        positionService.deleteById(p.getId());
         return "Deleted position";
     }
 }
