@@ -49,7 +49,7 @@ public class CompetitionImport {
 
         try {
 
-            /*int i = 2;
+            int i = 2;
 
            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr["+ i +"]/td[1]/a")).getText() != null){
 
@@ -152,7 +152,7 @@ public class CompetitionImport {
                 competitionService.save(competition);
 
                 p++;
-            }*/
+            }
 
             String url1 = "https://en.wikipedia.org/wiki/Italian_football_league_system";
             driver.get(url1);
@@ -192,57 +192,3 @@ public class CompetitionImport {
 
 
 
-//*[@id="England"]/a
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[1]/th[1]/span/a/img
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[1]/th[1]
-
-
-//*[@id="mw-content-text"]/div/table[]39/tbody/tr[2]/td[1]/a
-//*[@id="mw-content-text"]/div/table[38]/tbody/tr[2]/td[1]/a
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[3]/td[1]/a
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[2]/td[2]
-//*[@id="mw-content-text"]/div/ul[146]/li
-
-
-/* int i = 2;
-while( driver.findElement(By.xpath("*[@id="mw-content-text"]/div/table[39]/tbody/tr["+i+"]/td[1]/a")).getText() ) {
-        Country england = countryService.findByName("England");
-        Rank rank = rankService.findByName
-            driver.findElement(By.xpath("//*[@id="mw-content-text"]/div/table[39]/tbody/tr["+i+"]/td[2]")).getText().charAt(0)+"" );
-
-        Competition competition = new COmpetitoin();
-        competitoin.setCountry(england);
-        competitio.setRank(rank);
-        competitoin.setName(driver.findElement(By.xpath("//*[@id="mw-content-text"]/div/table[39]/tbody/tr["+i+"]/td[1]/a")).getText();
-        }
-
-
-        */
-
-//*[@id="mw-content-text"]/div/table[50]/tbody/tr[2]/td[2]/a
-
-//*[@id="mw-content-text"]/div/table[50]/tbody/tr[6]/td[2]/a
-
-//*[@id="mw-content-text"]/div/table[50]/tbody/tr[2]/td[3]
-
-//*[@id="mw-content-text"]/div/table[50]/tbody/tr[6]/td[3]
-
-//*[@id="mw-content-text"]/div/table[42]/tbody/tr[2]/td[2]/a
-
-//*[@id="mw-content-text"]/div/table[42]/tbody/tr[6]/td[2]/a
-
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[2]/td[1]/a
-
-//*[@id="mw-content-text"]/div/table[39]/tbody/tr[6]/td[1]/a
-
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[3]/td[2]/b/a
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[8]/td[2]/b/a
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[6]/td[2]/b
-
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[3]/td[1]
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[4]/td[1]
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[5]/td[1]
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[7]/td[1]
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[8]/td[1]
-
-//*[@id="mw-content-text"]/div/table[3]/tbody/tr[6]/td[1]
