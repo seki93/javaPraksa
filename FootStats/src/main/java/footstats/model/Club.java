@@ -20,6 +20,16 @@ public class Club {
     @OneToOne
     private Stadium stadium;
 
+    public Club(Integer id, String name, Competition competition, City city, Stadium stadium) {
+        this.id = id;
+        this.name = name;
+        this.competition = competition;
+        this.city = city;
+        this.stadium = stadium;
+    }
+
+    public Club() {};
+
     public Integer getId() {
         return id;
     }

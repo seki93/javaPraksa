@@ -30,6 +30,8 @@ public class Person {
         this.cityOfBirth = cityOfBirth;
     }
 
+    public Person() {};
+
     public Integer getId() {
         return id;
     }

@@ -25,6 +25,16 @@ public class Game {
     @JoinColumn(name = "referee_id")
     private Referee referee;
 
+    public Game(Integer id, Club awayClub, Club homeClub, MatchStats matchStats, Referee referee) {
+        this.id = id;
+        this.awayClub = awayClub;
+        this.homeClub = homeClub;
+        this.matchStats = matchStats;
+        this.referee = referee;
+    }
+
+    public Game() {};
+
     public Integer getId() {
         return id;
     }

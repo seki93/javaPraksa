@@ -11,6 +11,13 @@ public class Rank {
 
     private String name;
 
+    public Rank(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Rank() {};
+
     public Integer getId() {
         return id;
     }

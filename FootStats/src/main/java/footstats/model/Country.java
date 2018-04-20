@@ -14,6 +14,14 @@ public class Country {
     @Column(name = "countrycodes")
     private String countryCode;
 
+    public Country(Integer id, String name, String countryCode) {
+        this.id = id;
+        this.name = name;
+        this.countryCode = countryCode;
+    }
+
+    public Country() {};
+
     public Integer getId() {
         return id;
     }

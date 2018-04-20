@@ -11,6 +11,13 @@ public class Stadium {
 
     private String name;
 
+    public Stadium(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Stadium() {};
+
     public Integer getId() {
         return id;
     }

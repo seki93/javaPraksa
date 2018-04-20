@@ -23,6 +23,8 @@ public class Player extends  Person{
         this.nationalTeam = nationalTeam;
     }
 
+    public Player() {};
+
     public Position getPosition() {
         return position;
     }

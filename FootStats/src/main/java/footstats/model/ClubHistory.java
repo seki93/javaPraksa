@@ -13,6 +13,13 @@ public class ClubHistory {
     @ManyToOne
     private Player player;
 
+    public ClubHistory(Integer id, Player player) {
+        this.id = id;
+        this.player = player;
+    }
+
+    public ClubHistory() {};
+
     public Integer getId() {
         return id;
     }

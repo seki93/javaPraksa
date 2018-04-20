@@ -20,6 +20,17 @@ public class PlayerStats {
 
     private Integer passes;
 
+    public PlayerStats(Integer id, Integer goals, Integer assistance, Integer fouls, Integer cards, Integer passes) {
+        this.id = id;
+        this.goals = goals;
+        this.assistance = assistance;
+        this.fouls = fouls;
+        this.cards = cards;
+        this.passes = passes;
+    }
+
+    public PlayerStats() {};
+
     public Integer getId() {
         return id;
     }
