@@ -25,6 +25,18 @@ public class MatchStats {
 
     private Integer passes;
 
+    public MatchStats(Integer id, Integer assistance, Integer cards, Integer endResult, Integer fouls, Integer halfTimeResult, Integer passes) {
+        this.id = id;
+        this.assistance = assistance;
+        this.cards = cards;
+        this.endResult = endResult;
+        this.fouls = fouls;
+        this.halfTimeResult = halfTimeResult;
+        this.passes = passes;
+    }
+
+    public MatchStats() {};
+
     public Integer getId() {
         return id;
     }

@@ -20,6 +20,15 @@ public class Competition {
     @OneToOne
     private Country country;
 
+    public Competition(Integer id, String name, Rank rank, Country country) {
+        this.id = id;
+        this.name = name;
+        this.rank = rank;
+        this.country = country;
+    }
+
+    public Competition() {};
+
     public Integer getId() {
         return id;
     }

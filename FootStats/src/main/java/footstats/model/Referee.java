@@ -13,6 +13,8 @@ public class Referee extends Person{
         this.numberOfLicence = numberOfLicence;
     }
 
+    public Referee() {};
+
     public Integer getNumberOfLicence() {
         return numberOfLicence;
     }

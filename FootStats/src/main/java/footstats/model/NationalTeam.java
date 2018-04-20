@@ -18,6 +18,15 @@ public class NationalTeam {
     @ManyToOne
     private Competition competition;
 
+    public NationalTeam(Integer id, String name, Country country, Competition competition) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.competition = competition;
+    }
+
+    public NationalTeam() {};
+
     public Integer getId() {
         return id;
     }

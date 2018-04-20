@@ -1,5 +1,7 @@
 package footstats.model;
 
+import javafx.geometry.Pos;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,13 @@ public class Position {
     private Integer id;
 
     private String name;
+
+    public Position(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Position() {};
 
     public Integer getId() {
         return id;
