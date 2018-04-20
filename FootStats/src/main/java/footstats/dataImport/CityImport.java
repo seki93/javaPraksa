@@ -56,7 +56,7 @@ public class CityImport {
         String[] parts = citiesString.split(",");
         for(int i = 0; i < parts.length; i++){
             City c = new City();
-            c.setName(parts[i]);
+            c.setName(parts[i].trim());
             c.setCountry(england);
             cityService.save(c);
         }
