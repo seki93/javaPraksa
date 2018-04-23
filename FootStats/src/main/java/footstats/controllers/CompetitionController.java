@@ -2,10 +2,8 @@ package footstats.controllers;
 
 import footstats.model.Competition;
 import footstats.model.Country;
-import footstats.model.Rank;
 import footstats.service.CompetitionService;
 import footstats.service.CountryService;
-import footstats.service.RankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +15,6 @@ public class CompetitionController {
     CompetitionService competitionService;
 
     @Autowired
-    RankService rankService;
-
-    @Autowired
     CountryService countryService;
 
     @GetMapping(path = "/all")
@@ -29,14 +24,10 @@ public class CompetitionController {
 
     @PostMapping(path = "/add")
     public String addNewCompetition(@RequestParam String name,
-                                    @RequestParam String rankName,
                                     @RequestParam String countryName){
 
         Competition c = new Competition();
         c.setName(name);
-
-        Rank r = rankService.findByName(rankName);
-        c.setRank(r);
 
         Country country = countryService.findByName(countryName);
         c.setCountry(country);
@@ -58,20 +49,14 @@ public class CompetitionController {
 
     @PostMapping(path = "/update")
     public String updateCompetition(@RequestParam String name,
-                                    @RequestParam String rankName,
                                     @RequestParam String countryName){
 
         Competition c = competitionService.findByName(name);
-        Rank r = rankService.findByName(rankName);
         Country country = countryService.findByName(countryName);
         if(c.getId() != null){
 
             if(c.getName() != name){
                 c.setName(name);
-            }
-
-            if(c.getRank() != r){
-                c.setRank(r);
             }
 
             if(c.getCountry() != country){

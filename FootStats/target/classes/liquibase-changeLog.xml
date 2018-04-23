@@ -218,4 +218,20 @@
         </addColumn>
     </changeSet>
 
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-666">
+        <dropForeignKeyConstraint baseTableName="competition" constraintName="FK_hbjbk32o32lf7nrp0c5ionrak"/>
+        <dropTable cascadeConstraints="false"
+                   schemaName="footstats"
+                   tableName="rank"/>
+        <dropColumn
+                columnName="rank_id"
+                schemaName="footstats"
+                tableName="competition"/>
+
+        <addColumn schemaName="footstats"
+                   tableName="competition">
+            <column name="rank" type="INT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

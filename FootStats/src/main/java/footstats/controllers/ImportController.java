@@ -1,9 +1,6 @@
 package footstats.controllers;
 
 import footstats.dataImport.*;
-import footstats.model.Position;
-import footstats.model.Rank;
-import footstats.model.Stadium;
 import footstats.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +55,7 @@ public class ImportController {
         return "Success!";
     }
 
-    @GetMapping(path = "/competition")
+    /*@GetMapping(path = "/competition")
     public String importCompetitions() {
         try{
             competitionImport.importCompetitions();
@@ -67,7 +64,7 @@ public class ImportController {
         }
 
         return "Success!";
-    }
+    }*/
 
     @GetMapping(path = "/position")
     public String importPositions() {

@@ -1,8 +1,5 @@
 package footstats.model;
 
-import footstats.model.Country;
-import footstats.model.Rank;
-
 import javax.persistence.*;
 
 @Entity

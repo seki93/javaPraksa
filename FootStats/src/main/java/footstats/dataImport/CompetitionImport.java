@@ -1,31 +1,11 @@
 package footstats.dataImport;
 
-import footstats.model.Competition;
-import footstats.model.Country;
-import footstats.model.Rank;
-import footstats.service.CompetitionService;
-import footstats.service.CountryService;
-import footstats.service.RankService;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import static footstats.dataImport.CityImport.ENG_CODE;
 
 @Service
 public class CompetitionImport {
 
-    final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SekiSelenijum.class);
+    /*final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SekiSelenijum.class);
 
     @Autowired
     CompetitionService competitionService;
@@ -186,7 +166,7 @@ public class CompetitionImport {
         log.debug("Closing browser");
         driver.close();
         driver.quit();
-    }
+    }*/
 }
 
 
