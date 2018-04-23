@@ -1,77 +1,52 @@
 package footstats.dataImport;
 
-import org.junit.Test;
+import footstats.model.Country;
+import footstats.service.CountryService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 
 @Service
 public class CountryImport {
 
+    @Autowired
+    CountryService countryService;
+    final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CountryImport.class);
+
     public void importCountries() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriver driver= new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
 
         driver.manage().window().maximize();
-        String url = "https://country-code.cl/";
+        String url = "https://en.wikipedia.org/wiki/List_of_FIFA_country_codes";
         driver.navigate().to(url);
-        ArrayList<String> countries = new ArrayList<String>();
-        ArrayList<String> countryCodes = new ArrayList<>();
-        countries.add("International");
-        countryCodes.add("INT");
 
+        Country countryInt = new Country();
+        countryInt.setName("International");
+        countryInt.setCountryCode("INT");
+        countryService.save(countryInt);
 
-        for (int i = 0; i < 249; i++){
+        int i = 2;
+        int j = 1;
 
-                String a = driver.findElement(By.xpath("//*[@id=\"row"+i+"\"]/td[3]/span[3]")).getText();
-                String b = driver.findElement(By.xpath("//*[@id=\"row"+i+"\"]/td[5]")).getText();
-                countries.add(a);
-                countryCodes.add(b);
+        while (j < 5) {
+            while(!driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr/td[" + j + "]/table/tbody/tr[" + i + "]/td[1]/span/a")).isEmpty()) {
+                Country country = new Country();
+                String countryName = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr/td[" + j + "]/table/tbody/tr[" + i + "]/td[1]/span/a")).getText();
+                String countryCode = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr/td[" + j + "]/table/tbody/tr[" + i + "]/td[2]")).getText();
+                country.setName(countryName);
+                country.setCountryCode(countryCode);
+                countryService.save(country);
+                i++;
+            }
+            i = 2;
+            j++;
         }
         driver.close();
         driver.quit();
-        System.out.println(countries);
-        System.out.println(countryCodes);
-
-        try {
-            String myUrl = "jdbc:mysql://localhost:3306/footstats";
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-
-            String query = " Insert into country (name, countrycodes) values(?,?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            conn.setAutoCommit(false);
-
-            for(int i = 0; i < countries.size(); i++){
-                preparedStmt.setString(1, countries.get(i));
-                preparedStmt.setString(2, countryCodes.get(i));
-                preparedStmt.addBatch();
-            }
-            preparedStmt.executeBatch();
-            conn.commit();
-
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Got an exception!");
-            System.out.println(e.getMessage());
-        }
 
     }
 }
-
-
-//*[@id="row0"]/td[3]/span[3]    //*[@id="row0"]/td[5]
-                                 //*[@id="row1"]/td[5]
-//*[@id="row1"]/td[3]/span[3]
-//*[@id="row2"]/td[3]/span[3]
-//*[@id="row17"]/td[3]/span[3]
-
-//*[@id="row248"]/td[3]/span[3]   //*[@id="row248"]/td[5]
