@@ -24,13 +24,16 @@ public class CompetitionController {
 
     @PostMapping(path = "/add")
     public String addNewCompetition(@RequestParam String name,
-                                    @RequestParam String countryName){
+                                    @RequestParam String countryName,
+                                    @RequestParam Integer rank){
 
         Competition c = new Competition();
         c.setName(name);
 
         Country country = countryService.findByName(countryName);
         c.setCountry(country);
+
+        c.setRank(rank);
 
         competitionService.save(c);
         return " Saved Competition ";
@@ -49,7 +52,8 @@ public class CompetitionController {
 
     @PostMapping(path = "/update")
     public String updateCompetition(@RequestParam String name,
-                                    @RequestParam String countryName){
+                                    @RequestParam String countryName,
+                                    @RequestParam Integer rank){
 
         Competition c = competitionService.findByName(name);
         Country country = countryService.findByName(countryName);
@@ -61,6 +65,10 @@ public class CompetitionController {
 
             if(c.getCountry() != country){
                 c.setCountry(country);
+            }
+
+            if (c.getRank() != rank){
+                c.setRank(rank);
             }
 
             competitionService.save(c);
