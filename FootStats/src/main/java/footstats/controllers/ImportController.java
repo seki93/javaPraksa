@@ -37,11 +37,6 @@ public class ImportController {
     @Autowired
     PositionImport positionImport;
 
-    @Autowired
-    RankService rankService;
-    @Autowired
-    RankImport rankImport;
-
     @GetMapping(path = "/city")
     public String importCities(){
         try {
@@ -89,17 +84,6 @@ public class ImportController {
     public String importStadiums() {
         try{
             stadiumImport.importStadiums();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return "Success!";
-    }
-
-    @GetMapping(path = "/rank")
-    public String importRanks() {
-        try{
-            rankImport.importRanks();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

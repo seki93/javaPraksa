@@ -15,15 +15,13 @@ public class Competition {
     private String name;
 
     @OneToOne
-    private Rank rank;
-
-    @OneToOne
     private Country country;
 
-    public Competition(Integer id, String name, Rank rank, Country country) {
+    private Integer rank;
+
+    public Competition(Integer id, String name, Country country) {
         this.id = id;
         this.name = name;
-        this.rank = rank;
         this.country = country;
     }
 
@@ -45,19 +43,19 @@ public class Competition {
         this.name = name;
     }
 
-    public Rank getRank() {
-        return rank;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
-    }
-
     public Country getCountry() {
         return country;
     }
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 }
