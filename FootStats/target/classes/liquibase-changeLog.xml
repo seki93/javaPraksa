@@ -210,14 +210,12 @@
     <changeSet author="rajko.jegdic (generated)" id="1524043055147-35">
         <addForeignKeyConstraint baseColumnNames="stadium_id" baseTableName="Club" constraintName="FK_s4it79fie4hr2yopdet1icinw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Stadium"/>
     </changeSet>
-
     <changeSet author="vladimir.jevtic (generated)" id="1524050687731-1">
         <addColumn schemaName="footstats"
                    tableName="country">
             <column name="countrycodes" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>
-
     <changeSet author="vladimir.jevtic (generated)" id="1524050687731-666">
         <dropForeignKeyConstraint baseTableName="competition" constraintName="FK_hbjbk32o32lf7nrp0c5ionrak"/>
         <dropTable cascadeConstraints="false"
@@ -227,11 +225,33 @@
                 columnName="rank_id"
                 schemaName="footstats"
                 tableName="competition"/>
-
         <addColumn schemaName="footstats"
                    tableName="competition">
             <column name="rank" type="INT"/>
         </addColumn>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-667">
+        <dropForeignKeyConstraint baseTableName="person" constraintName="FK_8wn40qodtwfnnucxs25pjvuah"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-668">
+        <dropColumn columnName="cityofbirth_id"
+                    schemaName="footstats"
+                    tableName="person"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-669">
+        <addColumn schemaName="footstats"
+                   tableName="person">
+            <column name="countryofbirth_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-670">
+        <addForeignKeyConstraint baseColumnNames="countryofbirth_id" baseTableName="Person" constraintName="FK_8wn40qodtwfnnucxs25pjvuah" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Country"/>
+    </changeSet>
+
+
+
+
+
+
 
 </databaseChangeLog>

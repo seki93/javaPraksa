@@ -38,7 +38,7 @@ public class RefereeController {
         referee.setLastName(lastName);
         referee.setDateOfBirth(dateOfBirth);
 
-        Country country = countryService.findIdByName(countryName);
+        Country country = countryService.findByName(countryName);
         referee.setCountryOfBirth(country);
 
         refereeService.save(referee);

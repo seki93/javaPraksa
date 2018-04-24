@@ -46,10 +46,10 @@ public class PlayerController {
        player.setLastName(lastName);
        player.setDateOfBirth(dateOfBirth);
 
-       Country country = countryService.findIdByName(countryName);
+       Country country = countryService.findByName(countryName);
        player.setCountryOfBirth(country);
 
-       Club club = clubService.findIdByName(clubName);
+       Club club = clubService.findByName(clubName);
        player.setClub(club);
 
        NationalTeam nationalTeam = nationalTeamService.findByName(nationalTeamName);
