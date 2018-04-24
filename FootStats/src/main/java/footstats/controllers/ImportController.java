@@ -55,7 +55,7 @@ public class ImportController {
         return "Success!";
     }
 
-    /*@GetMapping(path = "/competition")
+    @GetMapping(path = "/competition")
     public String importCompetitions() {
         try{
             competitionImport.importCompetitions();
@@ -64,7 +64,7 @@ public class ImportController {
         }
 
         return "Success!";
-    }*/
+    }
 
     @GetMapping(path = "/position")
     public String importPositions() {
