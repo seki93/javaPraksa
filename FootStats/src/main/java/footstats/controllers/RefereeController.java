@@ -1,7 +1,9 @@
 package footstats.controllers;
 
+import footstats.model.Country;
 import footstats.model.Referee;
 import footstats.service.CityService;
+import footstats.service.CountryService;
 import footstats.service.PersonService;
 import footstats.service.RefereeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class RefereeController {
     private PersonService personService;
 
     @Autowired
-    private CityService cityService;
+    private CountryService countryService;
 
     @GetMapping(path = "/all")
     public Iterable<Referee> findAll(){
@@ -30,11 +32,14 @@ public class RefereeController {
     public String addReferee(@RequestParam String firstName,
                              @RequestParam String lastName,
                              @RequestParam Date dateOfBirth,
-                             @RequestParam String cityName,
-                             @RequestParam Integer numberOfLicense) {
-        Referee referee = new Referee(firstName, lastName, dateOfBirth,
-                cityService.findByName(cityName),
-                numberOfLicense);
+                             @RequestParam String countryName) {
+        Referee referee = new Referee();
+        referee.setFirstName(firstName);
+        referee.setLastName(lastName);
+        referee.setDateOfBirth(dateOfBirth);
+
+        Country country = countryService.findIdByName(countryName);
+        referee.setCountryOfBirth(country);
 
         refereeService.save(referee);
 

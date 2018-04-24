@@ -9,7 +9,5 @@ public interface CountryService {
     public Iterable<Country> findAll();
     public Country findById(Integer id);
 
-    public Country findIdByName(String countryName);
-
     Country findByName(String countryName);
 }

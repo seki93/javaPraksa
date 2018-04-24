@@ -13,6 +13,4 @@ public interface ClubService {
     public Club findById(Integer id);
 
     public Club findByName(String clubName);
-
-//    public Integer findIdByName(String clubName);
 }

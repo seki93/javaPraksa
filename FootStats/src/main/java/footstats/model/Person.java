@@ -20,17 +20,8 @@ public class Person {
     private Date dateOfBirth;
 
     @ManyToOne
-    @JoinColumn(name = "cityofbirth_id")
-    private City cityOfBirth;
-
-    public Person(String firstName, String lastName, Date dateOfBirth, City cityOfBirth) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.cityOfBirth = cityOfBirth;
-    }
-
-    public Person() {};
+    @JoinColumn(name = "countryofbirth_id")
+    private Country countryOfBirth;
 
     public Integer getId() {
         return id;
@@ -64,11 +55,11 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public City getCityOfBirth() {
-        return cityOfBirth;
+    public Country getCountryOfBirth() {
+            return countryOfBirth;
     }
 
-    public void setCityOfBirth(City cityOfBirth) {
-        this.cityOfBirth = cityOfBirth;
+    public void setCountryOfBirth(Country countryOfBirth) {
+        this.countryOfBirth = countryOfBirth;
     }
 }

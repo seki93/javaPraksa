@@ -1,7 +1,6 @@
 package footstats.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class Player extends  Person{
@@ -16,8 +15,7 @@ public class Player extends  Person{
     @JoinColumn(name = "nationalteam_id")
     private NationalTeam nationalTeam;
 
-    public Player(String firstName, String lastName, Date dateOfBirth, City cityOfBirth, Position position, Club club, NationalTeam nationalTeam) {
-        super(firstName, lastName, dateOfBirth, cityOfBirth);
+    public Player(Position position, Club club, NationalTeam nationalTeam) {
         this.position = position;
         this.club = club;
         this.nationalTeam = nationalTeam;

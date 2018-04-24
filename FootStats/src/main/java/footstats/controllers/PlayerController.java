@@ -24,7 +24,7 @@ public class PlayerController {
     private ClubService clubService;
 
     @Autowired
-    private CityService cityService;
+    private CountryService countryService;
 
     @Autowired
     private PlayerStatsService playerStatsService;
@@ -36,18 +36,31 @@ public class PlayerController {
     public String addNewPlayer(@RequestParam String firstName,
                                @RequestParam String lastName,
                                 @RequestParam Date dateOfBirth,
-                                @RequestParam String cityName,
+                                @RequestParam String countryName,
                                 @RequestParam String clubName,
                                @RequestParam String nationalTeamName,
                                @RequestParam String  positionName){
 
-//        Player player = new Player(firstName, lastName, dateOfBirth, cityService.findByName(cityName),
-//                positionService.findById(positionService.findByName(positionName)),
-//                clubService.findById(clubService.findIdByName(clubName)),
-//                nationalTeamService.findById(nationalTeamService.findIdByName(nationalTeamName))
-//                );
-//
-//        playerService.save(player);
+       Player player = new Player();
+       player.setFirstName(firstName);
+       player.setLastName(lastName);
+       player.setDateOfBirth(dateOfBirth);
+
+       Country country = countryService.findIdByName(countryName);
+       player.setCountryOfBirth(country);
+
+       Club club = clubService.findIdByName(clubName);
+       player.setClub(club);
+
+       NationalTeam nationalTeam = nationalTeamService.findByName(nationalTeamName);
+       player.setNationalTeam(nationalTeam);
+
+       Position position = positionService.findByName(positionName);
+       player.setPosition(position);
+
+       playerService.save(player);
+
+
         return "Player saved";
 
     }
