@@ -34,7 +34,7 @@ public class CompetitionImport {
         driver.get(url);
 
         try {
-            /*int rank = 1;
+            int rank = 1;
 
             for(int i = 2; i < 12;i++) {
 
@@ -133,7 +133,7 @@ public class CompetitionImport {
                     }
                 }
 
-            }*/
+            }
 
             int rank3 = 1;
 
