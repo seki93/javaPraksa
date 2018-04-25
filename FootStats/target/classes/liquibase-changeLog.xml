@@ -247,6 +247,19 @@
     <changeSet author="vladimir.jevtic (generated)" id="1524050687731-670">
         <addForeignKeyConstraint baseColumnNames="countryofbirth_id" baseTableName="Person" constraintName="FK_8wn40qodtwfnnucxs25pjvuah" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Country"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-674">
+        <dropColumn columnName="dateofbirth"
+                    schemaName="footstats"
+                    tableName="person"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-675">
+        <addColumn schemaName="footstats"
+                   tableName="person">
+            <column name="dateofbirth" type="TIMESTAMP" defaultValueComputed="null">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 
 

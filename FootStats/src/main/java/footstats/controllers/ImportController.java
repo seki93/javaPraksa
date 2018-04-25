@@ -23,6 +23,9 @@ public class ImportController {
     @Autowired
     PositionImport positionImport;
 
+    @Autowired
+    ClubImport clubImport;
+
     /*@Autowired
     RefereeImport refereeImport;
 
@@ -89,5 +92,12 @@ public class ImportController {
         }
 
         return "Success with import stadiums!";
+    }
+
+    @GetMapping(path = "/club")
+    public String importClubs(){
+        clubImport.importClubs();
+
+        return "Success";
     }
 }
