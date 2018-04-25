@@ -1,7 +1,7 @@
 package footstats.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 public class Person {
@@ -56,7 +56,7 @@ public class Person {
     }
 
     public Country getCountryOfBirth() {
-            return countryOfBirth;
+        return countryOfBirth;
     }
 
     public void setCountryOfBirth(Country countryOfBirth) {

@@ -2,13 +2,12 @@ package footstats.controllers;
 
 import footstats.model.Country;
 import footstats.model.Person;
-import footstats.service.CityService;
 import footstats.service.CountryService;
 import footstats.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/person")
