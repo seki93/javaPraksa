@@ -29,50 +29,56 @@ public class CompetitionImport {
         WebDriver driver = new ChromeDriver();
         log.debug("Opening browser");
         driver.manage().window().maximize();
-        String url = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+        String url = "http://www.livescore.com/soccer/england/";
         log.debug("navigating to the " + url);
         driver.get(url);
 
         try {
+
             int rank = 1;
 
-            for(int i = 2; i < 12;i++) {
+            for(int i = 1; i < 11;i++) {
 
-                if(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr[" + i + "]/td[1]/a")).getText().contains("Cup")){
+                if(i != 9) {
 
-                    Country england = countryService.findByName("England");
+                    if (driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText().contains("Cup")) {
 
-                    Competition competition = new Competition();
-                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr[" + i + "]/td[1]/a")).getText());
-                    competition.setCountry(england);
-                    competition.setRank(0);
+                        Country england = countryService.findByName("England");
 
-                    competitionService.save(competition);
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText());
+                        competition.setCountry(england);
+                        competition.setRank(0);
 
-                } else if(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr[" + i + "]/td[1]/a")).getText().contains("ern")) {
+                        competitionService.save(competition);
 
-                    Country england = countryService.findByName("England");
+                    } else if(driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText().contains("North") ||
+                            driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText().contains("South")){
 
-                    Competition competition = new Competition();
-                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr[" + i + "]/td[1]/a")).getText());
-                    competition.setCountry(england);
-                    competition.setRank(6);
+                        Country england = countryService.findByName("England");
 
-                    competitionService.save(competition);
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText());
+                        competition.setCountry(england);
+                        competition.setRank(6);
 
-                }else {
+                        competitionService.save(competition);
+                    } else {
 
-                    Country england = countryService.findByName("England");
+                        Country england = countryService.findByName("England");
 
-                    Competition competition = new Competition();
-                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[39]/tbody/tr[" + i + "]/td[1]/a")).getText());
-                    competition.setCountry(england);
-                    competition.setRank(rank);
-                    rank++;
-                    competitionService.save(competition);
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("/html/body/div[2]/div[5]/ul[4]/li[1]/ul/li[" + i + "]/a")).getText());
+                        competition.setCountry(england);
+                        competition.setRank(rank);
+                        rank++;
+                        competitionService.save(competition);
+                    }
                 }
-
             }
+
+            String url1 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url1);
 
             int rank1 = 1;
 
@@ -164,8 +170,8 @@ public class CompetitionImport {
 
             }
 
-            String url1 = "https://www.flashscore.com/";
-            driver.get(url1);
+            String url2 = "https://www.flashscore.com/";
+            driver.get(url2);
 
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a")).getText() != null) {
 
@@ -229,5 +235,3 @@ public class CompetitionImport {
     }
 }
 
-
-//*[@id="Ecuador"]/a

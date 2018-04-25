@@ -23,7 +23,7 @@ public class ImportController {
     @Autowired
     PositionImport positionImport;
 
-    @Autowired
+    /*@Autowired
     RefereeImport refereeImport;
 
     @GetMapping(path = "/refeere")
@@ -35,7 +35,7 @@ public class ImportController {
         }
 
         return "Success with import referees";
-    }
+    }*/
 
     @GetMapping(path = "/city")
     public String importCities(){
