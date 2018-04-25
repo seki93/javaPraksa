@@ -1,11 +1,15 @@
 package footstats.dataImport;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 import footstats.model.Stadium;
 import footstats.service.StadiumService;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.log4j.Logger;
 
 import org.openqa.selenium.By;
@@ -16,6 +20,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.openqa.selenium.interactions.Actions;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 @Service
 public class StadiumImport {
@@ -37,105 +45,103 @@ public class StadiumImport {
         String url = "https://en.wikipedia.org/wiki/List_of_association_football_stadiums_by_country";
         driver.get(url);
 
-        List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table[2]/tbody/tr"));
-        List<WebElement> rows2;
-
-//        for(int i = 2; i <= 83; i++){
-//            rows = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr"));
-//            if(i == 54) i++;
-//            for(int j = 2; j < rows.size(); j++){
-//                if(i == 21 || i == 40 || i == 39 || i == 47 || i == 48 || i == 69 || i == 70){                                 //*[@id="mw-content-text"]/div/table[39]/tbody/tr[3]/td[2]
-//                    stadiums.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr["+j+"]/td[2]")).getText());
-//
-//                }else {
-//                    stadiums.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr["+j+"]/td[1]")).getText());
-//                }
-//            }
-//        }
         WebElement rows1;
+        ArrayList<String> tabs1 = new ArrayList<String> (driver.getWindowHandles());
+
         for(int i = 3; i <= 64; i++){
             rows1 = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]"));
             System.out.println(rows1.getText());
 
-            Actions action = new Actions(driver);
-            String selectLinkOpeninNewTab = Keys.chord(Keys.CONTROL,"t");
-            //System.out.println(action.moveToElement(rows1).moveToElement(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]/a"))));
-            //System.out.println(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]/a")).getAttribute("href"));
             if(!driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]/a")).getText().contains("incomplete")){
-                links.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]/a")).getAttribute("href"));
+                tabs1.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/div["+i+"]/a")).getAttribute("href"));
             }
-
-//            ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-//            driver.switchTo().window(tabs.get(1)); //switches to new tab
-//            driver.get("https://www.facebook.com");
-//
-//            driver.switchTo().window(tabs.get(0)); // switch back to main screen
-//            driver.get("https://www.news.google.com");
-
-            //action.moveToElement(we).moveToElement(webdriver.findElement(By.xpath("expression"))).click().build().perform();
-        }
-        int a = 0;
-
-        List<WebElement> tableRows = null;
-
-       for(String l: links){
-           System.out.println(a+" "+l);
-           a++;
-       }
-        a = 0 ;
-        for(int i = 0; i < links.size(); i++){
-            driver.navigate().to(links.get(i));
-            rows2 = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table/thead/tr/th"));
-            rows = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr"));
-
-            //*[@id="mw-content-text"]/div/table/tbody/tr[1]/th[3]
-            //*[@id="mw-content-text"]/div/table/thead/tr/th[3]
-            //*[@id="mw-content-text"]/div/table/tbody/tr[1]/th[3]
-            //*[@id="mw-content-text"]/div/table/thead/tr/th[2]
-            if(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/thead/tr/th[3]")).getText().equals("Stadium") ||
-                    driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr[1]/th[3]")).getText().equals("Stadium")){
-                System.out.println(a+" Stadio je na 3 mestu");
-                a++;
-            }else if(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/thead/tr/th[2]")).getText().equals("Stadium")){
-                System.out.println(a+" Stadion je na 2 mestu");
-                a++;
-            }else{
-                System.out.println(a+" Nesto sto mi ne treba se nalazi ovde");
-                a++;
-            }
-//            System.out.println(tableRows);
-//            System.out.println(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/thead/tr/th")));
-//            System.out.println("Link: "+links.get(i));
-//            System.out.println(rows2.size());
-//            System.out.println(rows.size());
-//            a+=rows.size();
-
-//            for(int j = 1; j < rows.size(); j++){
-//                //*[@id="mw-content-text"]/div/table[1]/tbody/tr[1]/td[2]
-//                //*[@id="mw-content-text"]/div/table/tbody/tr[2]/td[3]
-//                //*[@id="mw-content-text"]/div/table/tbody/tr[1]/td[3]
-//                stadiums.add(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr["+j+"]/td[2]")).getText());
-//            }
         }
 
+       for(int i = 1; i < tabs1.size(); i++){
 
+            Document doc;
+            try {
+                doc = Jsoup.connect(tabs1.get(i)).get();
+                // get title of the page
+                String title = doc.title();
+                System.out.println("Title: " + title);
+
+                Element table;
+
+                if(title.equals("List of soccer stadiums in the United States - Wikipedia") ||
+                        title.equals("List of football stadiums in Croatia - Wikipedia") ||
+                        title.equals("List of football stadiums in Finland - Wikipedia") ||
+                        title.equals("List of football stadiums in France - Wikipedia") ||
+                        title.equals("List of football stadiums in Germany - Wikipedia") ||
+                        title.equals("List of football stadiums in Italy - Wikipedia") ||
+                        title.equals("List of football stadiums in Mexico - Wikipedia") ||
+                        title.equals("List of football stadiums in Poland - Wikipedia") ||
+                        title.equals("List of football stadiums in Portugal - Wikipedia") ||
+                        title.equals("List of association football stadiums in Northern Ireland - Wikipedia") ||
+                        title.equals("List of football stadiums in Scotland - Wikipedia")) {
+
+                    table = doc.select("table").get(1); //select the first table.
+                }else{
+                    table = doc.select("table").get(0); //select the first table.
+                }
+
+
+                    int m = 0;
+                    for (Element row : table.select("tr")) {
+                        Elements tds = row.select("td");
+                        if(m != 0 ){
+                            if(title.equals("List of football stadiums in Armenia - Wikipedia") ||
+                                    title.equals("List of football stadiums in Austria - Wikipedia") ||
+                                    title.equals("List of football stadiums in Bulgaria - Wikipedia")||
+                                    title.equals("List of football stadiums in Denmark - Wikipedia") ||
+                                    title.equals("List of football stadiums in France - Wikipedia") ||
+                                    title.equals("List of football stadiums in Germany - Wikipedia") ||
+                                    title.equals("List of football stadiums in Greece - Wikipedia") ||
+                                    title.equals("List of stadiums in Indonesia - Wikipedia") ||
+                                    title.equals("List of football stadiums in Iran - Wikipedia")||
+                                    title.equals("List of football stadiums in Israel - Wikipedia") ||
+                                    title.equals("List of football stadiums in Italy - Wikipedia") ||
+                                    title.equals("List of stadiums in Japan - Wikipedia") ||
+                                    title.equals("List of football stadiums in South Korea - Wikipedia") ||
+                                    title.equals("List of football stadiums in Moldova - Wikipedia") ||
+                                    title.equals("List of football stadiums in Poland - Wikipedia") ||
+                                    title.equals("List of football stadiums in Russia - Wikipedia") ||
+                                    title.equals("List of football stadiums in Scotland - Wikipedia") ||
+                                    title.equals("List of football stadiums in Sweden - Wikipedia") ||
+                                    title.equals("List of football stadiums in Turkey - Wikipedia")){
+                                if(title.equals("List of football stadiums in Sweden - Wikipedia")) break;
+                                stadiums.add(tds.get(2).text());
+                            }else if(title.equals("List of stadiums in China - Wikipedia")
+                                    || title.equals("List of stadiums in India - Wikipedia")||
+                                    title.equals("List of soccer stadiums in Australia - Wikipedia") ||
+                                    title.equals("List of soccer stadiums in the United States - Wikipedia") ||
+                                    title.equals("List of football stadiums in Uruguay - Wikipedia")){
+                                stadiums.add(tds.get(0).text());
+                            }else{
+                                stadiums.add(tds.get(1).text());
+                                if(tds.get(1).text().equals("Fortress Stadium")) break;
+                            }
+                        }
+                        ++m;
+                    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         driver.close();
         driver.quit();
 
-        System.out.println(links);
-        System.out.println(links.size());
-
-//         try {
-//             for(String s: stadiums) {
-//                 Stadium stadium = new Stadium();
-//                 stadium.setName(s);
-//                 stadiumService.save(stadium);
-//             }
-//         } catch (Exception e) {
-//             log.debug("Got an exception!");
-//             log.debug(e.getMessage());
-//         }
+         try {
+             for(String s: stadiums) {
+                 Stadium stadium = new Stadium();
+                 stadium.setName(s);
+                 stadiumService.save(stadium);
+             }
+         } catch (Exception e) {
+             log.debug("Got an exception!");
+             log.debug(e.getMessage());
+         }
 
     }
 }
