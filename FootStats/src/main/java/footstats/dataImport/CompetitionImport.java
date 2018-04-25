@@ -164,93 +164,59 @@ public class CompetitionImport {
 
             }
 
-            //*[@id="mw-content-text"]/div/table[41]/tbody/tr[2]/td[1]/a
-            //*[@id="mw-content-text"]/div/table[41]/tbody/tr[8]/td[1]/a
-
-            //*[@id="mw-content-text"]/div/table[50]/tbody/tr[2]/td[2]/a
-            //*[@id="mw-content-text"]/div/table[50]/tbody/tr[6]/td[2]/a
-
-            //*[@id="mw-content-text"]/div/table[50]/tbody/tr[7]/td[2]/a
-
-
-            /*int j = 2;
-
-            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr["+ j +"]/td[2]/a")).getText() != null) {
-
-                Country germany = countryService.findByName("Germany");
-
-                Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr[" + j + "]/td[2]/a")).getText());
-                competition.setCountry(germany);
-
-
-                competitionService.save(competition);
-
-                j++;
-            }
-
-            int m = 2;
-
-            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr["+ m +"]/td[2]/a")).getText() != null){
-
-                Country spain = countryService.findByName("Spain");
-
-                Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr["+ m +"]/td[2]/a")).getText());
-                competition.setCountry(spain);
-
-                competitionService.save(competition);
-
-                m++;
-            }
-
-            int n = 2;
-
-            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr["+ n +"]/td[1]/a")).getText() != null){
-
-                Country france = countryService.findByName("France");
-
-                Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr["+ n +"]/td[1]/a")).getText());
-                competition.setCountry(france);
-
-                competitionService.save(competition);
-
-                n++;
-            }
-
-            int p = 2;
-
-            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ p +"]/td[2]/a")).getText() != null){
-
-                Country serbia = countryService.findByName("Serbia");
-
-                Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ p +"]/td[2]/a")).getText());
-                competition.setCountry(serbia);
-
-                competitionService.save(competition);
-
-                p++;
-            }
-
-            String url1 = "https://en.wikipedia.org/wiki/Italian_football_league_system";
+            String url1 = "https://www.flashscore.com/";
             driver.get(url1);
 
-            int k = 3;
+            if(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a")).getText() != null) {
 
-            while(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[3]/tbody/tr["+ k +"]/td[2]/b/a")).getText() != null){
+                WebElement element = driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(element);
+                actions.click();
+                actions.build().perform();
 
-                Country italy = countryService.findByName("Italy");
+                int rank4 = 1;
 
-                Competition competition = new Competition();
-                competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[3]/tbody/tr["+ k +"]/td[2]/b/a")).getText());
-                competition.setCountry(italy);
+                for (int i = 1; i < 20; i++) {
 
-                competitionService.save(competition);
+                    if (i != 6 && !driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText().contains("Serie D")) {
 
-                k++;
-            }*/
+                        if (driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText().contains("Coppa")) {
+
+                            Country italy = countryService.findByName("Italy");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText());
+                            competition.setCountry(italy);
+                            competition.setRank(0);
+
+                            competitionService.save(competition);
+
+                        } else if(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText().contains("Serie C")) {
+
+                            Country italy = countryService.findByName("Italy");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText());
+                            competition.setCountry(italy);
+                            competition.setRank(3);
+
+                            competitionService.save(competition);
+                        } else{
+
+                            Country italy = countryService.findByName("Italy");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText());
+                            competition.setCountry(italy);
+                            competition.setRank(rank4);
+                            rank4++;
+                            competitionService.save(competition);
+                        }
+                    }
+
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("Got an exception!");
