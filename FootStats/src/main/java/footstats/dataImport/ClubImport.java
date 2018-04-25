@@ -2,9 +2,11 @@ package footstats.dataImport;
 
 import footstats.model.City;
 import footstats.model.Club;
+import footstats.model.Competition;
 import footstats.model.Stadium;
 import footstats.service.CityService;
 import footstats.service.ClubService;
+import footstats.service.CompetitionService;
 import footstats.service.StadiumService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,11 +27,12 @@ public class ClubImport {
 
     @Autowired
     ClubService clubService;
-
     @Autowired
     StadiumService stadiumService;
     @Autowired
     CityService cityService;
+    @Autowired
+    CompetitionService competitionService;
 
 
     ArrayList<String> clubs  = new ArrayList<String>();
@@ -144,20 +147,25 @@ public class ClubImport {
         System.out.println("Broj gradova: "+city.size());
         System.out.println("Broj stadiona: "+stadiums.size());
 
-//        for(int i = 0; i < clubs.size(); i++){
-//            Club club = new Club();
-//            club.setName(clubs.get(i));
-//
-//            Stadium s = stadiumService.findByName(stadiums.get(i));
-//            City c = cityService.findByName(city.get(i));
-//
-//            if(s != null) club.setStadium(s);
-//            else System.out.println("Ne postoji stadion");
-//
-//            if(c != null) club.setCity(c);
-//            else System.out.println("Ne postoji grad");
-//
-//            clubService.save(club);
-//        }
+        for(int i = 1; i < clubs.size(); i++){
+            Club club = new Club();
+            club.setName(clubs.get(i));
+
+            Stadium s = stadiumService.findByName(stadiums.get(i));
+            City c = cityService.findByName(city.get(i));
+            Competition comp = competitionService.findByName(competition.get(i));
+
+            if(s != null) club.setStadium(s);
+            else System.out.println("Ne postoji stadion");
+
+            if(c != null) club.setCity(c);
+            else System.out.println("Ne postoji grad");
+
+            if(comp != null) club.setCompetition(comp);
+            else System.out.println("Ne postoji takimcenje");
+
+
+            clubService.save(club);
+        }
     }
 }
