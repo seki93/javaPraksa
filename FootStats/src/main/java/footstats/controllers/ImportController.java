@@ -1,7 +1,6 @@
 package footstats.controllers;
 
 import footstats.dataImport.*;
-import footstats.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,29 +9,33 @@ import org.springframework.web.bind.annotation.*;
 public class ImportController {
 
     @Autowired
-    private CityService cityService;
-    @Autowired
     private CityImport cityImport;
 
-    @Autowired
-    private CountryService countryService;
     @Autowired
     private CountryImport countryImport;
 
     @Autowired
-    CompetitionService competitionService;
-    @Autowired
     CompetitionImport competitionImport;
 
-    @Autowired
-    StadiumService stadiumService;
     @Autowired
     StadiumImport stadiumImport;
 
     @Autowired
-    PositionService positionService;
-    @Autowired
     PositionImport positionImport;
+
+    @Autowired
+    RefereeImport refereeImport;
+
+    @GetMapping(path = "/refeere")
+    public String importReferees() {
+        try {
+            refereeImport.importReferees();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return "Success with import referees";
+    }
 
     @GetMapping(path = "/city")
     public String importCities(){
@@ -41,7 +44,7 @@ public class ImportController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "Success";
+        return "Success with import cities";
     }
 
     @GetMapping(path = "/country")
@@ -52,7 +55,7 @@ public class ImportController {
             e.printStackTrace();
         }
 
-        return "Success!";
+        return "Success with import countries!";
     }
 
     @GetMapping(path = "/competition")
@@ -63,7 +66,7 @@ public class ImportController {
             e.printStackTrace();
         }
 
-        return "Success!";
+        return "Success eith import competitions!";
     }
 
     @GetMapping(path = "/position")
@@ -74,7 +77,7 @@ public class ImportController {
             e.printStackTrace();
         }
 
-        return "Success!";
+        return "Success with import positions!";
     }
 
     @GetMapping(path = "/stadium")
@@ -85,6 +88,6 @@ public class ImportController {
             e.printStackTrace();
         }
 
-        return "Success!";
+        return "Success with import stadiums!";
     }
 }
