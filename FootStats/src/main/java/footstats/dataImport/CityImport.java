@@ -24,6 +24,7 @@ public class CityImport {
     public static final String ITL_CODE = "Italy";
     public static final String GER_CODE = "Germany";
     public static final String SPA_CODE = "Spain";
+    public static final String WALES = "Wales";
 
     private ArrayList<String> englandCities = new ArrayList<String>();
     private ArrayList<String> italyCities = new ArrayList<String>();
@@ -117,54 +118,26 @@ public class CityImport {
             cityService.save(c);
         }
 
+        //WELS CITIES
+        String url6 = "https://en.wikipedia.org/wiki/List_of_towns_in_Wales";
+        driver.get(url6);
+
+        Country wales = countryService.findByName(WALES);
+        for(int i = 3; i <= 23; i++){
+            String count = driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/p["+i+"]")).getText();
+            citiesString+= count+", ";
+        }
+        String[] parts1 = citiesString.split(",");
+        for(int i = 0; i < parts1.length; i++){
+            City c = new City();
+            c.setName(parts1[i].trim());
+            c.setCountry(wales);
+            cityService.save(c);
+        }
+
         driver.close();
         driver.quit();
 
-//        try {
-//            Country england = countryService.findByName(ENG_CODE);
-//            for(String s: englandCities){
-//                City c = new City();
-//                c.setName(s);
-//                c.setCountry(england);
-//                cityService.save(c);
-//            }
-//
-//            Country italy = countryService.findByName(ITL_CODE);
-//            for(String s: italyCities){
-//                City c = new City();
-//                c.setName(s);
-//                c.setCountry(italy);
-//                cityService.save(c);
-//            }
-//
-//            Country germany = countryService.findByName(GER_CODE);
-//            for(String s: germanyCities){
-//                City c = new City();
-//                c.setName(s);
-//                c.setCountry(germany);
-//                cityService.save(c);
-//            }
-//
-//            Country spain = countryService.findByName(SPA_CODE);
-//            for(String s: spainCities){
-//                City c = new City();
-//                c.setName(s);
-//                c.setCountry(spain);
-//                cityService.save(c);
-//            }
-//
-//            Country france = countryService.findByName(FRN_CODE);
-//            for(String s: franceCities){
-//                City c = new City();
-//                c.setName(s);
-//                c.setCountry(france);
-//                cityService.save(c);
-//            }
-//
-//        } catch (Exception e) {
-//            log.debug("Got an exception!");
-//            log.debug(e.getMessage());
-//        }
 
     }
 

@@ -47,4 +47,12 @@ public class CityController {
         cityService.deleteById(c.getId());
         return "Deleted city";
     }
+
+    @GetMapping(path = "/findByName")
+    public City findByname(@RequestParam String name){
+        City c = cityService.findByName(name);
+        return  c;
+    }
+
+
 }
