@@ -13,4 +13,6 @@ public interface CityService {
     public void save(City c);
 
     public City findByName(String cityName);
+
+    public String checkIfExists(String name);
 }

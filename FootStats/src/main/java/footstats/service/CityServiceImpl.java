@@ -44,4 +44,9 @@ public class CityServiceImpl implements CityService {
     public City findByName(String cityName) {
         return cityRepository.findByName(cityName);
     }
+
+    @Override
+    public String checkIfExists(String name) {
+        return cityRepository.checkIfExists(name);
+    }
 }

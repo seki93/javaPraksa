@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface CityRepository extends CrudRepository<City, Integer> {
 
     public City findByName(String cityName);
+
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM city WHERE name = ?1", nativeQuery = true)
+    String checkIfExists(String name);
 }

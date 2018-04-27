@@ -1,13 +1,7 @@
 package footstats.dataImport;
 
-import footstats.model.City;
-import footstats.model.Club;
-import footstats.model.Competition;
-import footstats.model.Stadium;
-import footstats.service.CityService;
-import footstats.service.ClubService;
-import footstats.service.CompetitionService;
-import footstats.service.StadiumService;
+import footstats.model.*;
+import footstats.service.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,6 +27,8 @@ public class ClubImport {
     CityService cityService;
     @Autowired
     CompetitionService competitionService;
+    @Autowired
+    CountryService countryService;
 
 
    private ArrayList<String> clubs  = new ArrayList<String>();
@@ -67,7 +63,7 @@ public class ClubImport {
 //                          System.out.println("Velicina td-a:");
 //                          System.out.println(tds.size());
                             System.out.println(tds.get(0).text());
-                            System.out.println(tds.get(1).text());
+//                            System.out.println(tds.get(1).text());
                         }else if(tds.size() <= 3){
 //                          System.out.println("Velicina td-a:");
 //                          System.out.println(tds.size());
@@ -116,27 +112,44 @@ public class ClubImport {
         System.out.println();
         System.out.println();
         System.out.println("DODAJEM IH U BAZU");
+        Country country = countryService.findByName("England");
         for(int i = 1; i < clubs.size(); i++){
             Club club = new Club();
             club.setName(clubs.get(i));
-
+            if(club.getName().contains("Ladies")) continue;
             System.out.println("Dodajem u bazu: "+clubs.get(i)+" Grad: "+city.get(i)+" Takmicenje: "+competition.get(i)+" Stadion: "+stadiums.get(i));
 
             City c = cityService.findByName(city.get(i));
             Competition comp = competitionService.findByName(competition.get(i));
             Stadium s = stadiumService.findByName(stadiums.get(i));
-            System.out.println("Trazim stadion: "+s.getName());
-            System.out.println("Trazim grad: "+c.getName());
-            System.out.println("Trazim takmicenje: "+comp.getName());
 
-            if(c.getName().length() > 0) club.setCity(c);
-            else System.out.println("Ne postoji grad");
+            System.out.println("GRAD JEEEEEEEEEE");
+            //System.out.println(c);
+            if(c == null){
+                City newCity = new City();
+                newCity.setName(city.get(i));
+                System.out.println("Ime grada je "+newCity.getName());
+                newCity.setCountry(country);
+                cityService.save(newCity);
+                club.setCity(newCity);
+            }else{
+                club.setCity(c);
+            }
 
-            if(comp.getName().length() > 0) club.setCompetition(comp);
-            else System.out.println("Ne postoji takimcenje");
+            club.setCompetition(comp);
+            club.setStadium(s);
+//            System.out.println("Trazim stadion: "+s.getName());
+//           `
+//            System.out.println("Trazim takmicenje: "+comp.getName());
 
-            if(s.getName().length() > 0) club.setStadium(s);
-            else System.out.println("Ne postoji stadion");
+//            if(c.getName().length() > 0) club.setCity(c);
+//            else System.out.println("Ne postoji grad");
+//
+//            if(comp.getName().length() > 0) club.setCompetition(comp);
+//            else System.out.println("Ne postoji takimcenje");
+//
+//            if(s.getName().length() > 0) club.setStadium(s);
+//            else System.out.println("Ne postoji stadion");
 
             clubService.save(club);
         }

@@ -66,9 +66,11 @@ public class StadiumImport {
                 String title = doc.title();
                 System.out.println("Title: " + title);
 
+                if(title.equals("List of football stadiums in Sweden - Wikipedia") || title.equals("List of football stadiums in Uruguay - Wikipedia")||
+                        title.equals("Stadiums in Bangladesh - Wikipedia") || title.equals("List of stadiums in Wales by capacity - Wikipedia")) continue;
                 Element table;
 
-                if(title.equals("List of soccer stadiums in the United States - Wikipedia") ||
+                if (title.equals("List of soccer stadiums in the United States - Wikipedia") ||
                         title.equals("List of football stadiums in Croatia - Wikipedia") ||
                         title.equals("List of football stadiums in Finland - Wikipedia") ||
                         title.equals("List of football stadiums in France - Wikipedia") ||
@@ -81,48 +83,35 @@ public class StadiumImport {
                         title.equals("List of football stadiums in Scotland - Wikipedia")) {
 
                     table = doc.select("table").get(1); //select the first table.
-                }else{
+                } else {
                     table = doc.select("table").get(0); //select the first table.
                 }
 
+                    int indeks = 0;
+                    Elements defPointsAllowedRows =table.select("tr");
 
-                    int m = 0;
-                    for (Element row : table.select("tr")) {
-                        Elements tds = row.select("td");
-                        if(m != 0 ){
-                            if(title.equals("List of football stadiums in Armenia - Wikipedia") ||
-                                    title.equals("List of football stadiums in Austria - Wikipedia") ||
-                                    title.equals("List of football stadiums in Bulgaria - Wikipedia")||
-                                    title.equals("List of football stadiums in Denmark - Wikipedia") ||
-                                    title.equals("List of football stadiums in France - Wikipedia") ||
-                                    title.equals("List of football stadiums in Germany - Wikipedia") ||
-                                    title.equals("List of football stadiums in Greece - Wikipedia") ||
-                                    title.equals("List of stadiums in Indonesia - Wikipedia") ||
-                                    title.equals("List of football stadiums in Iran - Wikipedia")||
-                                    title.equals("List of football stadiums in Israel - Wikipedia") ||
-                                    title.equals("List of football stadiums in Italy - Wikipedia") ||
-                                    title.equals("List of stadiums in Japan - Wikipedia") ||
-                                    title.equals("List of football stadiums in South Korea - Wikipedia") ||
-                                    title.equals("List of football stadiums in Moldova - Wikipedia") ||
-                                    title.equals("List of football stadiums in Poland - Wikipedia") ||
-                                    title.equals("List of football stadiums in Russia - Wikipedia") ||
-                                    title.equals("List of football stadiums in Scotland - Wikipedia") ||
-                                    title.equals("List of football stadiums in Sweden - Wikipedia") ||
-                                    title.equals("List of football stadiums in Turkey - Wikipedia")){
-                                if(title.equals("List of football stadiums in Sweden - Wikipedia")) break;
-                                stadiums.add(tds.get(2).text());
-                            }else if(title.equals("List of stadiums in China - Wikipedia")
-                                    || title.equals("List of stadiums in India - Wikipedia")||
-                                    title.equals("List of soccer stadiums in Australia - Wikipedia") ||
-                                    title.equals("List of soccer stadiums in the United States - Wikipedia") ||
-                                    title.equals("List of football stadiums in Uruguay - Wikipedia")){
-                                stadiums.add(tds.get(0).text());
-                            }else{
-                                stadiums.add(tds.get(1).text());
-                                if(tds.get(1).text().equals("Fortress Stadium")) break;
+                    for (int j = 0; j < defPointsAllowedRows.size(); j++) {
+                        Element row = defPointsAllowedRows.get(j);
+                        Elements cols = row.select("td");
+                        Elements head = row.select("th");
+
+
+                        if(j == 0 ){
+                            if(head.get(0).text().equals("Stadium")){
+                                indeks = 0;
+                            }else if(head.get(1).text().equals("Stadium")){
+                                indeks = 1;
+                            }else if(head.get(2).text().contains("Stadium")){
+                                indeks = 2;
                             }
                         }
-                        ++m;
+
+                        if(title.equals("List of football stadiums in England - Wikipedia") && cols.size() == 8 && j >0){
+                            stadiums.add(cols.get(indeks).text());
+                            if(cols.get(indeks).text().equals("Fortress Stadium")) break;
+                        }else if(!title.equals("List of football stadiums in England - Wikipedia")){
+                            if(j > 0) stadiums.add(cols.get(indeks).text());
+                        }
                     }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,6 +120,7 @@ public class StadiumImport {
 
         driver.close();
         driver.quit();
+
 
          try {
              for(String s: stadiums) {

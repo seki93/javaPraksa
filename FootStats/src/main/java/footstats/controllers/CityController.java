@@ -54,5 +54,10 @@ public class CityController {
         return  c;
     }
 
+    @GetMapping(path = "/checkIfExists")
+    public String checkIfExists(@RequestParam String name){
+        return checkIfExists(name);
+    }
+
 
 }
