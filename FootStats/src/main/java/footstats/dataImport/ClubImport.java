@@ -54,40 +54,18 @@ public class ClubImport {
                 table = doc.select("table").get(0); //select the first table.
 
                 int m = 0;
-                System.out.println("Nasao sam link za Eneglesku");
-                System.out.println("Ulazim u petlju i pisem sve o Engleskim klubovima");
                 for (Element row : table.select("tr")) {
                     Elements tds = row.select("td");
                     if(m != 0){
-                        if(tds.size() <= 2){
-//                          System.out.println("Velicina td-a:");
-//                          System.out.println(tds.size());
-                            System.out.println(tds.get(0).text());
-//                            System.out.println(tds.get(1).text());
-                        }else if(tds.size() <= 3){
-//                          System.out.println("Velicina td-a:");
-//                          System.out.println(tds.size());
-                            System.out.println(tds.get(0).text());
-                            System.out.println(tds.get(1).text());
-                            System.out.println(tds.get(2).text());
-                        }else if(tds.size() <= 4){
-//                          System.out.println("Velicina td-a:");
-//                          System.out.println(tds.size());
-                            System.out.println(tds.get(0).text());
-                            System.out.println(tds.get(1).text());
-                            System.out.println(tds.get(2).text());
-                            System.out.println(tds.get(3).text());
-                        }else{
-//                          System.out.println("Velicina td-a:");
-//                          System.out.println(tds.size());
-                            System.out.println(tds.get(4).text());
+                        if(tds.size() > 4){
                             clubs.add(tds.get(4).text());
                             stadiums.add(tds.get(1).text());
                             city.add(tds.get(2).text());
                             competition.add(tds.get(5).text());
                             if(tds.get(4).text().equals("Bromley")) break;
-                            }
+
                         }
+                    }
                         ++m;
                     }
                     clubs.add("Tottenham Hotspur");
@@ -99,32 +77,22 @@ public class ClubImport {
             }
         driver.close();
         driver.quit();
-        System.out.println();
-        System.out.println();
-        System.out.println("ISPISUJEM SVE O KLUBOVIMA KOJE SAM NASAO");
+
         for(int i = 0; i < clubs.size(); i++){
             System.out.println(clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
         }
-        System.out.println("Broj klubova: "+clubs.size());
-        System.out.println("Broj gradova: "+city.size());
-        System.out.println("Broj stadiona: "+stadiums.size());
 
-        System.out.println();
-        System.out.println();
-        System.out.println("DODAJEM IH U BAZU");
         Country country = countryService.findByName("England");
         for(int i = 1; i < clubs.size(); i++){
             Club club = new Club();
             club.setName(clubs.get(i));
             if(club.getName().contains("Ladies")) continue;
-            System.out.println("Dodajem u bazu: "+clubs.get(i)+" Grad: "+city.get(i)+" Takmicenje: "+competition.get(i)+" Stadion: "+stadiums.get(i));
+            //System.out.println("Dodajem u bazu: "+clubs.get(i)+" Grad: "+city.get(i)+" Takmicenje: "+competition.get(i)+" Stadion: "+stadiums.get(i));
 
             City c = cityService.findByName(city.get(i));
             Competition comp = competitionService.findByName(competition.get(i));
-            Stadium s = stadiumService.findByName(stadiums.get(i));
+            Iterable<Stadium> s = stadiumService.findStadiumsByName(stadiums.get(i));
 
-            System.out.println("GRAD JEEEEEEEEEE");
-            //System.out.println(c);
             if(c == null){
                 City newCity = new City();
                 newCity.setName(city.get(i));
@@ -137,19 +105,7 @@ public class ClubImport {
             }
 
             club.setCompetition(comp);
-            club.setStadium(s);
-//            System.out.println("Trazim stadion: "+s.getName());
-//           `
-//            System.out.println("Trazim takmicenje: "+comp.getName());
-
-//            if(c.getName().length() > 0) club.setCity(c);
-//            else System.out.println("Ne postoji grad");
-//
-//            if(comp.getName().length() > 0) club.setCompetition(comp);
-//            else System.out.println("Ne postoji takimcenje");
-//
-//            if(s.getName().length() > 0) club.setStadium(s);
-//            else System.out.println("Ne postoji stadion");
+            club.setStadium(s.iterator().next());
 
             clubService.save(club);
         }

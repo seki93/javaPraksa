@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface StadiumRepository extends CrudRepository<Stadium, Integer> {
 
     public Stadium findByName(String stadiumName);
+
+    public Iterable<Stadium> findStadiumsByName(String name);
 }

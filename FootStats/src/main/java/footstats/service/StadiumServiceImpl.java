@@ -47,5 +47,13 @@ public class StadiumServiceImpl implements  StadiumService{
         return stadiumRepository.findByName(stadiumName);
     }
 
+    @Override
+    public Iterable<Stadium> findStadiumsByName(String name) {
+        Iterable<Stadium> s = stadiumRepository.findStadiumsByName(name);
+        if(s != null) return s;
+
+        return null;
+    }
+
 
 }

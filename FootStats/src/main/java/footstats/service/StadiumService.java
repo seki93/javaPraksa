@@ -13,4 +13,6 @@ public interface StadiumService {
     public void save(Stadium s);
 
     public Stadium findByName(String stadiumName);
+
+    public Iterable<Stadium> findStadiumsByName(String name);
 }
