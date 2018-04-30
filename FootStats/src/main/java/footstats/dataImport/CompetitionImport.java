@@ -37,9 +37,11 @@ public class CompetitionImport {
 
             Thread.sleep(3000);
 
+            driver.navigate().refresh();
+
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_198\"]/a")).getText() != null) {
 
-                WebElement element = driver.findElement(By.xpath("//*[@id=\"lmenu_198\"]/a"));
+                WebElement element = driver.findElement(By.id("lmenu_198"));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(element);
                 actions.click();
@@ -114,9 +116,11 @@ public class CompetitionImport {
 
             Thread.sleep(3000);
 
+            driver.navigate().refresh();
+
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/a")).getText() != null){
 
-                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/a"));
+                WebElement element1 = driver.findElement(By.id("lmenu_81"));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(element1);
                 actions.click();
@@ -247,9 +251,11 @@ public class CompetitionImport {
 
             Thread.sleep(3000);
 
+            driver.navigate().refresh();
+
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a")).getText() != null) {
 
-                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a"));
+                WebElement element1 = driver.findElement(By.id("lmenu_98"));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(element1);
                 actions.click();
