@@ -63,7 +63,6 @@ public class ClubImport {
                             city.add(tds.get(2).text());
                             competition.add(tds.get(5).text());
                             if(tds.get(4).text().equals("Bromley")) break;
-
                         }
                     }
                         ++m;
