@@ -19,19 +19,23 @@ public class MatchStatsController {
 
     @PostMapping(path = "/add")
     public String addNewMatchStats(@RequestParam Integer assistance,
-                                   @RequestParam Integer cards,
+                                   @RequestParam Integer cards_hometeam,
+                                   @RequestParam Integer cards_awayteam,
                                    @RequestParam String endResult,
                                    @RequestParam Integer fouls,
                                    @RequestParam String halfTimeResult,
-                                   @RequestParam Float passPercent){
+                                   @RequestParam Float passPercent_hometeam,
+                                   @RequestParam Float passPercent_awayteam){
 
         MatchStats ms = new MatchStats();
         ms.setAssistance(assistance);
-        ms.setCards(cards);
+        ms.setCards_hometeam(cards_hometeam);
+        ms.setCards_awayteam(cards_awayteam);
         ms.setEndResult(endResult);
         ms.setFouls(fouls);
         ms.setHalfTimeResult(halfTimeResult);
-        ms.setPassPercent(passPercent);
+        ms.setPassPercent_hometeam(passPercent_hometeam);
+        ms.setPassPercent_awayteam(passPercent_awayteam);
 
         matchStatsService.save(ms);
         return "Saved MatchStats";
@@ -51,8 +55,10 @@ public class MatchStatsController {
                                    @RequestParam(required = false) String halfTimeResult,
                                    @RequestParam(required = false) Integer assistance,
                                    @RequestParam(required = false) Integer fouls,
-                                   @RequestParam(required = false) Integer cards,
-                                   @RequestParam(required = false) Float passPercent){
+                                   @RequestParam(required = false) Integer cards_hometeam,
+                                   @RequestParam(required = false) Integer cards_awayteam,
+                                   @RequestParam(required = false) Float passPercent_hometeam,
+                                   @RequestParam(required = false) Float passPercent_awayteam){
 
         MatchStats ms = matchStatsService.findById(id);
         if (ms.getId() == id){
@@ -68,11 +74,17 @@ public class MatchStatsController {
             if(fouls != null){
                 ms.setFouls(fouls);
             }
-            if(cards != null){
-                ms.setCards(cards);
+            if(cards_hometeam != null){
+                ms.setCards_hometeam(cards_hometeam);
             }
-            if(passPercent != null){
-                ms.setPassPercent(passPercent);
+            if(cards_awayteam!= null){
+                ms.setCards_awayteam(cards_awayteam);
+            }
+            if(passPercent_hometeam != null){
+                ms.setPassPercent_hometeam(passPercent_hometeam);
+            }
+            if(passPercent_awayteam != null){
+                ms.setPassPercent_awayteam(passPercent_awayteam);
             }
 
             matchStatsService.save(ms);

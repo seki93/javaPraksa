@@ -13,7 +13,9 @@ public class MatchStats {
     @Column(name = "assistance")
     private Integer assistance;
 
-    private Integer cards;
+    private Integer cards_hometeam;
+
+    private Integer cards_awayteam;
 
     @Column(name = "endresult")
     private String endResult;
@@ -23,16 +25,20 @@ public class MatchStats {
     @Column(name = "halftimeresult")
     private String halfTimeResult;
 
-    private Float passPercent;
+    private Float passPercent_hometeam;
 
-    public MatchStats(Integer id, Integer assistance, Integer cards, String endResult, Integer fouls, String halfTimeResult, Float passPercent) {
+    private Float passPercent_awayteam;
+
+    public MatchStats(Integer id, Integer assistance, Integer cards_hometeam, Integer cards_awayteam, String endResult, Integer fouls, String halfTimeResult, Float passPercent_hometeam, Float passPercent_awayteam) {
         this.id = id;
         this.assistance = assistance;
-        this.cards = cards;
+        this.cards_hometeam = cards_hometeam;
+        this.cards_awayteam = cards_awayteam;
         this.endResult = endResult;
         this.fouls = fouls;
         this.halfTimeResult = halfTimeResult;
-        this.passPercent = passPercent;
+        this.passPercent_hometeam = passPercent_hometeam;
+        this.passPercent_awayteam = passPercent_awayteam;
     }
 
     public MatchStats() {};
@@ -53,12 +59,20 @@ public class MatchStats {
         this.assistance = assistance;
     }
 
-    public Integer getCards() {
-        return cards;
+    public Integer getCards_hometeam() {
+        return cards_hometeam;
     }
 
-    public void setCards(Integer cards) {
-        this.cards = cards;
+    public void setCards_hometeam(Integer cards_hometeam) {
+        this.cards_hometeam = cards_hometeam;
+    }
+
+    public Integer getCards_awayteam() {
+        return cards_awayteam;
+    }
+
+    public void setCards_awayteam(Integer cards_awayteam) {
+        this.cards_awayteam = cards_awayteam;
     }
 
     public String getEndResult() {
@@ -85,11 +99,19 @@ public class MatchStats {
         this.halfTimeResult = halfTimeResult;
     }
 
-    public Float getPassPercent() {
-        return passPercent;
+    public Float getPassPercent_hometeam() {
+        return passPercent_hometeam;
     }
 
-    public void setPassPercent(Float passPercent) {
-        this.passPercent = passPercent;
+    public void setPassPercent_hometeam(Float passPercent_hometeam) {
+        this.passPercent_hometeam = passPercent_hometeam;
+    }
+
+    public Float getPassPercent_awayteam() {
+        return passPercent_awayteam;
+    }
+
+    public void setPassPercent_awayteam(Float passPercent_awayteam) {
+        this.passPercent_awayteam = passPercent_awayteam;
     }
 }
