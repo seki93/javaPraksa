@@ -275,4 +275,47 @@
                         schemaName="footstats"
                         tableName="matchstats"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-678">
+        <renameColumn columnDataType="INT"
+                      newColumnName="passpercent"
+                      oldColumnName="passes"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <modifyDataType columnName="passpercent"
+                        newDataType="float"
+                        schemaName="footstats"
+                        tableName="matchstats"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-679">
+        <renameColumn columnDataType="FLOAT"
+                      newColumnName="passpercent_hometeam"
+                      oldColumnName="passpercent"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <addColumn schemaName="footstats"
+        tableName="matchstats">
+        <column name="passpercent_awayteam" type="FLOAT"/>
+    </addColumn>
+        <renameColumn columnDataType="INT"
+                      newColumnName="cards_hometeam"
+                      oldColumnName="cards"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="cards_awayteam" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-680">
+        <renameColumn columnDataType="INT"
+                      newColumnName="fouls_hometeam"
+                      oldColumnName="fouls"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="fouls_awayteam" type="INT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -6,9 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +53,7 @@ public class ClubImport {
         driver.quit();
     }
 
-    public void saveClubsInDataBase(String countryName){
+    public void saveClubsInDatabase(String countryName){
         Country country = countryService.findByName(countryName);
 
         for(int i = 0; i < clubs.size(); i++){
@@ -118,7 +116,7 @@ public class ClubImport {
                 ++m;
             }
 
-            saveClubsInDataBase("Germany");
+            saveClubsInDatabase("Germany");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,7 +139,7 @@ public class ClubImport {
             int m = 0;
             for (Element row : table.select("tr")) {
                 Elements tds = row.select("td");
-                Elements head = row.select("th");
+
                 if(m != 0){
                     clubs.add(tds.get(0).text());
                     city.add(tds.get(1).text());
@@ -155,7 +153,7 @@ public class ClubImport {
             table = doc.select("table").get(1);
             for (Element row : table.select("tr")) {
                 Elements tds = row.select("td");
-                Elements head = row.select("th");
+
                 if(m != 0){
                     clubs.add(tds.get(0).text());
                     city.add(tds.get(1).text());
@@ -165,11 +163,7 @@ public class ClubImport {
                 ++m;
             }
 
-            for(int i = 0; i < clubs.size(); i++){
-                System.out.println("Tim: "+clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
-            }
-
-            saveClubsInDataBase("Italy");
+            saveClubsInDatabase("Italy");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,7 +210,7 @@ public class ClubImport {
             System.out.println(clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
         }
 
-        saveClubsInDataBase("England");
+        saveClubsInDatabase("England");
 
         clubs.clear();
         city.clear();
