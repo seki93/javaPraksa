@@ -260,11 +260,19 @@
             </column>
         </addColumn>
     </changeSet>
-
-
-
-
-
-
-
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-676">
+        <renameTable newTableName="game"
+                     oldTableName="match"
+                     schemaName="footstats"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-677">
+        <modifyDataType columnName="halftimeresult"
+                        newDataType="VARCHAR(255)"
+                        schemaName="footstats"
+                        tableName="matchstats"/>
+        <modifyDataType columnName="endresult"
+                        newDataType="VARCHAR(255)"
+                        schemaName="footstats"
+                        tableName="matchstats"/>
+    </changeSet>
 </databaseChangeLog>

@@ -35,9 +35,13 @@ public class CompetitionImport {
 
         try {
 
+            Thread.sleep(3000);
+
+            driver.navigate().refresh();
+
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_198\"]/a")).getText() != null) {
 
-                WebElement element = driver.findElement(By.xpath("//*[@id=\"lmenu_198\"]/a"));
+                WebElement element = driver.findElement(By.id("lmenu_198"));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(element);
                 actions.click();
@@ -60,6 +64,8 @@ public class CompetitionImport {
 
             String url1 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
             driver.get(url1);
+
+            Thread.sleep(3000);
 
             int rank1 = 5;
             for(int i = 1;i < 4;i++){
@@ -89,6 +95,11 @@ public class CompetitionImport {
 
             }
 
+            String url2 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url2);
+
+            Thread.sleep(3000);
+
             for(int i = 10; i < 12;i++){
 
                 Country england = countryService.findByName("England");
@@ -100,11 +111,58 @@ public class CompetitionImport {
                 competitionService.save(competition);
             }
 
-            int rank2 = 1;
+            String url3 = "https://www.flashscore.com/";
+            driver.get(url3);
 
-            for(int i = 2; i < 9;i++) {
+            Thread.sleep(3000);
 
-                if(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr["+ i +"]/td[2]/a")).getText().contains("DFB")){
+            driver.navigate().refresh();
+
+            if(driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/a")).getText() != null){
+
+                WebElement element1 = driver.findElement(By.id("lmenu_81"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(element1);
+                actions.click();
+                actions.build().perform();
+
+                int rank2 = 1;
+
+                for(int i = 1; i < 9;i++) {
+
+                    if(driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/ul/li["+ i +"]/a")).getText().contains("Regionalliga")){
+
+                        Country germany = countryService.findByName("Germany");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/ul/li["+ i +"]/a")).getText());
+                        competition.setCountry(germany);
+                        competition.setRank(4);
+
+                        competitionService.save(competition);
+
+                    } else {
+
+                        Country germany = countryService.findByName("Germany");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_81\"]/ul/li["+ i +"]/a")).getText());
+                        competition.setCountry(germany);
+                        competition.setRank(rank2);
+                        rank2++;
+
+                        competitionService.save(competition);
+                    }
+                }
+
+            }
+
+            String url4 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url4);
+
+            Thread.sleep(3000);
+
+            for(int i = 7; i < 9;i++) {
 
                     Country germany = countryService.findByName("Germany");
 
@@ -115,19 +173,12 @@ public class CompetitionImport {
 
                     competitionService.save(competition);
 
-                } else {
-
-                    Country germany = countryService.findByName("Germany");
-
-                    Competition competition = new Competition();
-                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[42]/tbody/tr["+ i +"]/td[2]/a")).getText());
-                    competition.setCountry(germany);
-                    competition.setRank(rank2);
-                    rank2++;
-                    competitionService.save(competition);
-                }
-
             }
+
+            String url5 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url5);
+
+            Thread.sleep(3000);
 
             int rank3 = 1;
 
@@ -161,6 +212,11 @@ public class CompetitionImport {
 
             }
 
+            String url6 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url6);
+
+            Thread.sleep(3000);
+
             int rank4 = 1;
 
             for(int i = 2; i < 9;i++) {
@@ -190,12 +246,16 @@ public class CompetitionImport {
 
             }
 
-            String url2 = "https://www.flashscore.com/";
-            driver.get(url2);
+            String url7 = "https://www.flashscore.com/";
+            driver.get(url7);
+
+            Thread.sleep(3000);
+
+            driver.navigate().refresh();
 
             if(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a")).getText() != null) {
 
-                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/a"));
+                WebElement element1 = driver.findElement(By.id("lmenu_98"));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(element1);
                 actions.click();
@@ -244,8 +304,10 @@ public class CompetitionImport {
                 }
             }
 
-            String url3 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
-            driver.get(url3);
+            String url8 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url8);
+
+            Thread.sleep(3000);
 
             for(int i = 2;i < 8;i++) {
 
@@ -297,8 +359,10 @@ public class CompetitionImport {
                 }
             }
 
-            String url4 = "https://en.wikipedia.org/wiki/FIFA#Men's_tournaments";
-            driver.get(url4);
+            String url9 = "https://en.wikipedia.org/wiki/FIFA#Men's_tournaments";
+            driver.get(url9);
+
+            Thread.sleep(3000);
 
             for(int i = 2;i < 5;i++){
 

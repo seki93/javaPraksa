@@ -26,6 +26,19 @@ public class ImportController {
     @Autowired
     ClubImport clubImport;
 
+    @Autowired
+    GameImport gameImport;
+
+    @GetMapping(path = "/game")
+    public String importGames(){
+        try {
+            gameImport.importGames();
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return "Success with games imports";
+    }
+
     /*@Autowired
     RefereeImport refereeImport;
 
