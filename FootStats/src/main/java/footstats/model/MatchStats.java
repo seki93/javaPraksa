@@ -16,16 +16,16 @@ public class MatchStats {
     private Integer cards;
 
     @Column(name = "endresult")
-    private Integer endResult;
+    private String endResult;
 
     private Integer fouls;
 
     @Column(name = "halftimeresult")
-    private Integer halfTimeResult;
+    private String halfTimeResult;
 
     private Integer passes;
 
-    public MatchStats(Integer id, Integer assistance, Integer cards, Integer endResult, Integer fouls, Integer halfTimeResult, Integer passes) {
+    public MatchStats(Integer id, Integer assistance, Integer cards, String endResult, Integer fouls, String halfTimeResult, Integer passes) {
         this.id = id;
         this.assistance = assistance;
         this.cards = cards;
@@ -61,11 +61,11 @@ public class MatchStats {
         this.cards = cards;
     }
 
-    public Integer getEndResult() {
+    public String getEndResult() {
         return endResult;
     }
 
-    public void setEndResult(Integer endResult) {
+    public void setEndResult(String endResult) {
         this.endResult = endResult;
     }
 
@@ -77,11 +77,11 @@ public class MatchStats {
         this.fouls = fouls;
     }
 
-    public Integer getHalfTimeResult() {
+    public String getHalfTimeResult() {
         return halfTimeResult;
     }
 
-    public void setHalfTimeResult(Integer halfTimeResult) {
+    public void setHalfTimeResult(String halfTimeResult) {
         this.halfTimeResult = halfTimeResult;
     }
 

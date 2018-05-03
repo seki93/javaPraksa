@@ -20,9 +20,9 @@ public class MatchStatsController {
     @PostMapping(path = "/add")
     public String addNewMatchStats(@RequestParam Integer assistance,
                                    @RequestParam Integer cards,
-                                   @RequestParam Integer endResult,
+                                   @RequestParam String endResult,
                                    @RequestParam Integer fouls,
-                                   @RequestParam Integer halfTimeResult,
+                                   @RequestParam String halfTimeResult,
                                    @RequestParam Integer passes){
 
         MatchStats ms = new MatchStats();
@@ -47,8 +47,8 @@ public class MatchStatsController {
     }
     @PostMapping(path = "/update")
     public String updateMatchStats(@RequestParam Integer id,
-                                   @RequestParam(required = false) Integer endResult,
-                                   @RequestParam(required = false) Integer halfTimeResult,
+                                   @RequestParam(required = false) String endResult,
+                                   @RequestParam(required = false) String halfTimeResult,
                                    @RequestParam(required = false) Integer assistance,
                                    @RequestParam(required = false) Integer fouls,
                                    @RequestParam(required = false) Integer cards,
