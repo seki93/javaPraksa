@@ -48,8 +48,84 @@ public class ClubImport {
         url = "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Italy";
         importItalyClubs(driver, url);
 
+        url = "https://en.wikipedia.org/wiki/2017%E2%80%9318_Bundesliga";
+        importGermanyClubs(driver, url);
+
         driver.close();
         driver.quit();
+    }
+
+    public void saveClubsInDataBase(String countryName){
+        Country country = countryService.findByName(countryName);
+
+        for(int i = 0; i < clubs.size(); i++){
+            Club club = new Club();
+            club.setName(clubs.get(i));
+            if(club.getName().contains("Ladies")) continue;
+
+            City c = cityService.findByName(city.get(i));
+            Competition comp = competitionService.findByName(competition.get(i));
+            List<Stadium> s = stadiumService.findStadiumsByName(stadiums.get(i));
+
+            if(c == null){
+                City newCity = new City();
+                newCity.setName(city.get(i));
+                System.out.println("Ime grada je "+newCity.getName());
+                newCity.setCountry(country);
+                cityService.save(newCity);
+                club.setCity(newCity);
+            }else{
+                club.setCity(c);
+            }
+
+            if(s == null || s.size() == 0){
+                Stadium stadium = new Stadium();
+                stadium.setName(stadiums.get(i));
+
+                stadiumService.save(stadium);
+                club.setStadium(stadium);
+                System.out.println("Stadion: "+stadium.getName());
+            }else{
+                club.setStadium(s.get(0));
+            }
+
+            club.setCompetition(comp);
+
+            clubService.save(club);
+        }
+    }
+
+    public void importGermanyClubs(WebDriver driver, String url){
+        driver.get(url);
+        Document doc;
+
+        try {
+            doc = Jsoup.connect(url).get();
+
+            Element table;
+            table = doc.select("table").get(2);
+
+            int m = 0;
+            for(Element row: table.select("tr")){
+                Elements tds = row.select("td");
+
+                if(m != 0){
+                    clubs.add(tds.get(0).text());
+                    city.add(tds.get(1).text());
+                    stadiums.add(tds.get(2).text());
+                    competition.add("Bundesliga");
+                }
+                ++m;
+            }
+
+            saveClubsInDataBase("Germany");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        clubs.clear();
+        city.clear();
+        stadiums.clear();
+        competition.clear();
     }
 
     public void importItalyClubs(WebDriver driver, String url){
@@ -89,46 +165,11 @@ public class ClubImport {
                 ++m;
             }
 
-
             for(int i = 0; i < clubs.size(); i++){
                 System.out.println("Tim: "+clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
             }
 
-            Country country = countryService.findByName("Italy");
-            for(int i = 0; i < clubs.size(); i++){
-                Club club = new Club();
-                club.setName(clubs.get(i));
-                City c = cityService.findByName(city.get(i));
-                Competition comp = competitionService.findByName(competition.get(i));
-                List<Stadium> s = stadiumService.findStadiumsByName(stadiums.get(i));
-
-                if(c == null){
-                    City newCity = new City();
-                    newCity.setName(city.get(i));
-                    System.out.println("Ime grada je "+newCity.getName());
-                    newCity.setCountry(country);
-                    cityService.save(newCity);
-                    club.setCity(newCity);
-                }else{
-                    club.setCity(c);
-                }
-
-                if(s == null || s.size() == 0){
-                    Stadium stadium = new Stadium();
-                    stadium.setName(stadiums.get(i));
-
-                    stadiumService.save(stadium);
-                    club.setStadium(stadium);
-                    System.out.println("Stadion: "+stadium.getName());
-                }else{
-                    club.setStadium(s.get(0));
-                }
-
-                club.setCompetition(comp);
-
-                clubService.save(club);
-            }
-
+            saveClubsInDataBase("Italy");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -175,42 +216,7 @@ public class ClubImport {
             System.out.println(clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
         }
 
-        Country country = countryService.findByName("England");
-        for(int i = 1; i < clubs.size(); i++){
-            Club club = new Club();
-            club.setName(clubs.get(i));
-            if(club.getName().contains("Ladies")) continue;
-
-            City c = cityService.findByName(city.get(i));
-            Competition comp = competitionService.findByName(competition.get(i));
-            List<Stadium> s = stadiumService.findStadiumsByName(stadiums.get(i));
-
-            if(c == null){
-                City newCity = new City();
-                newCity.setName(city.get(i));
-                System.out.println("Ime grada je "+newCity.getName());
-                newCity.setCountry(country);
-                cityService.save(newCity);
-                club.setCity(newCity);
-            }else{
-                club.setCity(c);
-            }
-
-            if(s == null || s.size() == 0){
-                Stadium stadium = new Stadium();
-                stadium.setName(stadiums.get(i));
-
-                stadiumService.save(stadium);
-                club.setStadium(stadium);
-                System.out.println("Stadion: "+stadium.getName());
-            }else{
-                club.setStadium(s.get(0));
-            }
-
-            club.setCompetition(comp);
-
-            clubService.save(club);
-        }
+        saveClubsInDataBase("England");
 
         clubs.clear();
         city.clear();
