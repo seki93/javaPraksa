@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StadiumServiceImpl implements  StadiumService{
 
@@ -48,8 +51,8 @@ public class StadiumServiceImpl implements  StadiumService{
     }
 
     @Override
-    public Iterable<Stadium> findStadiumsByName(String name) {
-        Iterable<Stadium> s = stadiumRepository.findStadiumsByName(name);
+    public List<Stadium> findStadiumsByName(String name) {
+        List<Stadium> s = stadiumRepository.findStadiumsByName(name);
         if(s != null) return s;
 
         return null;

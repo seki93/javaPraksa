@@ -2,17 +2,19 @@ package footstats.service;
 
 import footstats.model.Stadium;
 
+import java.util.List;
+
 public interface StadiumService {
 
-    public Iterable<Stadium> findAll();
+    Iterable<Stadium> findAll();
 
-    public Stadium findById(Integer id);
+    Stadium findById(Integer id);
 
-    public void deleteById(Integer id);
+    void deleteById(Integer id);
 
-    public void save(Stadium s);
+    void save(Stadium s);
 
-    public Stadium findByName(String stadiumName);
+    Stadium findByName(String stadiumName);
 
-    public Iterable<Stadium> findStadiumsByName(String name);
+    List<Stadium> findStadiumsByName(String name);
 }
