@@ -305,7 +305,17 @@
                    tableName="matchstats">
             <column name="cards_awayteam" type="INT"/>
         </addColumn>
-
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-680">
+        <renameColumn columnDataType="INT"
+                      newColumnName="fouls_hometeam"
+                      oldColumnName="fouls"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="fouls_awayteam" type="INT"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

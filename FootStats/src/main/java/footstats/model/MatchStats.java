@@ -20,7 +20,9 @@ public class MatchStats {
     @Column(name = "endresult")
     private String endResult;
 
-    private Integer fouls;
+    private Integer fouls_hometeam;
+
+    private Integer fouls_awayteam;
 
     @Column(name = "halftimeresult")
     private String halfTimeResult;
@@ -29,13 +31,15 @@ public class MatchStats {
 
     private Float passPercent_awayteam;
 
-    public MatchStats(Integer id, Integer assistance, Integer cards_hometeam, Integer cards_awayteam, String endResult, Integer fouls, String halfTimeResult, Float passPercent_hometeam, Float passPercent_awayteam) {
+
+    public MatchStats(Integer id, Integer assistance, Integer cards_hometeam, Integer cards_awayteam, String endResult, Integer fouls_hometeam, Integer fouls_awayteam, String halfTimeResult, Float passPercent_hometeam, Float passPercent_awayteam) {
         this.id = id;
         this.assistance = assistance;
         this.cards_hometeam = cards_hometeam;
         this.cards_awayteam = cards_awayteam;
         this.endResult = endResult;
-        this.fouls = fouls;
+        this.fouls_hometeam = fouls_hometeam;
+        this.fouls_awayteam = fouls_awayteam;
         this.halfTimeResult = halfTimeResult;
         this.passPercent_hometeam = passPercent_hometeam;
         this.passPercent_awayteam = passPercent_awayteam;
@@ -83,12 +87,20 @@ public class MatchStats {
         this.endResult = endResult;
     }
 
-    public Integer getFouls() {
-        return fouls;
+    public Integer getFouls_hometeam() {
+        return fouls_hometeam;
     }
 
-    public void setFouls(Integer fouls) {
-        this.fouls = fouls;
+    public void setFouls_hometeam(Integer fouls_hometeam) {
+        this.fouls_hometeam = fouls_hometeam;
+    }
+
+    public Integer getFouls_awayteam() {
+        return fouls_awayteam;
+    }
+
+    public void setFouls_awayteam(Integer fouls_awayteam) {
+        this.fouls_awayteam = fouls_awayteam;
     }
 
     public String getHalfTimeResult() {

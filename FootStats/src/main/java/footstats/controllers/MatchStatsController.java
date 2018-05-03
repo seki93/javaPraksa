@@ -22,7 +22,8 @@ public class MatchStatsController {
                                    @RequestParam Integer cards_hometeam,
                                    @RequestParam Integer cards_awayteam,
                                    @RequestParam String endResult,
-                                   @RequestParam Integer fouls,
+                                   @RequestParam Integer fouls_hometeam,
+                                   @RequestParam Integer fouls_awayteam,
                                    @RequestParam String halfTimeResult,
                                    @RequestParam Float passPercent_hometeam,
                                    @RequestParam Float passPercent_awayteam){
@@ -32,7 +33,8 @@ public class MatchStatsController {
         ms.setCards_hometeam(cards_hometeam);
         ms.setCards_awayteam(cards_awayteam);
         ms.setEndResult(endResult);
-        ms.setFouls(fouls);
+        ms.setFouls_hometeam(fouls_hometeam);
+        ms.setFouls_awayteam(fouls_awayteam);
         ms.setHalfTimeResult(halfTimeResult);
         ms.setPassPercent_hometeam(passPercent_hometeam);
         ms.setPassPercent_awayteam(passPercent_awayteam);
@@ -54,7 +56,8 @@ public class MatchStatsController {
                                    @RequestParam(required = false) String endResult,
                                    @RequestParam(required = false) String halfTimeResult,
                                    @RequestParam(required = false) Integer assistance,
-                                   @RequestParam(required = false) Integer fouls,
+                                   @RequestParam(required = false) Integer fouls_hometeam,
+                                   @RequestParam(required = false) Integer fouls_awayteam,
                                    @RequestParam(required = false) Integer cards_hometeam,
                                    @RequestParam(required = false) Integer cards_awayteam,
                                    @RequestParam(required = false) Float passPercent_hometeam,
@@ -71,8 +74,11 @@ public class MatchStatsController {
             if (assistance != null){
                 ms.setAssistance(assistance);
             }
-            if(fouls != null){
-                ms.setFouls(fouls);
+            if(fouls_hometeam != null){
+                ms.setFouls_hometeam(fouls_hometeam);
+            }
+            if(fouls_awayteam != null){
+                ms.setFouls_awayteam(fouls_awayteam);
             }
             if(cards_hometeam != null){
                 ms.setCards_hometeam(cards_hometeam);
