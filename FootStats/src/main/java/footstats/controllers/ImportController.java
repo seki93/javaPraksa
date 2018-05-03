@@ -82,7 +82,7 @@ public class ImportController {
             e.printStackTrace();
         }
 
-        return "Success eith import competitions!";
+        return "Success with import competitions!";
     }
 
     @GetMapping(path = "/position")
