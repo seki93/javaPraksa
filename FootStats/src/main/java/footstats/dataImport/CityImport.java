@@ -12,25 +12,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CityImport {
 
     final static Logger log = Logger.getLogger(StadiumImport.class);
-    public static final String ENG_CODE = "England";
-    public static final String FRN_CODE = "France";
-    public static final String ITL_CODE = "Italy";
-    public static final String GER_CODE = "Germany";
-    public static final String SPA_CODE = "Spain";
+    public static final String ENGLAND = "England";
+    public static final String FRANCE = "France";
+    public static final String ITALY = "Italy";
+    public static final String GERMANY = "Germany";
+    public static final String SPAIN = "Spain";
     public static final String WALES = "Wales";
 
-    private ArrayList<String> englandCities = new ArrayList<String>();
-    private ArrayList<String> italyCities = new ArrayList<String>();
-    private ArrayList<String> spainCities = new ArrayList<String>();
-    private ArrayList<String> germanyCities = new ArrayList<String>();
-    private ArrayList<String> franceCities = new ArrayList<String>();
     private static String citiesString = "";
 
     @Autowired
@@ -44,8 +38,29 @@ public class CityImport {
         log.debug("Opening browser");
         driver.manage().window().maximize();
 
-        //ENGLAND CITIES
         String url = "https://simple.wikipedia.org/wiki/List_of_cities_and_towns_in_England";
+        importEnglandCities(driver, url);
+
+        url = "https://en.wikipedia.org/wiki/List_of_cities_in_Italy";
+        importItalyCities(driver, url);
+
+        url = "https://population.mongabay.com/population/spain/";
+        importSpainCities(driver, url);
+
+        url = "https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Germany";
+        importGermanCities(driver, url);
+
+        url = "https://simple.wikipedia.org/wiki/List_of_cities_in_France";
+        importFranceCities(driver, url);
+
+        url = "https://en.wikipedia.org/wiki/List_of_towns_in_Wales";
+        importWelsCities(driver, url);
+
+        driver.close();
+        driver.quit();
+    }
+
+    public void importEnglandCities(WebDriver driver, String url){
         driver.get(url);
 
         for(int i = 3; i <= 26; i++){
@@ -53,7 +68,7 @@ public class CityImport {
             citiesString+= count+", ";
         }
 
-        Country england = countryService.findByName(ENG_CODE);
+        Country england = countryService.findByName(ENGLAND);
         String[] parts = citiesString.split(",");
         for(int i = 0; i < parts.length; i++){
             City c = new City();
@@ -61,39 +76,39 @@ public class CityImport {
             c.setCountry(england);
             cityService.save(c);
         }
-
-        //ITALY CITIES
-        String url2 = "https://en.wikipedia.org/wiki/List_of_cities_in_Italy";
-        driver.get(url2);
         citiesString = "";
-        Country italy = countryService.findByName(ITL_CODE);
+    }
+
+    public void importItalyCities(WebDriver driver, String url){
+        driver.get(url);
+
+        Country italy = countryService.findByName(ITALY);
         for(int i = 1; i <= 144; i++){
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr["+i+"]/td[2]")).getText());
             c.setCountry(italy);
             cityService.save(c);
         }
+    }
 
-        //SPAIN CITIES
-        String url3 = "https://population.mongabay.com/population/spain/";
-        driver.get(url3);
+    public void importSpainCities(WebDriver driver, String url){
+        driver.get(url);
 
-        Country spain = countryService.findByName(SPA_CODE);
+        Country spain = countryService.findByName(SPAIN);
         for(int i = 1; i <=  569; i++){
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"myTable\"]/tbody/tr["+i+"]/td[1]/a")).getText());
             c.setCountry(spain);
             cityService.save(c);
         }
+    }
 
-        //GERMANY CITIES
-        String url4 = "https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Germany";
-        driver.get(url4);
+    public void importGermanCities(WebDriver driver, String url){
+        driver.get(url);
 
         List<WebElement> rows = driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div/table[25]/tbody/td"));
-        rows = driver.findElements(By.xpath(" //*[@id=\"mw-content-text\"]/div/table[25]/tbody/tr[2]/td[1]/ul/li"));
 
-        Country germany = countryService.findByName(GER_CODE);
+        Country germany = countryService.findByName(GERMANY);
         for(int i = 1; i <= 25; i++){
             for(int j = 1; j <=3 ; j++){
                 rows = driver.findElements(By.xpath(" //*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr[2]/td["+j+"]/ul/li"));
@@ -105,22 +120,22 @@ public class CityImport {
                 }
             }
         }
+    }
 
-        //FRANCE CITIES
-        String url5 = "https://simple.wikipedia.org/wiki/List_of_cities_in_France";
-        driver.get(url5);
+    public void importFranceCities(WebDriver driver, String url){
+        driver.get(url);
 
-        Country france = countryService.findByName(FRN_CODE);
+        Country france = countryService.findByName(FRANCE);
         for(int i = 1; i <= 434; i++){
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr["+i+"]/td[1]")).getText());
             c.setCountry(france);
             cityService.save(c);
         }
+    }
 
-        //WELS CITIES
-        String url6 = "https://en.wikipedia.org/wiki/List_of_towns_in_Wales";
-        driver.get(url6);
+    public void importWelsCities(WebDriver driver, String url){
+        driver.get(url);
 
         Country wales = countryService.findByName(WALES);
         for(int i = 3; i <= 23; i++){
@@ -134,11 +149,7 @@ public class CityImport {
             c.setCountry(wales);
             cityService.save(c);
         }
-
-        driver.close();
-        driver.quit();
-
-
+        citiesString = "";
     }
 
 }

@@ -38,42 +38,89 @@ public class ClubImport {
 
     public void importClubs(){
 
+        importEnglishClubs();
+        //importItalyClubs();
+    }
+
+    public void driverAndUrl(String url){
+
+    }
+
+    public void importItalyClubs(){
+        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
+        WebDriver driver= new ChromeDriver();
+        driver.manage().window().maximize();
+
+        String url = "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Italy";
+        driver.get(url);
+        Document doc;
+
+        try {
+            doc = Jsoup.connect(url).get();
+
+            Element table;
+
+            table = doc.select("table").get(1); //select the first table.
+
+            for (Element row : table.select("tr")) {
+                Elements tds = row.select("td");
+                Elements head = row.select("th");
+
+                System.out.println();
+                System.out.println("Head");
+                System.out.println(head.text());
+                System.out.println("Row");
+                System.out.println(row.text());
+                System.out.println();
+                System.out.println("Tds");
+                System.out.println(tds.size());
+                System.out.println();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public  void importEnglishClubs(){
         System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         WebDriver driver= new ChromeDriver();
         driver.manage().window().maximize();
 
         String url = "https://en.wikipedia.org/wiki/List_of_football_stadiums_in_England";
         driver.get(url);
-            Document doc;
-            try {
-                doc = Jsoup.connect(url).get();
-                String title = doc.title();
+        Document doc;
+        try {
+            doc = Jsoup.connect(url).get();
+            String title = doc.title();
 
-                Element table;
+            Element table;
 
-                table = doc.select("table").get(0); //select the first table.
+            table = doc.select("table").get(0); //select the first table.
 
-                int m = 0;
-                for (Element row : table.select("tr")) {
-                    Elements tds = row.select("td");
-                    if(m != 0){
-                        if(tds.size() > 4){
-                            clubs.add(tds.get(4).text());
-                            stadiums.add(tds.get(1).text());
-                            city.add(tds.get(2).text());
-                            competition.add(tds.get(5).text());
-                            if(tds.get(4).text().equals("Bromley")) break;
-                        }
+            int m = 0;
+            for (Element row : table.select("tr")) {
+                Elements tds = row.select("td");
+                if(m != 0){
+                    if(tds.size() > 4){
+                        clubs.add(tds.get(4).text());
+                        stadiums.add(tds.get(1).text());
+                        city.add(tds.get(2).text());
+                        competition.add(tds.get(5).text());
+                        if(tds.get(4).text().equals("Bromley")) break;
                     }
-                        ++m;
-                    }
-                    clubs.add("Tottenham Hotspur");
-                    stadiums.add("Wembley Stadium");
-                    city.add("London");
-                    competition.add("Premier League");
-            } catch (IOException e) {
-                e.printStackTrace();
+                }
+                ++m;
             }
+            clubs.add("Tottenham Hotspur");
+            stadiums.add("Wembley Stadium");
+            city.add("London");
+            competition.add("Premier League");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         driver.close();
         driver.quit();
 
