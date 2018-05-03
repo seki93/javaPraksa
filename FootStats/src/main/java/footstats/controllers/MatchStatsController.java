@@ -23,7 +23,7 @@ public class MatchStatsController {
                                    @RequestParam String endResult,
                                    @RequestParam Integer fouls,
                                    @RequestParam String halfTimeResult,
-                                   @RequestParam Integer passes){
+                                   @RequestParam Float passPercent){
 
         MatchStats ms = new MatchStats();
         ms.setAssistance(assistance);
@@ -31,7 +31,7 @@ public class MatchStatsController {
         ms.setEndResult(endResult);
         ms.setFouls(fouls);
         ms.setHalfTimeResult(halfTimeResult);
-        ms.setPasses(passes);
+        ms.setPassPercent(passPercent);
 
         matchStatsService.save(ms);
         return "Saved MatchStats";
@@ -52,7 +52,7 @@ public class MatchStatsController {
                                    @RequestParam(required = false) Integer assistance,
                                    @RequestParam(required = false) Integer fouls,
                                    @RequestParam(required = false) Integer cards,
-                                   @RequestParam(required = false) Integer passes){
+                                   @RequestParam(required = false) Float passPercent){
 
         MatchStats ms = matchStatsService.findById(id);
         if (ms.getId() == id){
@@ -71,8 +71,8 @@ public class MatchStatsController {
             if(cards != null){
                 ms.setCards(cards);
             }
-            if(passes != null){
-                ms.setPasses(passes);
+            if(passPercent != null){
+                ms.setPassPercent(passPercent);
             }
 
             matchStatsService.save(ms);

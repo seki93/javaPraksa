@@ -23,16 +23,16 @@ public class MatchStats {
     @Column(name = "halftimeresult")
     private String halfTimeResult;
 
-    private Integer passes;
+    private Float passPercent;
 
-    public MatchStats(Integer id, Integer assistance, Integer cards, String endResult, Integer fouls, String halfTimeResult, Integer passes) {
+    public MatchStats(Integer id, Integer assistance, Integer cards, String endResult, Integer fouls, String halfTimeResult, Float passPercent) {
         this.id = id;
         this.assistance = assistance;
         this.cards = cards;
         this.endResult = endResult;
         this.fouls = fouls;
         this.halfTimeResult = halfTimeResult;
-        this.passes = passes;
+        this.passPercent = passPercent;
     }
 
     public MatchStats() {};
@@ -85,11 +85,11 @@ public class MatchStats {
         this.halfTimeResult = halfTimeResult;
     }
 
-    public Integer getPasses() {
-        return passes;
+    public Float getPassPercent() {
+        return passPercent;
     }
 
-    public void setPasses(Integer passes) {
-        this.passes = passes;
+    public void setPassPercent(Float passPercent) {
+        this.passPercent = passPercent;
     }
 }

@@ -275,4 +275,16 @@
                         schemaName="footstats"
                         tableName="matchstats"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-678">
+        <renameColumn columnDataType="INT"
+                      newColumnName="passpercent"
+                      oldColumnName="passes"
+                      schemaName="footstats"
+                      tableName="matchstats"/>
+        <modifyDataType columnName="passpercent"
+                        newDataType="float"
+                        schemaName="footstats"
+                        tableName="matchstats"/>
+    </changeSet>
+
 </databaseChangeLog>
