@@ -41,13 +41,16 @@ public class ClubImport {
         driver.manage().window().maximize();
 
         String url = "https://en.wikipedia.org/wiki/List_of_football_stadiums_in_England";
-        importEnglishClubs(driver, url);
+//        importEnglishClubs(driver, url);
 
         url = "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Italy";
         importItalyClubs(driver, url);
 
         url = "https://en.wikipedia.org/wiki/2017%E2%80%9318_Bundesliga";
         importGermanyClubs(driver, url);
+
+        url = "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Spain";
+        importSpanishClubs(driver, url);
 
         driver.close();
         driver.quit();
@@ -90,6 +93,58 @@ public class ClubImport {
             club.setCompetition(comp);
 
             clubService.save(club);
+        }
+    }
+
+    public void importSpanishClubs(WebDriver driver, String url){
+        driver.get(url);
+        Document doc;
+
+        try {
+            doc = Jsoup.connect(url).get();
+
+            Element table;
+            table = doc.select("table").get(1);
+
+            int m = 0;
+            for(Element row: table.select("tr")){
+                Elements tds = row.select("td");
+
+                if(m != 0){
+                    String strIn = tds.get(0).text();
+                    if(strIn.contains("*")){
+                        String strOut = strIn.substring(0, strIn.length()-1);
+                        if(strIn.contains("Málaga")) strOut = strIn.substring(0, strIn.length()-2);
+                        clubs.add(strOut);
+                    }else{
+                        clubs.add(strIn);
+                    }
+                    city.add(tds.get(1).text());
+                    stadiums.add(tds.get(2).text());
+                    competition.add("La Liga");
+                }
+                ++m;
+            }
+            m = 0;
+
+            table = doc.select("table").get(2);
+
+            for(Element row: table.select("tr")){
+                Elements tds = row.select("td");
+
+                if(m != 0){
+                    System.out.println();
+                    clubs.add(tds.get(0).text());
+                    city.add(tds.get(1).text());
+                    stadiums.add(tds.get(2).text());
+                    competition.add("Segunda División");
+                }
+                ++m;
+            }
+
+            saveClubsInDatabase("Spain");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -187,7 +242,7 @@ public class ClubImport {
             int m = 0;
             for (Element row : table.select("tr")) {
                 Elements tds = row.select("td");
-                if(m != 0){
+                if(m > 1){
                     if(tds.size() > 4){
                         clubs.add(tds.get(4).text());
                         stadiums.add(tds.get(1).text());
