@@ -32,6 +32,9 @@ public class ImportController {
     @Autowired
     PlayerImport playerImport;
 
+    @Autowired
+    NationalTeamImport nationalTeamImport;
+
     @GetMapping(path = "/player")
     public String importPlayer() throws InterruptedException {
         playerImport.importPlayer();
@@ -121,5 +124,16 @@ public class ImportController {
         clubImport.importClubs();
 
         return "Success";
+    }
+
+    @GetMapping(path = "/nationalTeams")
+    public String importNationalteams(){
+        try{
+            nationalTeamImport.importNationalTeams();
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        return "Success with import national teams!";
     }
 }
