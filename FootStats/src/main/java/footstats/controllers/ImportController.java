@@ -29,6 +29,15 @@ public class ImportController {
     @Autowired
     GameImport gameImport;
 
+    @Autowired
+    PlayerImport playerImport;
+
+    @GetMapping(path = "/player")
+    public String importPlayer() throws InterruptedException {
+        playerImport.importPlayer();
+        return "Success";
+    }
+
     @GetMapping(path = "/game")
     public String importGames(){
         try {
