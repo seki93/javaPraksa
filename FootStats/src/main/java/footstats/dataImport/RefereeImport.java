@@ -59,8 +59,53 @@ public class RefereeImport {
             action.moveToElement(driver.findElement(By.xpath(refereesField)));
             action.click().build().perform();
 
-            int j = 2;
+            Thread.sleep(1000);
 
+            int j = 2;
+            //nameOfReferees
+            while( driver.findElements(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+j+"]/td[1]/a")).size() > 0 ) {
+
+                Referee referee = new Referee();
+
+                String fullName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+j+"]/td[1]/a")).getText();
+                int indexOfSpace = fullName.indexOf(' ');
+                String firstName = fullName.substring(0, indexOfSpace);
+                String lastName = fullName.substring(indexOfSpace + 1);
+                referee.setFirstName(firstName);
+                referee.setLastName(lastName);
+
+                Date date = null;
+                if( !driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+j+"]/td[2]")).getText().isEmpty() ) {
+                    String dateSlash = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[2]")).getText();
+                    String dateHyphen = dateSlash.substring(6, 10) + '-' + dateSlash.substring(3, 5) + '-' + dateSlash.substring(0, 2);
+                    if(dateSlash.substring(3, 5).equals("00") || dateSlash.substring(0, 2).equals("00")){
+                        break;
+                    } else {
+                        LocalDate dateOfBirth = LocalDate.parse(dateHyphen);
+                        date = Date.from(dateOfBirth.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    }
+                }
+                referee.setDateOfBirth(date);
+
+                String countryName = null;
+                if( !driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[4]")).getText().isEmpty() ) {
+                    countryName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[4]")).getText();
+                }
+                if(countryName.equals("USA")){
+                    countryName = "United States";
+                } else if(countryName.equals("Ireland")){
+                    countryName = "Republic of Ireland";
+                } else if (countryName.equals("China")) {
+                    countryName = "China PR";
+                }
+                Country coutryOfBirth = countryService.findByName(countryName);
+                referee.setCountryOfBirth(coutryOfBirth);
+
+                refereeService.save(referee);
+
+                j++;
+
+            }
 
             i++;
         }
@@ -69,54 +114,3 @@ public class RefereeImport {
         driver.quit();
     }
 }
-
-//*[@id="site"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[2]/td[1]/a
-//*[@id="site"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[2]/td[2]
-//*[@id="site"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[2]/td[4]
-
-//*[@id="site"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[3]/td[1]/a
-
-
-        /*int j = 2;
-        while (!driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[1]/a")).getText().isEmpty()) {
-        try {
-        String fullName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[1]/a")).getText();
-        String[] piecesOfFullName = fullName.split(" ");
-        String firstName = piecesOfFullName[0];
-        String lastName = piecesOfFullName[1];
-
-        String dateString1 = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[2]")).getText();
-        String dateString = dateString1.substring(6, 10) + '-' + dateString1.substring(3, 5) + '-' + dateString1.substring(0, 2);
-        LocalDate dateOfBirth = LocalDate.parse(dateString);
-        if (dateOfBirth.getYear() < 1970) {
-        j++;
-        continue;
-        }
-        Date date = Date.from(dateOfBirth.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        String countryName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr[" + j + "]/td[4]")).getText();
-        Country countryOfBirth = countryService.findByName(countryName);
-
-        Referee referee = new Referee();
-        referee.setFirstName(firstName);
-        referee.setLastName(lastName);
-        referee.setDateOfBirth(date);
-        referee.setCountryOfBirth(countryOfBirth);
-
-        System.out.println("\n\n" + firstName + lastName + date.toString() + countryName + "\n\n");
-
-        refereeService.save(referee);
-
-        j++;
-        } catch (DateTimeException e) {
-        j++;
-        continue;
-        } catch (StringIndexOutOfBoundsException e) {
-        j++;
-        continue;
-        }
-        */
-
-
-//*[@id="navi"]/div[4]/div[1]/div/ul[6]/li[2]/a
-//*[@id="navi"]/div[4]/div[1]/div/ul[6]/li[3]/a
