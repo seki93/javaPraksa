@@ -6,10 +6,16 @@ import footstats.model.Game;
 import footstats.model.MatchStats;
 import footstats.service.ClubService;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,22 +26,74 @@ public class GameImport {
     ClubService clubService;
 
     final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GameImport.class);
-
     public void importGames() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         Actions actions = new Actions(driver);
         driver.manage().window().maximize();
-        String url = "http://www.skysports.com/premier-league-results";
+        String url = "https://www.sportinglife.com/football/results/competitions/english-premier-league/1/2017-08";
         driver.navigate().to(url);
+        int i = 2;
 
-        int i = 1;
-        while (!driver.findElements(By.xpath("//*[@id=\"widgetLite-5\"]/div[" + i +"]/a")).isEmpty() && i < 51){
-            System.out.println(driver.findElements(By.xpath("//*[@id=\"widgetLite-5\"]/div[" + i +"]/a")));
-//             String hometeam = driver.findElement(By.xpath("//*[@id=\"widgetLite-5\"]/div["+ i +"]/a/span[2]/span/span")).getText();
-//             String awayteam = driver.findElement(By.xpath("//*[@id=\"widgetLite-5\"]/div["+ i +"]/a/span[4]/span/span")).getText();
-//             String result = driver.findElement(By.xpath("//*[@id=\"widgetLite-5\"]/div[" + i + "]/a/span[3]/span[1]")).getText();
-              // pravi game, setuje home team i away team, setuje matchstats ID
+        //Lista kroz mesece
+        while (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/nav/ul/li["+ i +"]/a")).isEmpty()) {
+            //Ulazi u mesec
+            WebElement element = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/nav/ul/li["+i+"]/a"));
+            System.out.println(element.getText());
+            actions.moveToElement(element);
+            actions.click(element);
+            actions.build().perform();
+            int j = 1;
+            int z = 1;
+        // PUCA KADA DODJE DO SEPTEMBRA, PRVI MEC
+
+             while(!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[1]/div/div/a/div/div")).isEmpty()) {
+
+//                 if (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li/div/div/a/div/div")).isEmpty()){
+//
+//                     WebElement matches1 = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li["+j+"]/div/div/div[2]/ul/li/div/div/a/div/div"));
+//                     System.out.println(matches1.getText());
+//                     actions.moveToElement(matches1);
+//                     actions.click(matches1);
+//                     actions.build().perform();
+//                     driver.navigate().to(url);
+//                     j++;
+//                 }
+                 while (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[" + z + "]/div/div/a/div/div")).isEmpty()) {
+
+                     WebElement matches = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[" + z + "]/div/div/a/div/div"));
+                     System.out.println(matches.getText());
+                     actions.moveToElement(matches);
+                     actions.click(matches);
+                     actions.build().perform();
+                     z++;
+                     driver.navigate().to(url);
+                 }
+                 z = 1;
+                 j++;
+            }
+            i++;
+        }
+        driver.close();
+        driver.quit();
+    }
+}
+
+//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[1]/div/div/div[2]/ul/li/div/div/a/div/div
+
+
+
+
+//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[3]/div/div/div[2]/ul/li/div/div/a/div/div
+//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[4]/div/div/div[2]/ul/li[1]/div/div/a/div/div
+
+
+
+
+//             String hometeam = driver.findElement(By.xpath("")).getText();
+//             String awayteam = driver.findElement(By.xpath("")).getText();
+//             String result = driver.findElement(By.xpath("")).getText();
+// pravi game, setuje home team i away team, setuje matchstats ID
 //            Game game = new Game();
 //            Club homeTeam = clubService.findByName(hometeam);
 //            game.setHomeClub(homeTeam);
@@ -43,96 +101,3 @@ public class GameImport {
 //            game.setAwayClub(awayTeam);
 //            MatchStats matchStats = new MatchStats();
 //            game.setMatchStats(matchStats);
-
-            //Trazi po match polju
-
-                WebElement element = driver.findElement(By.xpath("//*[@id=\"widgetLite-5\"]/div["+ i +"]/a"));
-                System.out.println(element.getText());
-                actions.moveToElement(element);
-                actions.click(element);
-                actions.build().perform();
-
-                //Trazi Stats element
-                // int j = 7
-               // while (j < 10) {
-                    //    if (driver.findElement(By.xpath("//*[@id=\"page-nav\"]/ul/li[" + j + "]/a")).getText().contains("Stats")) {
-                            WebElement elementStats = driver.findElement(By.xpath("//*[@id=\"page-nav\"]/ul/li[9]/a"));
-
-                        // ulazi u Stats element
-                            actions.moveToElement(elementStats);
-                            actions.click(elementStats);
-                            actions.build().perform();
-
-//                            Integer pasovi1 = Integer.parseInt(driver.findElement(By.xpath("//*[@id=\"widgetLite-2\"]/div[1]/div[4]/div[1]/div/div[3]/div[3]/span[1]/span")).getText());
-//                            Integer pasovi2 = Integer.parseInt(driver.findElement(By.xpath("//*[@id=\"widgetLite-2\"]/div[1]/div[4]/div[1]/div/div[3]/div[3]/span[2]/span")).getText());
-//                            System.out.println(pasovi1);
-//                            System.out.println(pasovi2);
-//                            int zbirpasova = pasovi1 + pasovi2;
-
-
-                            System.out.println("Prosao je.");
-
-                            driver.navigate().to(url);
-                 //       }
-                 //   j++;
-                 //   }
-
-
-                i++;
-        }
-            driver.close();
-            driver.quit();
-    }
-}
-
-
-//http://www.skysports.com/football-results
-
-
-
-
-
-
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[1]/div/h5
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[2]/h4
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/h4
-
-
-
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/div[1]/h5
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/div[1]/span[1]/span      //*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/div[1]/span[2]/span
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/div[2]/span[1]/span
-
-
-
-
-
-
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[3]/h4
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[4]/h4
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[5]/h4
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[6]/h4
-//*[@id="widgetLite-2"]/div[1]/div[4]/div[1]/div/div[7]/h4
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
