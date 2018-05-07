@@ -41,7 +41,7 @@ public class ClubImport {
         driver.manage().window().maximize();
 
         String url = "https://en.wikipedia.org/wiki/List_of_football_stadiums_in_England";
-//        importEnglishClubs(driver, url);
+        importEnglishClubs(driver, url);
 
         url = "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Italy";
         importItalyClubs(driver, url);
@@ -71,7 +71,6 @@ public class ClubImport {
             if(c == null){
                 City newCity = new City();
                 newCity.setName(city.get(i));
-                System.out.println("Ime grada je "+newCity.getName());
                 newCity.setCountry(country);
                 cityService.save(newCity);
                 club.setCity(newCity);
@@ -85,7 +84,6 @@ public class ClubImport {
 
                 stadiumService.save(stadium);
                 club.setStadium(stadium);
-                System.out.println("Stadion: "+stadium.getName());
             }else{
                 club.setStadium(s.get(0));
             }
@@ -146,6 +144,11 @@ public class ClubImport {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        clubs.clear();
+        city.clear();
+        stadiums.clear();
+        competition.clear();
     }
 
     public void importGermanyClubs(WebDriver driver, String url){
@@ -260,11 +263,7 @@ public class ClubImport {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for(int i = 0; i < clubs.size(); i++){
-            System.out.println(clubs.get(i)+" -> Grad: "+city.get(i)+" -> Stadion: "+stadiums.get(i)+" -> Takmicenje: "+competition.get(i));
-        }
-
+        
         saveClubsInDatabase("England");
 
         clubs.clear();

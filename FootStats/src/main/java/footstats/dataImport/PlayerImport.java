@@ -50,47 +50,39 @@ public class PlayerImport {
         action.build().perform();
         action.doubleClick().build().perform();
 
+        int igraca = 0;
+
         for(int i = 1; i <= 12; i++){
             driver.get("http://www.worldfootball.net/players_list/eng-premier-league-2017-2018/nach-name/"+i+"/");
 
-            Document doc = null;
-
-            try {
-                doc = Jsoup.connect("http://www.worldfootball.net/players_list/eng-premier-league-2017-2018/nach-name/\"+i+\"/").get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            for(int j = 3; j <= 52; j++){
+            for(int j = 2; j < 52; j++){
                 action.moveToElement(((ChromeDriver) driver).findElementByCssSelector("#site > div.white > div.content > div > div.box > div > table > tbody > tr:nth-child("+j+") > td:nth-child(1) > a"));
                 action.doubleClick().build().perform();
 
-                Element table = doc.select("table[class=standard_tabelle yellow]").first();
+                if(i == 1 && j == 2){
+                    String fullName = driver.findElement(By.xpath("//*[@id=\"navi\"]/div[3]/h1")).getText();
+                    System.out.println("Name: "+fullName);
+                    ++igraca;
+                    String clubName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div[1]/div[3]/div[2]/table/tbody/tr[2]/td[2]/a/b")).getText();
+                    System.out.println("Igra za: "+clubName);
+                    System.out.println("Trenutan broj igraca: "+igraca);
+                    System.out.println();
 
-                Iterator<Element> ite = table.select("td[width=65]").iterator();
-                ite.next(); // first one is image, skip it
+                    String text = driver.findElement(By.cssSelector("#site > div.white > div.sidebar > div:nth-child(1) > div:nth-child(4) > table")).getText();
+                }else{
+                    String fullName = driver.findElement(By.xpath("//*[@id=\"navi\"]/div[3]/h1")).getText();
+                    System.out.println("Name: "+fullName);
+                    ++igraca;
 
-                System.out.println("Value 1: " + ite.next().text());
-                System.out.println("Value 2: " + ite.next().text());
-                System.out.println("Value 3: " + ite.next().text());
-                System.out.println("Value 4: " + ite.next().text());
-                System.out.println(table.text());
-                //String txtDate = txtDateInput.attr("value");
-                for(Element row: table.select("tr")){
-                    Elements tds = table.select("td");
-                    Elements head = table.select("th");
+                    String clubName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div[1]/div[3]/div[2]/table/tbody/tr[1]/td[2]/a/b")).getText();
+                    System.out.println("Igra za: "+clubName);
+                    System.out.println("Trenutan broj igraca: "+igraca);
+                    System.out.println();
 
-                    System.out.println(row.text());
-                    System.out.println(head.text());
+                    String text = driver.findElement(By.cssSelector("#site > div.white > div.sidebar > div:nth-child(1) > div:nth-child(4) > table")).getText();
                 }
-                //standard_tabelle yellow
-                final Elements elements = doc.select("tr:matches(Scoring) ~ tr.light");
-                System.out.println();
-
-
 
                 driver.navigate().back();
-                Thread.sleep(2000);
             }
 
         }

@@ -74,7 +74,8 @@ public class CityImport {
             City c = new City();
             c.setName(parts[i].trim());
             c.setCountry(england);
-            cityService.save(c);
+
+            if(cityService.findByName(c.getName()) == null) cityService.save(c);
         }
         citiesString = "";
     }
@@ -87,7 +88,8 @@ public class CityImport {
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[1]/tbody/tr["+i+"]/td[2]")).getText());
             c.setCountry(italy);
-            cityService.save(c);
+
+            if(cityService.findByName(c.getName()) == null) cityService.save(c);
         }
     }
 
@@ -99,7 +101,8 @@ public class CityImport {
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"myTable\"]/tbody/tr["+i+"]/td[1]/a")).getText());
             c.setCountry(spain);
-            cityService.save(c);
+
+            if(cityService.findByName(c.getName()) == null) cityService.save(c);
         }
     }
 
@@ -116,7 +119,8 @@ public class CityImport {
                     City c = new City();
                     c.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table["+i+"]/tbody/tr[2]/td["+j+"]/ul/li["+k+"]/a")).getText());
                     c.setCountry(germany);
-                    cityService.save(c);
+
+                    if(cityService.findByName(c.getName()) == null) cityService.save(c);
                 }
             }
         }
@@ -130,7 +134,8 @@ public class CityImport {
             City c = new City();
             c.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table/tbody/tr["+i+"]/td[1]")).getText());
             c.setCountry(france);
-            cityService.save(c);
+
+            if(cityService.findByName(c.getName()) == null) cityService.save(c);
         }
     }
 
@@ -147,7 +152,8 @@ public class CityImport {
             City c = new City();
             c.setName(parts1[i].trim());
             c.setCountry(wales);
-            cityService.save(c);
+
+            if(cityService.findByName(c.getName()) == null) cityService.save(c);
         }
         citiesString = "";
     }
