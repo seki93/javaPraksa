@@ -317,5 +317,10 @@
             <column name="fouls_awayteam" type="INT"/>
         </addColumn>
     </changeSet>
-
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-681">
+        <modifyDataType columnName="dateofbirth"
+                        newDataType="DATETIME"
+                        schemaName="footstats"
+                        tableName="person"/>
+    </changeSet>
 </databaseChangeLog>
