@@ -51,10 +51,10 @@ public class ImportController {
         return "Success with games imports";
     }
 
-    /*@Autowired
+    @Autowired
     RefereeImport refereeImport;
 
-    @GetMapping(path = "/refeere")
+    @GetMapping(path = "/referee")
     public String importReferees() {
         try {
             refereeImport.importReferees();
@@ -63,7 +63,7 @@ public class ImportController {
         }
 
         return "Success with import referees";
-    }*/
+    }
 
     @GetMapping(path = "/city")
     public String importCities(){

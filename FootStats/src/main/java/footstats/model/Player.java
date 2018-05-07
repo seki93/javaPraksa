@@ -3,6 +3,8 @@ package footstats.model;
 import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("player")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Player extends  Person{
 
     @OneToOne

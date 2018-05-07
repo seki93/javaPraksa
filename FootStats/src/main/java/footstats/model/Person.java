@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
 
     @Id
@@ -17,7 +18,7 @@ public class Person {
     private String lastName;
 
     @Column(name = "dateofbirth")
-    private Date dateOfBirth;
+    private java.util.Date dateOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "countryofbirth_id")
@@ -47,11 +48,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public java.util.Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(java.util.Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
