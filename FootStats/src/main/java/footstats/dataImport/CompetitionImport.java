@@ -354,6 +354,114 @@ public class CompetitionImport {
                 }
             }
 
+            // POLAND COMPETITIONS
+
+            if (driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/a")).getText() != null) {
+
+                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/a"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(element1);
+                actions.click();
+                actions.build().perform();
+
+                int rank6 = 1;
+
+                Thread.sleep(3000);
+
+                for (int i = 1; i < 9; i++) {
+
+                        if (driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/ul/li["+ i +"]/a")).getText().contains("Cup")) {
+
+                            Country poland = countryService.findByName("Poland");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(poland);
+                            competition.setRank(0);
+
+                            competitionService.save(competition);
+
+                        } else if (driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/ul/li["+ i +"]/a")).getText().contains("Liga")) {
+
+                            Country poland = countryService.findByName("Poland");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(poland);
+                            competition.setRank(4);
+
+                            competitionService.save(competition);
+                        } else {
+
+                            Country poland = countryService.findByName("Poland");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_154\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(poland);
+                            competition.setRank(rank6);
+                            rank6++;
+                            competitionService.save(competition);
+                        }
+                }
+            }
+
+            // RUSSIA COMPETITIONS
+
+            Thread.sleep(4000);
+
+            if (driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/a")).getText() != null) {
+
+                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/a"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(element1);
+                actions.click();
+                actions.build().perform();
+
+                int rank6 = 1;
+
+                Thread.sleep(3000);
+
+                for (int i = 1; i < 10; i++) {
+
+                    if (i != 8) {
+
+                        if (driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/ul/li["+ i +"]/a")).getText().contains("Cup")) {
+
+                            Country russia = countryService.findByName("Russia");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(russia);
+                            competition.setRank(0);
+
+                            competitionService.save(competition);
+
+                        } else if (driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/ul/li["+ i +"]/a")).getText().contains("PFL")) {
+
+                            Country russia = countryService.findByName("Russia");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(russia);
+                            competition.setRank(3);
+
+                            competitionService.save(competition);
+                        } else {
+
+                            Country russia = countryService.findByName("Russia");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_158\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(russia);
+                            competition.setRank(rank6);
+                            rank6++;
+                            competitionService.save(competition);
+                        }
+                    }
+
+                }
+            }
+
             // SERBIA COMPETITIONS
 
             String url7 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
@@ -420,6 +528,118 @@ public class CompetitionImport {
                     rank8++;
                     competitionService.save(competition);
                 }
+
+            }
+
+            // BELGIUM COMPETITIONS
+
+            Thread.sleep(4000);
+
+            int rank9 = 1;
+
+            for (int i = 2; i < 9; i++) {
+
+                if(i != 7) {
+
+                    if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[32]/tbody/tr["+ i +"]/td[1]/a")).getText().contains("Cup")) {
+
+                        Country belgium = countryService.findByName("Belgium");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[32]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(belgium);
+                        competition.setRank(0);
+
+                        competitionService.save(competition);
+
+                    } else {
+
+                        Country belgium = countryService.findByName("Belgium");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[32]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(belgium);
+                        competition.setRank(rank9);
+                        rank9++;
+                        competitionService.save(competition);
+                    }
+                }
+
+            }
+
+            // CZECH REPUBLIC COMPETITIONS
+
+            Thread.sleep(4000);
+
+            int rank10 = 1;
+
+            for (int i = 2; i < 8; i++) {
+
+                    if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[37]/tbody/tr["+ i +"]/td[1]/a")).getText().contains("Cup")) {
+
+                        Country czechRepublic = countryService.findByName("Czech Republic");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[37]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(czechRepublic);
+                        competition.setRank(0);
+
+                        competitionService.save(competition);
+
+                    } else if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[37]/tbody/tr["+ i +"]/td[1]/a")).getText().contains("Football")) {
+
+                        Country czechRepublic = countryService.findByName("Czech Republic");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[37]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(czechRepublic);
+                        competition.setRank(3);
+
+                        competitionService.save(competition);
+                    } else {
+
+                        Country czechRepublic = countryService.findByName("Czech Republic");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[37]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(czechRepublic);
+                        competition.setRank(rank10);
+                        rank10++;
+                        competitionService.save(competition);
+                    }
+
+            }
+
+            // DENMARK COMPETITIONS
+
+            Thread.sleep(4000);
+
+            int rank11 = 1;
+
+            for (int i = 2; i < 8; i++) {
+
+                    if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[38]/tbody/tr["+ i +"]/td[1]/a")).getText().contains("Cup")) {
+
+                        Country denmark = countryService.findByName("Denmark");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[38]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(denmark);
+                        competition.setRank(0);
+
+                        competitionService.save(competition);
+
+                    } else {
+
+                        Country denmark = countryService.findByName("Denmark");
+
+                        Competition competition = new Competition();
+                        competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[38]/tbody/tr["+ i +"]/td[1]/a")).getText());
+                        competition.setCountry(denmark);
+                        competition.setRank(rank11);
+                        rank11++;
+                        competitionService.save(competition);
+                    }
 
             }
 
