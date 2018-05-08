@@ -187,7 +187,7 @@ public class CompetitionImport {
                 actions.click();
                 actions.build().perform();
 
-                int rank5 = 1;
+                int rank3 = 1;
 
                 Thread.sleep(3000);
 
@@ -223,8 +223,8 @@ public class CompetitionImport {
                             Competition competition = new Competition();
                             competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_98\"]/ul/li[" + i + "]/a")).getText());
                             competition.setCountry(italy);
-                            competition.setRank(rank5);
-                            rank5++;
+                            competition.setRank(rank3);
+                            rank3++;
                             competitionService.save(competition);
                         }
                     }
@@ -239,7 +239,7 @@ public class CompetitionImport {
 
             Thread.sleep(4000);
 
-            int rank3 = 1;
+            int rank4 = 1;
 
             for (int i = 2; i < 8; i++) {
 
@@ -263,8 +263,8 @@ public class CompetitionImport {
                         Competition competition = new Competition();
                         competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[50]/tbody/tr[" + i + "]/td[2]/a")).getText());
                         competition.setCountry(spain);
-                        competition.setRank(rank3);
-                        rank3++;
+                        competition.setRank(rank4);
+                        rank4++;
                         competitionService.save(competition);
                     }
                 }
@@ -275,7 +275,7 @@ public class CompetitionImport {
 
             Thread.sleep(4000);
 
-            int rank4 = 1;
+            int rank5 = 1;
 
             for (int i = 2; i < 9; i++) {
 
@@ -297,8 +297,127 @@ public class CompetitionImport {
                     Competition competition = new Competition();
                     competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[41]/tbody/tr[" + i + "]/td[1]/a")).getText());
                     competition.setCountry(france);
-                    competition.setRank(rank4);
-                    rank4++;
+                    competition.setRank(rank5);
+                    rank5++;
+                    competitionService.save(competition);
+                }
+
+            }
+
+            // NETHERLANDS COMPETITIONS
+
+            String url6 = "https://www.soccer24.com/";
+            driver.get(url6);
+
+            Thread.sleep(4000);
+
+            if (driver.findElement(By.xpath("//*[@id=\"lmenu_139\"]/a")).getText() != null) {
+
+                WebElement element1 = driver.findElement(By.xpath("//*[@id=\"lmenu_139\"]/a"));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(element1);
+                actions.click();
+                actions.build().perform();
+
+                int rank6 = 1;
+
+                Thread.sleep(3000);
+
+                for (int i = 1; i < 7; i++) {
+
+                    if (i != 5) {
+
+                        if (driver.findElement(By.xpath("//*[@id=\"lmenu_139\"]/ul/li["+ i +"]/a")).getText().contains("Beker")) {
+
+                            Country netherlands = countryService.findByName("Netherlands");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_139\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(netherlands);
+                            competition.setRank(0);
+
+                            competitionService.save(competition);
+
+                        } else {
+
+                            Country netherlands = countryService.findByName("Netherlands");
+
+                            Competition competition = new Competition();
+                            competition.setName(driver.findElement(By.xpath("//*[@id=\"lmenu_139\"]/ul/li["+ i +"]/a")).getText());
+                            competition.setCountry(netherlands);
+                            competition.setRank(rank6);
+                            rank6++;
+                            competitionService.save(competition);
+                        }
+                    }
+
+                }
+            }
+
+            // SERBIA COMPETITIONS
+
+            String url7 = "https://en.wikipedia.org/wiki/List_of_association_football_competitions";
+            driver.get(url7);
+
+            Thread.sleep(4000);
+
+            int rank7 = 1;
+
+            for (int i = 2; i < 6; i++) {
+
+                if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ i +"]/td[2]/a")).getText().contains("Kup")) {
+
+                    Country serbia = countryService.findByName("Serbia");
+
+                    Competition competition = new Competition();
+                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ i +"]/td[2]/a")).getText());
+                    competition.setCountry(serbia);
+                    competition.setRank(0);
+
+                    competitionService.save(competition);
+
+                } else {
+
+                    Country serbia = countryService.findByName("Serbia");
+
+                    Competition competition = new Competition();
+                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[49]/tbody/tr["+ i +"]/td[2]/a")).getText());
+                    competition.setCountry(serbia);
+                    competition.setRank(rank7);
+                    rank7++;
+                    competitionService.save(competition);
+                }
+
+            }
+
+            // PORTUGAL COMPETITIONS
+
+            Thread.sleep(4000);
+
+            int rank8 = 1;
+
+            for (int i = 2; i < 11; i++) {
+
+                if (driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[47]/tbody/tr["+ i +"]/td[2]/a")).getText().contains("Taça")) {
+
+                    Country portugal = countryService.findByName("Portugal");
+
+                    Competition competition = new Competition();
+                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[47]/tbody/tr["+ i +"]/td[2]/a")).getText());
+                    competition.setCountry(portugal);
+                    competition.setRank(0);
+
+                    competitionService.save(competition);
+
+                } else {
+
+                    Country portugal = countryService.findByName("Portugal");
+
+                    Competition competition = new Competition();
+                    competition.setName(driver.findElement(By.xpath("//*[@id=\"mw-content-text\"]/div/table[47]/tbody/tr["+ i +"]/td[2]/a")).getText());
+                    competition.setCountry(portugal);
+                    competition.setRank(rank8);
+                    rank8++;
                     competitionService.save(competition);
                 }
 
@@ -358,8 +477,8 @@ public class CompetitionImport {
                 }
             }
 
-            String url6 = "https://en.wikipedia.org/wiki/FIFA#Men's_tournaments";
-            driver.get(url6);
+            String url8 = "https://en.wikipedia.org/wiki/FIFA#Men's_tournaments";
+            driver.get(url8);
 
             Thread.sleep(4000);
 

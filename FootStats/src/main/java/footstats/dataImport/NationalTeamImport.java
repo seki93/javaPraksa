@@ -47,8 +47,10 @@ public class NationalTeamImport {
         driver.quit();
     }
 
-    private void importWorldCupNationalTeams(WebDriver driver, String url) {
+    private void importWorldCupNationalTeams(WebDriver driver, String url) throws InterruptedException {
         driver.get(url);
+
+        Thread.sleep(3000);
 
         int i = 1;
 
@@ -68,8 +70,10 @@ public class NationalTeamImport {
         }
     }
 
-    private void importConfederationsCupNationalTeams(WebDriver driver, String url) {
+    private void importConfederationsCupNationalTeams(WebDriver driver, String url) throws  InterruptedException {
         driver.get(url);
+
+        Thread.sleep(3000);
 
         int i = 1;
 
@@ -89,8 +93,10 @@ public class NationalTeamImport {
         }
     }
 
-    private void importEuropeanChampionShipNationalTeams(WebDriver driver, String url) {
+    private void importEuropeanChampionShipNationalTeams(WebDriver driver, String url) throws InterruptedException {
         driver.get(url);
+
+        Thread.sleep(3000);
 
         int i = 1;
 
