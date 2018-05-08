@@ -18,8 +18,6 @@ import java.util.ArrayList;
 @Service
 public class PositionImport {
 
-    final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SekiSelenijum.class);
-
     private ArrayList<String> positions = new ArrayList<>();
 
     @Autowired
@@ -28,10 +26,8 @@ public class PositionImport {
     public void importPositions() throws  InterruptedException{
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-        log.debug("Opening browser");
         driver.manage().window().maximize();
         String url = "https://www.realbuzz.com/articles-interests/sports-activities/article/player-positions-in-soccer/";
-        log.debug("navigating to the " + url);
         driver.get(url);
 
         Actions actions = new Actions(driver);
@@ -50,8 +46,7 @@ public class PositionImport {
                 positionService.save(position);
             }
         } catch (Exception e) {
-            log.debug("Got an exception!");
-            log.debug(e.getMessage());
+
         }
     }
 }

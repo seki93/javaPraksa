@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompetitionImport {
 
-    private final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SekiSelenijum.class);
-
     @Autowired
     private CompetitionService competitionService;
 
@@ -27,7 +25,6 @@ public class CompetitionImport {
     public void importCompetitions() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-        log.debug("Opening browser");
         driver.manage().window().maximize();
 
         try {
@@ -407,7 +404,6 @@ public class CompetitionImport {
             System.out.println(e.getMessage());
         }
 
-        log.debug("Closing browser");
         driver.close();
         driver.quit();
     }
