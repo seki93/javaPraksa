@@ -1,22 +1,31 @@
 package footstats.dataImport;
 
+import footstats.model.Player;
 import footstats.service.ClubService;
 import footstats.service.CountryService;
 import footstats.service.PersonService;
 import footstats.service.PositionService;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 
 @Service
@@ -41,56 +50,123 @@ public class PlayerImport {
         driver.get(url);
 
         Actions action = new Actions(driver);
-        action.moveToElement(driver.findElement(By.id("top_menu_item_1")));
-        action.build().perform();
-        action.doubleClick().build().perform();
 
+        int i = 2;
 
-        action.moveToElement(((ChromeDriver) driver).findElementByCssSelector("#navi > div.sitenavi > div.navibox2 > div > ul:nth-child(3) > li:nth-child(2) > a"));
-        action.build().perform();
-        action.doubleClick().build().perform();
+        while(true) {
+            action.moveToElement(driver.findElement(By.xpath("//*[@id=\"toggle-menu-3\"]")));
+            action.build().perform();
+            action.doubleClick().build().perform();
 
-        int igraca = 0;
+            String country = "//*[@id=\"special_navi_body\"]/a["+i+"]";
+            if(driver.findElements(By.xpath(country)).isEmpty()) break;
 
-        for(int i = 1; i <= 12; i++){
-            driver.get("http://www.worldfootball.net/players_list/eng-premier-league-2017-2018/nach-name/"+i+"/");
+            action.moveToElement(driver.findElement(By.xpath("//*[@id=\"special_navi_body\"]/a["+i+"]")));
+            action.build().perform();
+            action.doubleClick().build().perform();
 
-            for(int j = 2; j < 52; j++){
-                action.moveToElement(((ChromeDriver) driver).findElementByCssSelector("#site > div.white > div.content > div > div.box > div > table > tbody > tr:nth-child("+j+") > td:nth-child(1) > a"));
-                action.doubleClick().build().perform();
+            importPlayerInDatabase(driver, country);
 
-                if(i == 1 && j == 2){
-                    String fullName = driver.findElement(By.xpath("//*[@id=\"navi\"]/div[3]/h1")).getText();
-                    System.out.println("Name: "+fullName);
-                    ++igraca;
-                    String clubName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div[1]/div[3]/div[2]/table/tbody/tr[2]/td[2]/a/b")).getText();
-                    System.out.println("Igra za: "+clubName);
-                    System.out.println("Trenutan broj igraca: "+igraca);
-                    System.out.println();
+            System.out.println("Country: "+driver.findElement(By.xpath("//*[@id=\"toggle-menu-3\"]")).getText()+" Number of country: "+i);
 
-                    String text = driver.findElement(By.cssSelector("#site > div.white > div.sidebar > div:nth-child(1) > div:nth-child(4) > table")).getText();
-                }else{
-                    String fullName = driver.findElement(By.xpath("//*[@id=\"navi\"]/div[3]/h1")).getText();
-                    System.out.println("Name: "+fullName);
-                    ++igraca;
-
-                    String clubName = driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div[1]/div[3]/div[2]/table/tbody/tr[1]/td[2]/a/b")).getText();
-                    System.out.println("Igra za: "+clubName);
-                    System.out.println("Trenutan broj igraca: "+igraca);
-                    System.out.println();
-
-                    String text = driver.findElement(By.cssSelector("#site > div.white > div.sidebar > div:nth-child(1) > div:nth-child(4) > table")).getText();
-                }
-
-                driver.navigate().back();
-            }
-
+            ++i;
         }
-
-
-
 
         driver.close();
         driver.quit();
+    }
+
+    public void importPlayerInDatabase(WebDriver driver, String country) throws InterruptedException {
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(By.xpath("//*[@id=\"navi\"]/div[4]/div[1]/div/ul[3]/li[2]/a")));
+        action.doubleClick().perform();
+
+        System.out.println("nasao sam pleyere");
+        while(true){
+            int i = 51;
+
+            while(true){
+                if(driver.findElements(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+i+"]/td[1]/a")).size() == 0 ) break;
+
+                action.moveToElement(driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+i+"]/td[1]/a")));
+                action.click().build().perform();
+
+
+                Document doc = null;
+                try {
+                    doc = Jsoup.connect(driver.getCurrentUrl()).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //System.out.println(++igraca);
+                Element playerFullName = doc.getElementsByClass("breadcrumb").first();
+                Element clubInfo = doc.getElementsByClass("dunkel").tagName("b").first();
+
+                //CLUB AND POSITION
+                String playerInfo = clubInfo.text();
+                String position = null;
+                String clubname = "";
+                String[] clubAndPostition = playerInfo.split(" ");
+                for (int n = 0; n < clubAndPostition.length; n++){
+                    if(clubAndPostition[n].equals(country)){
+                        position = clubAndPostition[n+1];
+                        break;
+                    }
+                    clubname += clubAndPostition[n]+" ";
+                }
+
+                if(clubname.endsWith(" ")) clubname = clubname.substring(0, clubname.length() -1);
+
+                System.out.println("Club: "+clubname);
+                System.out.println("Position: "+position);
+                //END
+
+
+                //FIRSTNAME AND SURNAME
+                String fullName = playerFullName.text();
+                String[] splitFullName = fullName.split(" ");
+                String firstName;
+                String lastName = null;
+                if(splitFullName.length == 1) firstName = splitFullName[0];
+                else{
+                    firstName = splitFullName[0];
+                    lastName = splitFullName[1];
+                }
+
+                System.out.println("First name: "+firstName);
+                System.out.println("Last name: "+lastName);
+                //END
+
+                //DATE AND NATIONALITY
+                String info = doc.getElementsByClass("data").text();
+                int datePosition = info.indexOf("Born:");
+                String date = info.substring(datePosition+6, datePosition+16);
+                date.trim();
+
+                String nationality = "";
+                int nationalityPosition = info.indexOf("Nationality");
+                int endOfNationalityPosition = info.indexOf("Height");
+                if(endOfNationalityPosition > 0) nationality = info.substring(nationalityPosition+13, endOfNationalityPosition - 1);
+                else nationality = info.substring(nationalityPosition+13, info.length());
+                nationality.trim();
+                System.out.println("Date: "+date);
+                System.out.println("Nationality: "+nationality);
+                System.out.println();
+                //END
+
+                ++i;
+               driver.navigate().back();
+            }
+            if(driver.findElements(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[2]/div/table/tbody/tr/td[7]/a")).isEmpty()) break;
+
+            String arrow = "//*[@id=\"site\"]/div[3]/div[1]/div/div[2]/div/table/tbody/tr/td[7]/a";
+            ((JavascriptExecutor)driver).executeScript("window.scrollTo(document.body.scrollHeight,0)");
+
+            action.moveToElement(driver.findElement(By.xpath(arrow)));
+            action.click().build().perform();
+        }
+        Thread.sleep(1000);
+
     }
 }

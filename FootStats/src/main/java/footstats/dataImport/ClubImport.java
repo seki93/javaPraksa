@@ -263,7 +263,7 @@ public class ClubImport {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         saveClubsInDatabase("England");
 
         clubs.clear();
