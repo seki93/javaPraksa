@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class NationalTeamServiceImp implements NationalTeamService  {
@@ -51,5 +52,10 @@ public class NationalTeamServiceImp implements NationalTeamService  {
     @Override
     public NationalTeam findByName(String nationalTeamName) {
         return nationalTeamRepository.findByName(nationalTeamName);
+    }
+
+    @Override
+    public List<NationalTeam> findByNames(String nationalTeamName) {
+        return nationalTeamRepository.findByNames(nationalTeamName);
     }
 }
