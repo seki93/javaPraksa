@@ -9,6 +9,8 @@ import footstats.service.NationalTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/nationalTeam")
 public class NationalTeamController {
@@ -23,13 +25,13 @@ public class NationalTeamController {
     CompetitionService competitionService;
 
     @GetMapping(path = "/all")
-    public Iterable<NationalTeam> getAllNationalTeam(){
+    public Iterable<NationalTeam> getAllNationalTeam() {
         return nationalTeamService.findAll();
     }
 
     @PostMapping(path = "/add")
     public String addNewNationalTeam(@RequestParam String name,
-                                     @RequestParam String competitionName){
+                                     @RequestParam String competitionName) {
 
         NationalTeam nt = new NationalTeam();
         nt.setName(name);
@@ -45,10 +47,10 @@ public class NationalTeamController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteNationalTeam(@RequestParam String name){
+    public String deleteNationalTeam(@RequestParam String name) {
         NationalTeam nt = nationalTeamService.findByName(name);
 
-        if (nt.getId() == null){
+        if (nt.getId() == null) {
             return "Wrong National Team ID";
         }
         nationalTeamService.deleteById(nt.getId());
@@ -57,16 +59,26 @@ public class NationalTeamController {
 
     @PostMapping(path = "/update")
     public String updateNationalTeam(@RequestParam(required = false) String name,
-                                     @RequestParam(required = false) String competitionName){
+                                     @RequestParam(required = false) String competitionName) {
 
         NationalTeam nt = nationalTeamService.findByName(name);
         Competition c = nt.getCompetition();
-        if(c.getName() != competitionName){
+        if (c.getName() != competitionName) {
             Competition competition = competitionService.findByName(competitionName);
             nt.setCompetition(competition);
         }
-            nationalTeamService.save(nt);
+        nationalTeamService.save(nt);
 
         return "Saved National Team";
+    }
+
+    @GetMapping(path = "/getNationalTeamByNames")
+    public List<NationalTeam> getNationalTeamByNames(@RequestParam String name) {
+
+        List<NationalTeam> nt = nationalTeamService.findNationalTeamByName(name);
+        if(nt != null) return nt;
+
+        return null;
+
     }
 }

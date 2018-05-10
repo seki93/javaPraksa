@@ -55,7 +55,9 @@ public class CompetitionImport {
                 Thread.sleep(2000);
 
                 String countryName = driver.findElement(By.xpath("//*[@id=\"top\"]/div[2]/div[2]/div[1]/div[1]/div/span")).getText();
-                Country country = countryService.findByName(countryName);
+                Country country = new Country();
+                country.setName(countryName);
+                if(countryService.findByName(countryName) == null) countryService.save(country);
 
                 String leagueName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
 
