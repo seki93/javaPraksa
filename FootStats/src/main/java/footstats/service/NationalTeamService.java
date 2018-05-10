@@ -12,5 +12,5 @@ public interface NationalTeamService {
 
     public NationalTeam findByName(String nationalTeamName);
 
-    public List<NationalTeam> findByNames(String nationalTeamName);
+    public List<NationalTeam> findNationalTeamByName(String nationalTeamName);
 }

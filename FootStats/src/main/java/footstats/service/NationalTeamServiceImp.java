@@ -55,7 +55,7 @@ public class NationalTeamServiceImp implements NationalTeamService  {
     }
 
     @Override
-    public List<NationalTeam> findByNames(String nationalTeamName) {
-        return nationalTeamRepository.findByNames(nationalTeamName);
+    public List<NationalTeam> findNationalTeamByName(String nationalTeamName) {
+        return nationalTeamRepository.findNationalTeamByName(nationalTeamName);
     }
 }

@@ -13,7 +13,7 @@ public interface NationalTeamRepository extends CrudRepository<NationalTeam, Int
 
     public void deleteById(Integer id);
 
-    public NationalTeam findByName(String nationalTeamNme);
+    public NationalTeam findByName(String nationalTeamName);
 
-    public List<NationalTeam> findByNames(String nationalTeamName);
+    public List<NationalTeam> findNationalTeamByName(String nationalTeamName);
 }
