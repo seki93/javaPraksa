@@ -27,37 +27,54 @@ public class CompetitionImport {
         driver.manage().window().maximize();
 
         String url = "https://www.soccer24.com";
-        driver.navigate().to(url);
+        addCompetitions(driver, url);
+
+        url = "https://www.soccer24.com";
+        addInternationalCompetitions(driver, url);
+
+        driver.close();
+        driver.quit();
+
+    }
+
+    private void addCompetitions(WebDriver driver, String url) throws InterruptedException {
+        driver.get(url);
 
         Actions action = new Actions(driver);
 
         int i = 17;
-        while( i < 250) {
+        while (i < 350) {
 
-            String countryPath = "//*[@id=\"lmenu_"+i+"\"]/a";
-            if(driver.findElements(By.xpath(countryPath)).isEmpty()){
+            String countryPath = "//*[@id=\"lmenu_" + i + "\"]/a";
+            if (driver.findElements(By.xpath(countryPath)).isEmpty()) {
                 i++;
                 continue;
             }
 
             int j = 1;
-            while(true) {
+            while (true) {
                 action.moveToElement(driver.findElement(By.xpath(countryPath)));
                 action.click().build().perform();
                 Thread.sleep(1500);
 
-                String leaguePath = "//*[@id=\"lmenu_"+i+"\"]/ul/li["+j+"]/a";
-                if(driver.findElements(By.xpath(leaguePath)).isEmpty()) {
+                String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
+                if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
                     break;
                 }
+
                 action.moveToElement(driver.findElement(By.xpath(leaguePath)));
                 action.click().build().perform();
-                Thread.sleep(2000);
+                Thread.sleep(1500);
 
                 String countryName = driver.findElement(By.xpath("//*[@id=\"top\"]/div[2]/div[2]/div[1]/div[1]/div/span")).getText();
-                Country country = new Country();
-                country.setName(countryName);
-                if(countryService.findByName(countryName) == null) countryService.save(country);
+                Country country;
+                if (countryService.findByName(countryName) == null) {
+                    country = new Country();
+                    country.setName(countryName);
+                    countryService.save(country);
+                } else {
+                    country = countryService.findByName(countryName);
+                }
 
                 String leagueName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
 
@@ -67,17 +84,58 @@ public class CompetitionImport {
 
                 competitionService.save(competition);
 
-                Thread.sleep(1500);
-
                 j++;
             }
 
             i++;
         }
+    }
 
+    private void addInternationalCompetitions(WebDriver driver, String url) throws InterruptedException {
+        driver.get(url);
 
-        driver.close();
-        driver.quit();
+        Actions action = new Actions(driver);
+
+        int i = 1;
+        while (i < 10) {
+
+            String path = "//*[@id=\"lmenu_" + i + "\"]/a";
+            if (driver.findElements(By.xpath(path)).isEmpty()) {
+                i++;
+                continue;
+            }
+
+            int j = 1;
+            while (true) {
+                action.moveToElement(driver.findElement(By.xpath(path)));
+                action.click().build().perform();
+                Thread.sleep(1500);
+
+                String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
+                if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
+                    break;
+                }
+
+                action.moveToElement(driver.findElement(By.xpath(leaguePath)));
+                action.click().build().perform();
+                Thread.sleep(1500);
+
+                Country country = countryService.findByName("International");
+
+                String leagueName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
+
+                Competition competition = new Competition();
+                competition.setCountry(country);
+                competition.setName(leagueName);
+
+                competitionService.save(competition);
+
+                j++;
+
+            }
+
+            i++;
+        }
     }
 }
 
