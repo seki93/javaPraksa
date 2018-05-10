@@ -1,10 +1,7 @@
 package footstats.dataImport;
 
-import footstats.model.Player;
-import footstats.service.ClubService;
-import footstats.service.CountryService;
-import footstats.service.PersonService;
-import footstats.service.PositionService;
+import footstats.model.*;
+import footstats.service.*;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,6 +21,9 @@ import org.jsoup.select.Elements;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,6 +39,10 @@ public class PlayerImport {
     CountryService countryService;
     @Autowired
     PositionService positionService;
+    @Autowired
+    NationalTeamService nationalTeamService;
+    @Autowired
+    PlayerService playerService;
 
     public void importPlayer() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
@@ -52,6 +56,7 @@ public class PlayerImport {
         Actions action = new Actions(driver);
 
         int i = 2;
+        int brojIgraca = 1;
 
         while(true) {
             action.moveToElement(driver.findElement(By.xpath("//*[@id=\"toggle-menu-3\"]")));
@@ -61,11 +66,12 @@ public class PlayerImport {
             String country = "//*[@id=\"special_navi_body\"]/a["+i+"]";
             if(driver.findElements(By.xpath(country)).isEmpty()) break;
 
+            String countryName = driver.findElement(By.xpath("//*[@id=\"special_navi_body\"]/a["+i+"]")).getText();
             action.moveToElement(driver.findElement(By.xpath("//*[@id=\"special_navi_body\"]/a["+i+"]")));
             action.build().perform();
             action.doubleClick().build().perform();
 
-            importPlayerInDatabase(driver, country);
+            importPlayerInDatabase(driver, countryName);
 
             System.out.println("Country: "+driver.findElement(By.xpath("//*[@id=\"toggle-menu-3\"]")).getText()+" Number of country: "+i);
 
@@ -76,21 +82,19 @@ public class PlayerImport {
         driver.quit();
     }
 
-    public void importPlayerInDatabase(WebDriver driver, String country) throws InterruptedException {
+    public void importPlayerInDatabase(WebDriver driver, String countryName) throws InterruptedException {
         Actions action = new Actions(driver);
         action.moveToElement(driver.findElement(By.xpath("//*[@id=\"navi\"]/div[4]/div[1]/div/ul[3]/li[2]/a")));
         action.doubleClick().perform();
 
-        System.out.println("nasao sam pleyere");
         while(true){
-            int i = 51;
+            int i = 2;
 
             while(true){
                 if(driver.findElements(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+i+"]/td[1]/a")).size() == 0 ) break;
 
                 action.moveToElement(driver.findElement(By.xpath("//*[@id=\"site\"]/div[3]/div[1]/div/div[3]/div/table/tbody/tr["+i+"]/td[1]/a")));
                 action.click().build().perform();
-
 
                 Document doc = null;
                 try {
@@ -99,7 +103,6 @@ public class PlayerImport {
                     e.printStackTrace();
                 }
 
-                //System.out.println(++igraca);
                 Element playerFullName = doc.getElementsByClass("breadcrumb").first();
                 Element clubInfo = doc.getElementsByClass("dunkel").tagName("b").first();
 
@@ -109,7 +112,7 @@ public class PlayerImport {
                 String clubname = "";
                 String[] clubAndPostition = playerInfo.split(" ");
                 for (int n = 0; n < clubAndPostition.length; n++){
-                    if(clubAndPostition[n].equals(country)){
+                    if(clubAndPostition[n].equals(countryName)){
                         position = clubAndPostition[n+1];
                         break;
                     }
@@ -117,9 +120,6 @@ public class PlayerImport {
                 }
 
                 if(clubname.endsWith(" ")) clubname = clubname.substring(0, clubname.length() -1);
-
-                System.out.println("Club: "+clubname);
-                System.out.println("Position: "+position);
                 //END
 
 
@@ -133,16 +133,19 @@ public class PlayerImport {
                     firstName = splitFullName[0];
                     lastName = splitFullName[1];
                 }
-
-                System.out.println("First name: "+firstName);
-                System.out.println("Last name: "+lastName);
                 //END
 
                 //DATE AND NATIONALITY
                 String info = doc.getElementsByClass("data").text();
-                int datePosition = info.indexOf("Born:");
-                String date = info.substring(datePosition+6, datePosition+16);
-                date.trim();
+                String date = "";
+                if(info.contains("???")){
+                    int datePosition = info.indexOf("Born:");
+                    date = info.substring(datePosition+6, datePosition+16);
+                    date.trim();
+                }else{
+                    date = "???";
+                }
+
 
                 String nationality = "";
                 int nationalityPosition = info.indexOf("Nationality");
@@ -150,10 +153,77 @@ public class PlayerImport {
                 if(endOfNationalityPosition > 0) nationality = info.substring(nationalityPosition+13, endOfNationalityPosition - 1);
                 else nationality = info.substring(nationalityPosition+13, info.length());
                 nationality.trim();
-                System.out.println("Date: "+date);
-                System.out.println("Nationality: "+nationality);
-                System.out.println();
                 //END
+                Player player = new Player();
+
+                player.setFirstName(firstName);
+                player.setLastName(lastName);
+
+                Country country = countryService.findByName(nationality);
+
+                if(country == null){
+                    Country country1 = new Country();
+                    country1.setName(nationality);
+                    countryService.save(country1);
+                }
+
+                List<NationalTeam> nationalTeam = nationalTeamService.findNationalTeamByName(nationality);
+
+                if(nationalTeam.size() == 0 || nationalTeam == null){
+                    NationalTeam nationalTeam1 = new NationalTeam();
+                    nationalTeam1.setName(nationality);
+                    nationalTeam1.setCountry(country);
+                    nationalTeamService.save(nationalTeam1);
+
+                    player.setNationalTeam(nationalTeam1);
+                }else{
+                    player.setNationalTeam(nationalTeam.get(0));
+                }
+
+                Club c = clubService.findByName(clubname);
+                if(c == null){
+                    Club club = new Club();
+                    club.setName(clubname);
+                    clubService.save(club);
+
+                    player.setClub(club);
+                }else{
+                    player.setClub(c);
+                }
+
+                Position position1 = positionService.findByName(position);
+
+                if(position1 == null) {
+                    Position position2 = new Position();
+                    position2.setName(position);
+                    positionService.save(position2);
+
+                    player.setPosition(position2);
+                }else{
+                    player.setPosition(position1);
+                }
+
+                //07.10.1996
+                Date date1 = null;
+                if(date.equals("???")){
+                    player.setDateOfBirth(date1);
+                }else{
+                    String dateHyphen = date.substring(6, 10) + '-' + date.substring(3, 5) + '-' + date.substring(0, 2);
+
+                    LocalDate dateOfBirth = LocalDate.parse(dateHyphen);
+                    date1 = Date.from(dateOfBirth.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    player.setDateOfBirth(date1);
+                }
+
+                playerService.save(player);
+//                System.out.println("Club: "+clubname);
+//                System.out.println("Position: "+position);
+//                System.out.println("First name: "+firstName);
+//                System.out.println("Last name: "+lastName);
+//                System.out.println("Date: "+date);
+//                System.out.println("Nationality: "+nationality);
+//                System.out.println();
+
 
                 ++i;
                driver.navigate().back();
@@ -166,7 +236,7 @@ public class PlayerImport {
             action.moveToElement(driver.findElement(By.xpath(arrow)));
             action.click().build().perform();
         }
-        Thread.sleep(1000);
+        ((JavascriptExecutor)driver).executeScript("window.scrollTo(document.body.scrollHeight,0)");
 
     }
 }

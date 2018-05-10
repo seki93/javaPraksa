@@ -32,7 +32,6 @@ public class StadiumController {
     public String deleteStadium(@RequestParam String name){
         Stadium s = stadiumService.findByName(name);
 
-
         if(s.getId() == null) return "Wrong id";
 
         stadiumService.deleteById(s.getId());
