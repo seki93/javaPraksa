@@ -1,103 +1,99 @@
 package footstats.dataImport;
 
-import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import footstats.model.Club;
 import footstats.model.Game;
-import footstats.model.MatchStats;
 import footstats.service.ClubService;
+import footstats.service.GameService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.Locatable;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 
 @Service
 public class GameImport {
 
     @Autowired
-    ClubService clubService;
+    private ClubService clubService;
 
-    final static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GameImport.class);
+    @Autowired
+    private GameService gameService;
+
     public void importGames() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        Actions actions = new Actions(driver);
-        driver.manage().window().maximize();
-        String url = "https://www.sportinglife.com/football/results/competitions/english-premier-league/1/2017-08";
-        driver.navigate().to(url);
-        int i = 2;
+            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+            WebDriver driver = new ChromeDriver();
+            driver.manage().window().maximize();
 
-        //Lista kroz mesece
-        while (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/nav/ul/li["+ i +"]/a")).isEmpty()) {
-            //Ulazi u mesec
-            WebElement element = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/nav/ul/li["+i+"]/a"));
-            System.out.println(element.getText());
-            actions.moveToElement(element);
-            actions.click(element);
-            actions.build().perform();
-            int j = 1;
-            int z = 1;
-        // PUCA KADA DODJE DO SEPTEMBRA, PRVI MEC
+            String url = "https://www.soccer24.com/england/premier-league/results/";
+            driver.navigate().to(url);
 
-             while(!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[1]/div/div/a/div/div")).isEmpty()) {
+            Actions action = new Actions(driver);
 
-//                 if (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li/div/div/a/div/div")).isEmpty()){
-//
-//                     WebElement matches1 = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li["+j+"]/div/div/div[2]/ul/li/div/div/a/div/div"));
-//                     System.out.println(matches1.getText());
-//                     actions.moveToElement(matches1);
-//                     actions.click(matches1);
-//                     actions.build().perform();
-//                     driver.navigate().to(url);
-//                     j++;
-//                 }
-                 while (!driver.findElements(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[" + z + "]/div/div/a/div/div")).isEmpty()) {
+            for (int expand = 0; expand < 5; expand++){
 
-                     WebElement matches = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/div[3]/div/div/div/ul/li[" + j + "]/div/div/div[2]/ul/li[" + z + "]/div/div/a/div/div"));
-                     System.out.println(matches.getText());
-                     actions.moveToElement(matches);
-                     actions.click(matches);
-                     actions.build().perform();
-                     z++;
-                     driver.navigate().to(url);
-                 }
-                 z = 1;
-                 j++;
+                        ((JavascriptExecutor)driver).executeScript("window.scrollTo(document.body.scrollHeight,0)");
+                        Thread.sleep(2000);
+                        WebElement exp = driver.findElement(By.xpath("//*[@id=\"tournament-page-results-more\"]/tbody/tr/td/a"));
+
+                        action.moveToElement(exp);
+                        action.click(exp);
+                        action.build().perform();
             }
-            i++;
+
+            int j = 1;
+            while(!driver.findElements(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + j + "]/td")).isEmpty()) {
+
+//                if(driver.findElements(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + j + "]/td")).size() < 0) {
+//                    j++;
+//                    continue;
+//                }
+                if (driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr["+j+"]/td")).getText().contains("Round")){
+                    j++;
+                    continue;
+                }
+                if (driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr["+j+"]/td")).getText().contains("final")){
+                    j++;
+                    continue;
+                }
+                if (driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr["+j+"]/td")).getText().contains("place")){
+                    j++;
+                    continue;
+                }
+
+                List<WebElement> lista = driver.findElements(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + j + "]/td"));
+
+                String date = lista.get(1).getText();
+                String homeClub = lista.get(2).getText();
+                String awayClub = lista.get(3).getText();
+                String result = lista.get(4).getText();
+
+                Game game = new Game();
+                if(clubService.findByName(homeClub) == null){
+                    Club homeClubUpis = new Club();
+                    homeClubUpis.setName(homeClub);
+                    clubService.save(homeClubUpis);
+                }
+                game.setHomeClub(clubService.findByName(homeClub));
+
+                if(clubService.findByName(awayClub) == null){
+                    Club awayClubUpis = new Club();
+                    awayClubUpis.setName(awayClub);
+                    clubService.save(awayClubUpis);
+                }
+                game.setAwayClub(clubService.findByName(awayClub));
+
+                gameService.save(game);
+                System.out.println(date +" "+ homeClub+ " versus " + awayClub +" "+ result);
+
+                j++;
+            }
+            driver.close();
+            driver.quit();
         }
-        driver.close();
-        driver.quit();
     }
-}
-
-//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[1]/div/div/div[2]/ul/li/div/div/a/div/div
-
-
-
-
-//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[3]/div/div/div[2]/ul/li/div/div/a/div/div
-//*[@id="content"]/div/div/div[3]/div/div/div/ul/li[4]/div/div/div[2]/ul/li[1]/div/div/a/div/div
-
-
-
-
-//             String hometeam = driver.findElement(By.xpath("")).getText();
-//             String awayteam = driver.findElement(By.xpath("")).getText();
-//             String result = driver.findElement(By.xpath("")).getText();
-// pravi game, setuje home team i away team, setuje matchstats ID
-//            Game game = new Game();
-//            Club homeTeam = clubService.findByName(hometeam);
-//            game.setHomeClub(homeTeam);
-//            Club awayTeam = clubService.findByName(awayteam);
-//            game.setAwayClub(awayTeam);
-//            MatchStats matchStats = new MatchStats();
-//            game.setMatchStats(matchStats);
