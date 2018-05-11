@@ -29,6 +29,9 @@ public class CompetitionImport {
         String url = "https://www.soccer24.com";
         addCompetitions(driver, url);
 
+        url = "https://www.soccer24.com/africa/world-cup/teams/";
+        addWorldCupCompetition(driver, url);
+
         url = "https://www.soccer24.com";
         addInternationalCompetitions(driver, url);
 
@@ -55,7 +58,7 @@ public class CompetitionImport {
             while (true) {
                 action.moveToElement(driver.findElement(By.xpath(countryPath)));
                 action.click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(1000);
 
                 String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
                 if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
@@ -64,7 +67,7 @@ public class CompetitionImport {
 
                 action.moveToElement(driver.findElement(By.xpath(leaguePath)));
                 action.click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(1000);
 
                 String countryName = driver.findElement(By.xpath("//*[@id=\"top\"]/div[2]/div[2]/div[1]/div[1]/div/span")).getText();
                 Country country;
@@ -109,7 +112,7 @@ public class CompetitionImport {
             while (true) {
                 action.moveToElement(driver.findElement(By.xpath(path)));
                 action.click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(1000);
 
                 String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
                 if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
@@ -118,26 +121,48 @@ public class CompetitionImport {
 
                 action.moveToElement(driver.findElement(By.xpath(leaguePath)));
                 action.click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(1000);
 
-                Country country = countryService.findByName("International");
+                if (driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText().contains("World Cup 2018")) {
+                    j++;
+                    continue;
+                }
 
-                String leagueName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
+                    Country country = countryService.findByName("International");
 
-                Competition competition = new Competition();
-                competition.setCountry(country);
-                competition.setName(leagueName);
+                    String leagueName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
 
-                competitionService.save(competition);
+                    Competition competition = new Competition();
+                    competition.setCountry(country);
+                    competition.setName(leagueName);
 
-                j++;
+                    competitionService.save(competition);
+
+                    j++;
 
             }
 
             i++;
         }
     }
+
+    private void addWorldCupCompetition(WebDriver driver, String url) throws InterruptedException {
+        driver.get(url);
+
+        if(driver.findElement(By.xpath("//*[@id=\"mt\"]/li[4]/a")).getText() != null) {
+
+            Country country = countryService.findByName("International");
+
+            String leagueName = driver.findElement(By.xpath("//*[@id=\"mt\"]/li[4]/a")).getText();
+
+            Competition competition = new Competition();
+            competition.setCountry(country);
+            competition.setName(leagueName);
+
+            competitionService.save(competition);
+        }
+
+
+    }
 }
-
-
 
