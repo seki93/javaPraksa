@@ -30,30 +30,26 @@ public class NationalTeamController {
     }
 
     @PostMapping(path = "/add")
-    public String addNewNationalTeam(@RequestParam String name,
-                                     @RequestParam String competitionName) {
+    public String addNewNationalTeam(@RequestParam String name) {
 
-        NationalTeam nt = new NationalTeam();
-        nt.setName(name);
+        NationalTeam nationalTeam = new NationalTeam();
+        nationalTeam.setName(name);
 
         Country country = countryService.findByName(name);
-        nt.setCountry(country);
+        nationalTeam.setCountry(country);
 
-        Competition comp = competitionService.findByName(competitionName);
-        nt.setCompetition(comp);
-
-        nationalTeamService.save(nt);
+        nationalTeamService.save(nationalTeam);
         return "Saved National Team";
     }
 
     @PostMapping(path = "/delete")
     public String deleteNationalTeam(@RequestParam String name) {
-        NationalTeam nt = nationalTeamService.findByName(name);
+        NationalTeam nationalTeam = nationalTeamService.findByName(name);
 
-        if (nt.getId() == null) {
+        if (nationalTeam.getId() == null) {
             return "Wrong National Team ID";
         }
-        nationalTeamService.deleteById(nt.getId());
+        nationalTeamService.deleteById(nationalTeam.getId());
         return "Deleted National Team";
     }
 
@@ -61,13 +57,10 @@ public class NationalTeamController {
     public String updateNationalTeam(@RequestParam(required = false) String name,
                                      @RequestParam(required = false) String competitionName) {
 
-        NationalTeam nt = nationalTeamService.findByName(name);
-        Competition c = nt.getCompetition();
-        if (c.getName() != competitionName) {
-            Competition competition = competitionService.findByName(competitionName);
-            nt.setCompetition(competition);
-        }
-        nationalTeamService.save(nt);
+        NationalTeam nationalTeam = nationalTeamService.findByName(name);
+        nationalTeam.addCompetition(competitionService.findByName(competitionName));
+
+        nationalTeamService.save(nationalTeam);
 
         return "Saved National Team";
     }
@@ -75,8 +68,8 @@ public class NationalTeamController {
     @GetMapping(path = "/getNationalTeamByNames")
     public List<NationalTeam> getNationalTeamByNames(@RequestParam String name) {
 
-        List<NationalTeam> nt = nationalTeamService.findNationalTeamByName(name);
-        if(nt != null) return nt;
+        List<NationalTeam> nationalTeams = nationalTeamService.findNationalTeamByName(name);
+        if(nationalTeams != null) return nationalTeams;
 
         return null;
 

@@ -323,4 +323,28 @@
                         schemaName="footstats"
                         tableName="person"/>
     </changeSet>
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-684">
+        <dropForeignKeyConstraint baseTableName="nationalteam" constraintName="FK_3kgxbvpegedavkp40jaf715me"/>
+    </changeSet>
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-685">
+        <dropColumn columnName="competition_id"
+                    schemaName="footstats"
+                    tableName="nationalteam"/>
+    </changeSet>
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-694">
+        <createTable tableName="nationalteam_competitions">
+            <column name="nationalteam_id" type="INT"/>
+            <column name="competition_id" type="INT"/>
+        </createTable>
+        <addPrimaryKey
+                       columnNames="nationalteam_id, competition_id"
+                       schemaName="footstats"
+                       tableName="nationalteam_competitions"/>
+    </changeSet>
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-695">
+        <addForeignKeyConstraint baseColumnNames="nationalteam_id" baseTableName="nationalteam_competitions" constraintName="nationalteam_id" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="nationalteam"/>
+    </changeSet>
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-696">
+        <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="nationalteam_competitions" constraintName="competition_id" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
+    </changeSet>
 </databaseChangeLog>

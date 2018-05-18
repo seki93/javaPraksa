@@ -1,6 +1,8 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "nationalteam")
@@ -15,14 +17,17 @@ public class NationalTeam {
     @OneToOne
     private Country country;
 
-    @ManyToOne
-    private Competition competition;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "nationalteam_competitions",
+            joinColumns = @JoinColumn(name = "nationalteam_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "competition_id", referencedColumnName = "id"))
+    private Set<Competition> competitions;
 
-    public NationalTeam(Integer id, String name, Country country, Competition competition) {
+    public NationalTeam(Integer id, String name, Country country, Set<Competition> competitions) {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.competition = competition;
+        this.competitions = competitions;
     }
 
     public NationalTeam() {};
@@ -51,11 +56,15 @@ public class NationalTeam {
         this.country = country;
     }
 
-    public Competition getCompetition() {
-        return competition;
+    public Set<Competition> getCompetitions() {
+        return competitions;
     }
 
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
+    public void setCompetitions(Set<Competition> competitions) {
+        this.competitions = competitions;
+    }
+
+    public void addCompetition(Competition competition){
+        this.competitions.add(competition);
     }
 }

@@ -1,6 +1,7 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Competition {
@@ -16,10 +17,15 @@ public class Competition {
 
     private Integer rank;
 
-    public Competition(Integer id, String name, Country country) {
+    @ManyToMany(mappedBy = "competitions")
+    private Set<NationalTeam> nationalTeams;
+
+    public Competition(Integer id, String name, Country country, Integer rank, Set<NationalTeam> nationalTeams) {
         this.id = id;
         this.name = name;
         this.country = country;
+        this.rank = rank;
+        this.nationalTeams = nationalTeams;
     }
 
     public Competition() {};
@@ -54,5 +60,17 @@ public class Competition {
 
     public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    public Set<NationalTeam> getNationalTeams() {
+        return nationalTeams;
+    }
+
+    public void setNationalTeams(Set<NationalTeam> nationalTeams) {
+        this.nationalTeams = nationalTeams;
+    }
+
+    public void addNationalTeam(NationalTeam nationalTeam){
+        this.nationalTeams.add(nationalTeam);
     }
 }
