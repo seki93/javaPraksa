@@ -1,6 +1,8 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Club {
@@ -11,8 +13,11 @@ public class Club {
 
     private String name;
 
-    @ManyToOne
-    private Competition competition;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "club_competition", joinColumns = @JoinColumn(name = "id_club", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_competition", referencedColumnName = "id"))
+    private Set<Competition> competitionSet = new HashSet<>();
 
     @OneToOne
     private City city;
@@ -20,15 +25,27 @@ public class Club {
     @OneToOne
     private Stadium stadium;
 
-    public Club(Integer id, String name, Competition competition, City city, Stadium stadium) {
+    public Club(Integer id, String name, Set<Competition> competition, City city, Stadium stadium) {
         this.id = id;
         this.name = name;
-        this.competition = competition;
+        this.competitionSet = competition;
         this.city = city;
         this.stadium = stadium;
     }
 
     public Club() {};
+
+    public void addCompetition(Competition competition){
+        this.competitionSet.add(competition);
+    }
+
+    public Set<Competition> getCompetitionSet() {
+        return competitionSet;
+    }
+
+    public void setCompetitionSet(Set<Competition> competitionSet) {
+        this.competitionSet = competitionSet;
+    }
 
     public Integer getId() {
         return id;
@@ -44,14 +61,6 @@ public class Club {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Competition getCompetition() {
-        return competition;
-    }
-
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
     }
 
     public City getCity() {

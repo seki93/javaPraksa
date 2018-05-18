@@ -88,8 +88,7 @@ public class ClubImport {
                 club.setStadium(s.get(0));
             }
 
-            club.setCompetition(comp);
-
+            //club.getCompetitionSet().
             clubService.save(club);
         }
     }

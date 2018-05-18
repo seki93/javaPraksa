@@ -17,6 +17,9 @@ public class Competition {
 
     private Integer rank;
 
+    @ManyToMany(mappedBy = "competitionSet")
+    private Set<Club> clubSet;
+
     @ManyToMany(mappedBy = "competitions")
     private Set<NationalTeam> nationalTeams;
 
@@ -29,6 +32,14 @@ public class Competition {
     }
 
     public Competition() {};
+
+    public Set<Club> getClubSet() {
+        return clubSet;
+    }
+
+    public void setClubSet(Set<Club> clubSet) {
+        this.clubSet = clubSet;
+    }
 
     public Integer getId() {
         return id;

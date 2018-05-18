@@ -11,6 +11,8 @@ import footstats.service.StadiumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+
 @RestController
 @RequestMapping(path = "/club")
 public class ClubController {
@@ -42,7 +44,8 @@ public class ClubController {
 
         Competition competition = competitionService.findByName(competitionName);
         if(competition == null) return "No competition with that name";
-        club.setCompetition(competition);
+        club.setCompetitionSet(new HashSet<>());
+        club.addCompetition(competition);
 
         Stadium stadium = stadiumService.findByName(stadiumName);
         if(stadium == null) return "No stadium with tath name";

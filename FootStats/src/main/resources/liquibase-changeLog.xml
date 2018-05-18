@@ -347,4 +347,21 @@
     <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-696">
         <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="nationalteam_competitions" constraintName="competition_id" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
     </changeSet>
+
+    <changeSet author="stefan.sekeres (generated)" id="1524050687731-697">
+        <createTable tableName="club_competition">
+            <column name="id_club" type="INT"/>
+            <column name="id_competition" type="INT"/>
+        </createTable>
+        <addPrimaryKey
+                columnNames="id_club, id_competition"
+                schemaName="footstats"
+                tableName="club_competition"/>
+    </changeSet>
+
+    <changeSet author="aleksandar.zecevic (generated)" id="1524050687731-698">
+        <addForeignKeyConstraint baseColumnNames="id_club" baseTableName="club_competition" constraintName="id_club" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
+        <addForeignKeyConstraint baseColumnNames="id_competition" baseTableName="club_competition" constraintName="id_competition" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
+    </changeSet>
+
 </databaseChangeLog>
