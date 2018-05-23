@@ -29,8 +29,3 @@ public class GameReImport {
     }
 
 }
-
-
-//*[@id="lmenu_17"]/ul/li[1]/a
-//*[@id="lmenu_18"]/ul/li[1]/a
-//*[@id="lmenu_18"]/ul/li[3]/a
