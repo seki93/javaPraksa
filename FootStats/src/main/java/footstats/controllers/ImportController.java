@@ -30,6 +30,9 @@ public class ImportController {
     GameImport gameImport;
 
     @Autowired
+    GameReImport gameReImport;
+
+    @Autowired
     PlayerImport playerImport;
 
     @Autowired
@@ -49,6 +52,16 @@ public class ImportController {
             e.printStackTrace();
         }
         return "Success with games imports";
+    }
+
+    @GetMapping(path = "/gameRe")
+    public String reImportGames(){
+        try {
+            gameReImport.reImportGame();
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return "Success with games reImports";
     }
 
     @Autowired
