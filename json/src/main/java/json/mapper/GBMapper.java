@@ -23,7 +23,7 @@ import java.util.List;
 public class GBMapper extends NonWorkingCalendarMapper {
 
     private static OkHttpClient client = new OkHttpClient();
-    private static DozerBeanMapper mapper = new DozerBeanMapper();
+    private static final DozerBeanMapper mapper = new DozerBeanMapper();
     private static ObjectMapper jacksonMapper = new ObjectMapper();
 
 //    public static void main(String[] args) {
@@ -100,5 +100,4 @@ public class GBMapper extends NonWorkingCalendarMapper {
     public static void configureMapper(String ... mappingFileUrls){
         mapper.setMappingFiles(Arrays.asList(mappingFileUrls));
     }
-
 }
