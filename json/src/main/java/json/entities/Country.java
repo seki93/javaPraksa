@@ -98,4 +98,12 @@ public class Country extends BaseEntity implements Serializable {
 	this.useForCalendar = useForCalendar;
     }
 
+	@Override
+	public String toString() {
+		return "Country{" +
+				"countryCode='" + countryCode + '\'' +
+				", name='" + name + '\'' +
+				", useForCalendar=" + useForCalendar +
+				'}';
+	}
 }

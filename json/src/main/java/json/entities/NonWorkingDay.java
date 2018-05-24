@@ -45,4 +45,11 @@ public class NonWorkingDay extends BaseEntity implements Serializable {
 	this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "NonWorkingDay{" +
+                "nonWorkDate=" + nonWorkDate +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

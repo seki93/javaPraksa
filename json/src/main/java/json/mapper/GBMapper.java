@@ -8,7 +8,6 @@ import json.tempmodel.BaseCountry;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.dozer.DozerBeanMapper;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,26 +15,25 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class GBMapper extends NonWorkingCalendarMapper {
 
+
     private static OkHttpClient client = new OkHttpClient();
-    private static final DozerBeanMapper mapper = new DozerBeanMapper();
     private static ObjectMapper jacksonMapper = new ObjectMapper();
 
-//    public static void main(String[] args) {
-//        List<NonWorkingCalendar> calendars = getAllNonWorkingCalendars();
-//        System.out.println(calendars);
-//    }
+    public static void main(String[] args) {
+        List<NonWorkingCalendar> calendars = getAllNonWorkingCalendars();
+        System.out.println(calendars);
+    }
 
     public static List<NonWorkingCalendar> getAllNonWorkingCalendars(){
         List<NonWorkingCalendar> listOfallCountries = null;
         try {
             String json = getJSON(GB_NON_WORKING_DAYS_URL);
-            configureMapper("dateFormat.xml");
+            //configureMapper("dateFormat.xml");
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy");
             LocalDateTime now = LocalDateTime.now();
@@ -60,12 +58,13 @@ public class GBMapper extends NonWorkingCalendarMapper {
         List<NonWorkingDay> nonWorkingDays = new ArrayList<>();
 
         for(int i = 0; i < baseCountry.getEvents().size(); i++){
-            NonWorkingDay nonWorkingDay = mapper.map(baseCountry.getEvents().get(i), NonWorkingDay.class);
-
-            if(compareDates(nonWorkingDay.getNonWorkDate(), currentYear)) nonWorkingDays.add(nonWorkingDay);
+            NonWorkingDay nonWorkingDay = DTOMapper.mapper.mapEventTONonWorkingDay(baseCountry.getEvents().get(i));
+            nonWorkingDay.getNonWorkDate();
+            nonWorkingDays.add(nonWorkingDay);
+            //if(compareDates(nonWorkingDay.getNonWorkDate(), currentYear)) nonWorkingDays.add(nonWorkingDay);
         }
 
-        Country country = mapper.map(baseCountry, Country.class);
+        Country country = DTOMapper.mapper.baseCountryToCountry(baseCountry);
 
         nonWorkingCalendar.setNonWorkingDays(nonWorkingDays);
         nonWorkingCalendar.setCountry(country);
@@ -82,22 +81,22 @@ public class GBMapper extends NonWorkingCalendarMapper {
         return  response.body().string();
     }
 
-    public static  boolean compareDates(Date date1, String d2){
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-            Date date2 = sdf.parse(d2);
+//    public static  boolean compareDates(Date date1, String d2){
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+//            Date date2 = sdf.parse(d2);
+//
+//            if(date1.after(date2)) return true;
+//            else if(date1.before(date2)) return false;
+//            else return true;
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return false;
+//    }
 
-            if(date1.after(date2)) return true;
-            else if(date1.before(date2)) return false;
-            else return true;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    public static void configureMapper(String ... mappingFileUrls){
-        mapper.setMappingFiles(Arrays.asList(mappingFileUrls));
-    }
+//    public static void configureMapper(String ... mappingFileUrls){
+//        mapper.setMappingFiles(Arrays.asList(mappingFileUrls));
+//    }
 }

@@ -1,13 +1,9 @@
 package json.tempmodel;
 
-import json.tempmodel.Event;
-import org.dozer.Mapping;
-
 import java.util.List;
 
 public class BaseCountry {
 
-    @Mapping("name")
     private String division;
     private List<Event> events = null;
 

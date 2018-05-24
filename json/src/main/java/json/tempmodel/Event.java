@@ -1,13 +1,9 @@
 
 package json.tempmodel;
 
-import org.dozer.Mapping;
-
 public class Event {
 
-    @Mapping("description")
     private String title;
-    @Mapping("nonWorkDate")
     private String date;
     private String notes;
     private Boolean bunting;

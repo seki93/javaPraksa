@@ -84,4 +84,14 @@ public class NonWorkingCalendar extends BaseEntity implements Serializable {
 	this.buyerCalendar = buyerCalendar;
     }
 
+    @Override
+    public String toString() {
+        return "NonWorkingCalendar{" +
+                "country=" + country +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                ", buyerCalendar=" + buyerCalendar +
+                ", nonWorkingDays=" + nonWorkingDays +
+                '}';
+    }
 }
