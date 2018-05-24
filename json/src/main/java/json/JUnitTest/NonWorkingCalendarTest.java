@@ -34,7 +34,7 @@ public class NonWorkingCalendarTest {
 
         for (int i = 0; i < calendars.size(); i++){
             for (int j = 0; j < calendars.get(i).getNonWorkingDays().size(); j++) {
-                assertTrue(GBMapper.compareDates(calendars.get(i).getNonWorkingDays().get(j).getNonWorkDate(), currentYear)== false, " Date is not supposed to be older than current year.");
+                assertTrue(GBMapper.compareDates(calendars.get(i).getNonWorkingDays().get(j).getNonWorkDate(), currentYear)== true, " Date is not supposed to be older than current year.");
             }
         }
         System.out.println("Test passed.");
