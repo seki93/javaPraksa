@@ -19,6 +19,8 @@ import java.util.Locale;
 @Component
 public interface DTOMapper {
 
+    DTOMapper mapper = Mappers.getMapper(DTOMapper.class);
+
     @Mapping(source = "division", target = "name")
     Country baseCountryToCountry(BaseCountry baseCountry);
 

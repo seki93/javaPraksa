@@ -21,8 +21,6 @@ import java.util.List;
 
 public class GBMapper extends NonWorkingCalendarMapper {
 
-    @Autowired
-    static DTOMapper dtoMapper;
     private static OkHttpClient client = new OkHttpClient();
     private static ObjectMapper jacksonMapper = new ObjectMapper();
 
@@ -59,12 +57,12 @@ public class GBMapper extends NonWorkingCalendarMapper {
         List<NonWorkingDay> nonWorkingDays = new ArrayList<>();
 
         for(int i = 0; i < baseCountry.getEvents().size(); i++){
-            NonWorkingDay nonWorkingDay = dtoMapper.mapEventTONonWorkingDay(baseCountry.getEvents().get(i));
+            NonWorkingDay nonWorkingDay = DTOMapper.mapper.mapEventTONonWorkingDay(baseCountry.getEvents().get(i));
 
             if(compareDates(nonWorkingDay.getNonWorkDate(), currentYear)) nonWorkingDays.add(nonWorkingDay);
         }
 
-        Country country = dtoMapper.baseCountryToCountry(baseCountry);
+        Country country = DTOMapper.mapper.baseCountryToCountry(baseCountry);
 
         nonWorkingCalendar.setNonWorkingDays(nonWorkingDays);
         nonWorkingCalendar.setCountry(country);
