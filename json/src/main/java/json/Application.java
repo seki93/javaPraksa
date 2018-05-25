@@ -2,7 +2,7 @@ package json;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import json.Scheduler.CronTrigger;
+import json.scheduler.CronTrigger;
 import org.quartz.SchedulerException;
 
 @SpringBootApplication

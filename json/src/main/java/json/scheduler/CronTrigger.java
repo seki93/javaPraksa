@@ -12,7 +12,7 @@ public class CronTrigger {
         Trigger trigger = TriggerBuilder
                 .newTrigger()
                 .withIdentity("ThreadTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 5 * * * ?"))   //"0 0 1 1 1 ?" - 1 jan 1:00
+                .withSchedule(CronScheduleBuilder.cronSchedule("10 * * * * ?"))   //"0 0 1 1 1 ?" - 1 jan 1:00
                 .build();
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();

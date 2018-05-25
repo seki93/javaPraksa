@@ -13,6 +13,7 @@ public class NonWorkingCalendarService {
     public static void createThread() {
         Thread thread = new Thread(() -> {
             List<NonWorkingCalendar> listOfallCountries = GBMapper.getAllNonWorkingCalendars();
+            System.out.println(listOfallCountries);
             try { Thread.sleep(100); } catch (InterruptedException e) {e.printStackTrace();}
         });
 
