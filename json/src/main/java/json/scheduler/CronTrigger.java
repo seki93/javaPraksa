@@ -1,4 +1,4 @@
-package json.Scheduler;
+package json.scheduler;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

@@ -1,4 +1,4 @@
-package json.Scheduler;
+package json.scheduler;
 
 import json.service.NonWorkingCalendarService;
 import org.quartz.Job;
