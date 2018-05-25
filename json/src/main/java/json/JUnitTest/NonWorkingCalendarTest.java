@@ -32,11 +32,11 @@ public class NonWorkingCalendarTest {
         LocalDateTime timeNow = LocalDateTime.now();
         String currentYear = dtf.format(timeNow);
 
-//        for (int i = 0; i < calendars.size(); i++) {
-//            for (int j = 0; j < calendars.get(i).getNonWorkingDays().size(); j++) {
-//                assertTrue(GBMapper.compareDates(calendars.get(i).getNonWorkingDays().get(j).getNonWorkDate(), currentYear) == true, " Date is not supposed to be older than current year.");
-//            }
-//        }
-//        System.out.println("Test passed.");
+        for (int i = 0; i < calendars.size(); i++) {
+            for (int j = 0; j < calendars.get(i).getNonWorkingDays().size(); j++) {
+                assertTrue(GBMapper.compareDates(calendars.get(i).getNonWorkingDays().get(j).getNonWorkDate(), currentYear) == true, " Date is not supposed to be older than current year.");
+            }
+        }
+        System.out.println("Test passed.");
     }
 }
