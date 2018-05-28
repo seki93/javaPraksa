@@ -39,9 +39,6 @@ public class CompetitionController {
         Country country = countryService.findByName(countryName);
         c.setCountry(country);
 
-        NationalTeam nationalTeam = nationalTeamService.findByName(nationalTeamName);
-        c.addNationalTeam(nationalTeam);
-
         c.setRank(rank);
 
         competitionService.save(c);
