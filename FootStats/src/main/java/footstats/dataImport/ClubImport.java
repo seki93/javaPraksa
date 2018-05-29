@@ -88,7 +88,16 @@ public class ClubImport {
                 club.setStadium(s.get(0));
             }
 
-            //club.getCompetitionSet().
+            if(comp == null){
+                Competition competi = new Competition();
+                competi.setName(competition.get(i));
+
+                club.getCompetitionSet().add(competi);
+
+            }else{
+                club.getCompetitionSet().add(comp);
+            }
+
             clubService.save(club);
         }
     }

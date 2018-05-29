@@ -64,7 +64,6 @@ public class StadiumImport {
                 doc = Jsoup.connect(tabs1.get(i)).get();
                 // get title of the page
                 String title = doc.title();
-                System.out.println("Title: " + title);
 
                 if(title.equals("List of football stadiums in Sweden - Wikipedia") || title.equals("List of football stadiums in Uruguay - Wikipedia")||
                         title.equals("Stadiums in Bangladesh - Wikipedia") || title.equals("List of stadiums in Wales by capacity - Wikipedia")) continue;
@@ -120,7 +119,6 @@ public class StadiumImport {
 
         driver.close();
         driver.quit();
-
 
          try {
              for(String s: stadiums) {
