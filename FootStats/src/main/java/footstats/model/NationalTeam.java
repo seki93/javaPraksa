@@ -1,6 +1,7 @@
 package footstats.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -21,7 +22,7 @@ public class NationalTeam {
     @JoinTable(name = "nationalteam_competitions",
             joinColumns = @JoinColumn(name = "nationalteam_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "competition_id", referencedColumnName = "id"))
-    private Set<Competition> competitions;
+    private Set<Competition> competitions = new HashSet<>();
 
     public NationalTeam(Integer id, String name, Country country, Set<Competition> competitions) {
         this.id = id;

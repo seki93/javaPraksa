@@ -99,16 +99,23 @@ public class NationalTeamImport {
                             System.out.println("Competiton name: ");
                             System.out.println(competitionName);
 
+
                             Competition competition = competitionService.findByName(competitionName);
+
+                            if(competition == null){
+                                competition = new Competition();
+                                competition.setName(competitionName);
+
+                                competitionService.save(competition);
+
+                                nationalTeam.getCompetitions().add(competition);
+                            }else{
+                                nationalTeam.getCompetitions().add(competition);
+                            }
 
                             System.out.println("Ovo sam nasao u bazi: ");
                             System.out.println(competition.getName());
                             System.out.println();
-
-                            nationalTeam.setCompetitions(new HashSet<>());
-                            nationalTeam.getCompetitions().add(competition);
-                            System.out.println(nationalTeam.getCompetitions().size());
-                            //nationalTeam.addCompetition(competition);
 
                             nationalTeamService.save(nationalTeam);
 

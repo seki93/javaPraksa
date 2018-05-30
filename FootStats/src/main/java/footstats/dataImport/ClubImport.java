@@ -92,8 +92,8 @@ public class ClubImport {
                 Competition competi = new Competition();
                 competi.setName(competition.get(i));
 
+                competitionService.save(competi);
                 club.getCompetitionSet().add(competi);
-
             }else{
                 club.getCompetitionSet().add(comp);
             }
