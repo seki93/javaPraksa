@@ -35,7 +35,7 @@ public class NationalTeamImport {
         log.debug("Opening browser");
         driver.manage().window().maximize();
 
-        String url = "https://www.soccer24.com/";
+        String url = "https://www.soccer24.com/africa/africa-cup-of-nations/";
         importNationalTeams(driver, url);
 
         driver.close();
@@ -50,104 +50,134 @@ public class NationalTeamImport {
 
         Actions action = new Actions(driver);
 
-        int i = 1;
-        while (i < 10) {
+        if (!driver.findElements(By.xpath("//*[@id=\"mt\"]/li[1]/a")).isEmpty()) {
 
-            String path = "//*[@id=\"lmenu_" + i + "\"]/a";
-            if (driver.findElements(By.xpath(path)).isEmpty()) {
-                i++;
-                continue;
+            for (int i = 1; i < 11; i++) {
+
+                if (i != 2 && i != 3 && i != 4 && i != 5 && i != 8 && i != 9) {
+
+                    action.moveToElement(driver.findElement(By.xpath("//*[@id=\"mt\"]/li[" + i + "]/a")));
+                    action.click().build().perform();
+                    Thread.sleep(1000);
+
+                    int k = 1;
+
+                    while (!driver.findElements(By.xpath("//*[@id=\"table-type-1\"]/tbody[" + k + "]/tr[1]/td[2]/span[2]/a")).isEmpty()) {
+
+                        int j = 1;
+                        while (!driver.findElements(By.xpath("//*[@id=\"table-type-1\"]/tbody[" + k + "]/tr[" + j + "]/td[2]/span[2]/a")).isEmpty()) {
+
+                            String countryName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody[" + k + "]/tr[" + j + "]/td[2]/span[2]/a")).getText();
+                            Country country;
+                            if (countryService.findByName(countryName) == null) {
+                                country = new Country();
+                                country.setName(countryName);
+                                countryService.save(country);
+                            } else {
+                                country = countryService.findByName(countryName);
+                            }
+
+                            String nationalTeamName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody[" + k + "]/tr[" + j + "]/td[2]/span[2]/a")).getText();
+
+                            System.out.println("Nasao sam ovaj nacionalni tim: ");
+                            System.out.println(nationalTeamName);
+
+                            NationalTeam nationalTeam;
+                            if (nationalTeamService.findByName(nationalTeamName) == null) {
+                                nationalTeam = new NationalTeam();
+                                nationalTeam.setName(nationalTeamName);
+                                nationalTeam.setCountry(country);
+                                nationalTeamService.save(nationalTeam);
+                            } else {
+                                nationalTeam = nationalTeamService.findByName(nationalTeamName);
+                            }
+                            System.out.println("A ovo sam nasao u bazi: ");
+                            System.out.println(nationalTeam.getName());
+
+                            String competitionName = driver.findElement(By.xpath("//*[@id=\"fscon\"]/div[1]/div[2]")).getText();
+
+                            System.out.println("Competiton name: ");
+                            System.out.println(competitionName);
+
+                            Competition competition = competitionService.findByName(competitionName);
+
+                            System.out.println("Ovo sam nasao u bazi: ");
+                            System.out.println(competition.getName());
+                            System.out.println();
+
+                            nationalTeam.setCompetitions(new HashSet<>());
+                            nationalTeam.getCompetitions().add(competition);
+                            System.out.println(nationalTeam.getCompetitions().size());
+                            //nationalTeam.addCompetition(competition);
+
+                            nationalTeamService.save(nationalTeam);
+
+                            j++;
+                        }
+
+                        k++;
+
+                    }
+                }
             }
-
-            int j = 1;
-            while (true) {
-                action.moveToElement(driver.findElement(By.xpath(path)));
-                action.click().build().perform();
-                Thread.sleep(1000);
-
-                String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
-                if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
-                    break;
-                }
-
-                action.moveToElement(driver.findElement(By.xpath(leaguePath)));
-                action.click().build().perform();
-                Thread.sleep(1000);
-
-                if (driver.findElement(By.xpath("//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a")).getText().contains("World Cup")) {
-                    j++;
-                    continue;
-                }
-
-                String countryName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
-                Country country = countryService.findByName(countryName);
-
-                String nationalTeamName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
-
-                String competitionName = driver.findElement(By.xpath("//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a")).getText();
-
-                Competition competition;
-                if (competitionService.findByName(competitionName) == null) {
-                    competition = new Competition();
-                    competition.setName(competitionName);
-                    competitionService.save(competition);
-                } else {
-                    competition = competitionService.findByName(competitionName);
-                }
-
-                NationalTeam nationalTeam = new NationalTeam();
-                nationalTeam.setName(nationalTeamName);
-                nationalTeam.setCountry(country);
-                nationalTeam.setCompetitions(new HashSet<>());
-                nationalTeam.addCompetition(competition);
-
-                nationalTeamService.save(nationalTeam);
-
-                j++;
-
-            }
-
-            i++;
         }
-
-
-        /*int i = 1;
-
-        while (i < 9){
-
-            int j = 1;
-            while (!driver.findElements(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).isEmpty()){
-
-                String countryName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
-                Country country = countryService.findByName(countryName);
-
-                String nationalTeamName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
-
-                String competitionName = driver.findElement(By.xpath("//*[@id=\"mt\"]/li[1]/a")).getText();
-
-                Competition competition = competitionService.findByName(competitionName);
-
-//                Set<Competition> competitions = new HashSet<>();
-//                competitions.add(competition);
-
-                NationalTeam nationalTeam = new NationalTeam();
-                nationalTeam.setName(nationalTeamName);
-                nationalTeam.setCountry(country);
-                nationalTeam.setCompetitions(new HashSet<>());
-                nationalTeam.addCompetition(competition);
-
-                nationalTeamService.save(nationalTeam);
-
-                j++;
-            }
-
-            i++;
-
-        }*/
     }
+}
+
+
+//
+//            int j = 1;
+//            while (true) {
+//                action.moveToElement(driver.findElement(By.xpath(path)));
+//                action.click().build().perform();
+//                Thread.sleep(1000);
+//
+//                String leaguePath = "//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a";
+//                if (driver.findElements(By.xpath(leaguePath)).isEmpty()) {
+//                    break;
+//                }
+//
+//                action.moveToElement(driver.findElement(By.xpath(leaguePath)));
+//                action.click().build().perform();
+//                Thread.sleep(1000);
+//
+//                if (driver.findElement(By.xpath("//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a")).getText().contains("World Cup")) {
+//                    j++;
+//                    continue;
+//                }
+//
+//                String countryName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
+//                Country country = countryService.findByName(countryName);
+//
+//                String nationalTeamName = driver.findElement(By.xpath("//*[@id=\"table-type-1\"]/tbody["+ i +"]/tr["+ j +"]/td[2]/span[2]/a")).getText();
+//
+//                String competitionName = driver.findElement(By.xpath("//*[@id=\"lmenu_" + i + "\"]/ul/li[" + j + "]/a")).getText();
+//
+//                Competition competition;
+//                if (competitionService.findByName(competitionName) == null) {
+//                    competition = new Competition();
+//                    competition.setName(competitionName);
+//                    competitionService.save(competition);
+//                } else {
+//                    competition = competitionService.findByName(competitionName);
+//                }
+//
+//                NationalTeam nationalTeam = new NationalTeam();
+//                nationalTeam.setName(nationalTeamName);
+//                nationalTeam.setCountry(country);
+//                nationalTeam.setCompetitions(new HashSet<>());
+//                nationalTeam.addCompetition(competition);
+//
+//                nationalTeamService.save(nationalTeam);
+//
+//                j++;
+//
+//            }
+//
+//            i++;
 //
 
-    // driver.findElements(By.xpath("//*[@id=\"participant_4M0iRO5p\"]/td/a"))
+// driver.findElements(By.xpath("//*[@id=\"participant_4M0iRO5p\"]/td/a"))
 
 //        url = "https://en.wikipedia.org/wiki/2017_FIFA_Confederations_Cup";
 //        importConfederationsCupNationalTeams(driver, url);
@@ -228,8 +258,6 @@ public class NationalTeamImport {
 //            i++;
 //        }
 
-
-}
 
 //*[@id="mt"]/li[1]/a// *[@id="table-type-1"]/tbody[1]/tr[1]/td[2]/span[2]/a
 //*[@id="lmenu_1"]/ul/li[1]/a
