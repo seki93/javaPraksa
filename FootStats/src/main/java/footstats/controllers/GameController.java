@@ -35,10 +35,10 @@ public class GameController {
     @PostMapping(path = "/add")
     public String addNewGame(@RequestParam Integer awayclub_id,
                               @RequestParam Integer homeclub_id,
-                              @RequestParam Integer matchstats_id,
-                              @RequestParam Integer referee_id){
+                              @RequestParam Integer referee_id,
+                             @RequestParam Integer matchstats_id){
 
-        Game g = new Game();
+            Game g = new Game();
 
         Club c1 = clubService.findById(awayclub_id);
         g.setHomeClub(c1);
@@ -46,11 +46,11 @@ public class GameController {
         Club c2 = clubService.findById(homeclub_id);
         g.setAwayClub(c2);
 
-        MatchStats ms = matchStatsService.findById(matchstats_id);
-        g.setMatchStats(ms);
-
         Referee referee = refereeService.findById(referee_id);
         g.setReferee(referee);
+
+        MatchStats matchstats = matchStatsService.findById(matchstats_id);
+        g.setMatchStats(matchstats);
 
         gameService.save(g);
         return "Game Saved";
@@ -64,38 +64,4 @@ public class GameController {
         return "Game Deleted";
     }
 
-    @PostMapping(path = "/update")
-    public String updateGame(@RequestParam Integer id,
-                              @RequestParam(required = false) Integer id_homeclub,
-                              @RequestParam(required = false) Integer id_awayclub,
-                              @RequestParam(required = false) String refereeFirstName,
-                             @RequestParam(required = false) String refereeLastName,
-                              @RequestParam(required = false) Integer id_matchstats){
-        Game g = gameService.findById(id);
-        if(g.getId() == id){
-            if(id_homeclub != null){
-                Club c1 = new Club();
-                c1 = clubService.findById(id_homeclub);
-                g.setHomeClub(c1);
-            }
-            if(id_awayclub != null){
-                Club c2 = new Club();
-                c2 = clubService.findById(id_awayclub);
-                g.setAwayClub(c2);
-            }
-            if(refereeFirstName != null && refereeLastName != null){
-//                Referee ref = refereeService.findById(refereeService.findIdByName(refereeFirstName, refereeLastName));
-//                g.setReferee(ref);
-            }
-            if(id_matchstats != null){
-                MatchStats ms = new MatchStats();
-                ms = matchStatsService.findById(id_matchstats);
-                g.setMatchStats(ms);
-            }
-            gameService.save(g);
-            return "Saved Game";
-
-        }
-        return "Wrong Game ID";
-    }
 }

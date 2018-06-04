@@ -363,5 +363,111 @@
         <addForeignKeyConstraint baseColumnNames="id_club" baseTableName="club_competition" constraintName="id_club" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Club"/>
         <addForeignKeyConstraint baseColumnNames="id_competition" baseTableName="club_competition" constraintName="id_competition" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Competition"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-799">
+        <dropForeignKeyConstraint baseTableName="game" constraintName="FK_iwp7ln5bte2a7nuwd97ucl4ft"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-800">
+        <dropColumn columnName="matchstats_id"
+                    schemaName="footstats"
+                    tableName="game"/>
+        <addColumn schemaName="footstats"
+                   tableName="game">
+            <column name="homeclub_goals" type="INT"/>
+            <column name="awayclub_goals" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-801">
+        <dropColumn columnName="assistance"
+                schemaName="footstats"
+                tableName="matchstats"/>
+        <dropColumn columnName="cards_hometeam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="endresult"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="fouls_hometeam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="halftimeresult"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="passpercent_hometeam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="passpercent_awayteam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="cards_awayteam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="fouls_awayteam"
+                    schemaName="footstats"
+                    tableName="matchstats"/>
+        <dropColumn columnName="homeclub_goals"
+                    schemaName="footstats"
+                    tableName="game"/>
+        <dropColumn columnName="awayclub_goals"
+                    schemaName="footstats"
+                    tableName="game"/>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-802">
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="ball_possession_hometeam" type="INT"/>
+            <column name="ball_possession_awayteam" type="INT"/>
+            <column name="goal_attempts_hometeam" type="INT"/>
+            <column name="goal_attempts_awayteam" type="INT"/>
+            <column name="shots_on_goal_hometeam" type="INT"/>
+            <column name="shots_on_goal_awayteam" type="INT"/>
+            <column name="shots_off_goal_hometeam" type="INT"/>
+            <column name="shots_off_goal_awayteam" type="INT"/>
+            <column name="blocked_shots_hometeam" type="INT"/>
+            <column name="blocked_shots_awayteam" type="INT"/>
+            <column name="free_kicks_hometeam" type="INT"/>
+            <column name="free_kicks_awayteam" type="INT"/>
+            <column name="corner_kicks_hometeam" type="INT"/>
+            <column name="corner_kicks_awayteam" type="INT"/>
+            <column name="offsides_hometeam" type="INT"/>
+            <column name="offsides_awayteam" type="INT"/>
+            <column name="goalkeeper_saves_hometeam" type="INT"/>
+            <column name="goalkeeper_saves_awayteam" type="INT"/>
+            <column name="fouls_hometeam" type="INT"/>
+            <column name="fouls_awayteam" type="INT"/>
+            <column name="red_cards_hometeam" type="INT"/>
+            <column name="red_cards_awayteam" type="INT"/>
+            <column name="yellow_cards_hometeam" type="INT"/>
+            <column name="yellow_cards_awayteam" type="INT"/>
+            <column name="total_passes_hometeam" type="INT"/>
+            <column name="total_passes_awayteam" type="INT"/>
+            <column name="tackles_hometeam" type="INT"/>
+            <column name="tackles_awayteam" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-803">
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="goals_homeclub" type="INT"/>
+            <column name="goals_awayclub" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-804">
+        <addColumn schemaName="footstats"
+                   tableName="matchstats">
+            <column name="half_time_goals_homeclub" type="INT"/>
+            <column name="half_time_goals_awayclub" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-805">
+        <addColumn schemaName="footstats"
+                   tableName="game">
+            <column name="matchstats_id" type="INT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="matchstats_id"
+                                 baseTableName="game"
+                                 constraintName="game_matchstats"
+                                 referencedColumnNames="id"
+                                 referencedTableName="matchstats"/>
+    </changeSet>
 
 </databaseChangeLog>

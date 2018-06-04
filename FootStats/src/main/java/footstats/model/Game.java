@@ -25,7 +25,10 @@ public class Game {
     @JoinColumn(name = "referee_id")
     private Referee referee;
 
-    public Game(Integer id, Club awayClub, Club homeClub, MatchStats matchStats, Referee referee) {
+    public Game() {
+    }
+
+    public Game(Integer id, Club awayClub, Club homeClub, MatchStats matchStats, Integer homeclub_goals, Integer awayclub_goals, Referee referee) {
         this.id = id;
         this.awayClub = awayClub;
         this.homeClub = homeClub;
@@ -33,22 +36,12 @@ public class Game {
         this.referee = referee;
     }
 
-    public Game() {};
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Club getHomeClub() {
-        return homeClub;
-    }
-
-    public void setHomeClub(Club homeClub) {
-        this.homeClub = homeClub;
     }
 
     public Club getAwayClub() {
@@ -59,12 +52,12 @@ public class Game {
         this.awayClub = awayClub;
     }
 
-    public Referee getReferee() {
-        return referee;
+    public Club getHomeClub() {
+        return homeClub;
     }
 
-    public void setReferee(Referee referee) {
-        this.referee = referee;
+    public void setHomeClub(Club homeClub) {
+        this.homeClub = homeClub;
     }
 
     public MatchStats getMatchStats() {
@@ -73,5 +66,13 @@ public class Game {
 
     public void setMatchStats(MatchStats matchStats) {
         this.matchStats = matchStats;
+    }
+
+    public Referee getReferee() {
+        return referee;
+    }
+
+    public void setReferee(Referee referee) {
+        this.referee = referee;
     }
 }

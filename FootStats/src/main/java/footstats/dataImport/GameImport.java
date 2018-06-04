@@ -62,8 +62,7 @@ public class GameImport {
         driver.navigate().to(url);
 
         Actions action = new Actions(driver);
-
-        int i = 17;
+        int i = 76;
         while (i < 250) {
             //prolazi kroz zemlje
             String country = "//*[@id=\"lmenu_" + i + "\"]/a";
@@ -75,6 +74,9 @@ public class GameImport {
             int j = 1;
             while (true) { //true
                 //ulazi u zemlje
+                if ( i == 47 ){
+                    i++;
+                }
                 action.moveToElement(driver.findElement(By.xpath(country)));
                 action.click().build().perform();
                 Thread.sleep(1000);
@@ -92,7 +94,6 @@ public class GameImport {
                 action.moveToElement(driver.findElement(By.xpath(results)));
                 action.click().build().perform();
                 Thread.sleep(2500);
-
                 //otvara show more
                 for (int expand = 0; expand < 5; expand++) {
 
@@ -139,6 +140,8 @@ public class GameImport {
                     z++;
                     } catch (StaleElementReferenceException e){
                         System.out.println("Bacio exception " + e);
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Bacio exception " + e);
                     }
                 }
                     j++;
@@ -174,6 +177,8 @@ public class GameImport {
                             z++;
                             } catch (StaleElementReferenceException e){
                                 System.out.println("Bacio exception " + e);
+                            } catch (IndexOutOfBoundsException e){
+                                System.out.println("Bacio exception " + e);
                             }
                         }
                         p++;
@@ -206,9 +211,10 @@ public class GameImport {
                         List<WebElement> lista = driver.findElements(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + t + "]/td"));
                         gamesDatabaseImportMethod(lista);
 
-
                         t++;
                         } catch (StaleElementReferenceException e){
+                            System.out.println("Bacio exception " + e);
+                        } catch (IndexOutOfBoundsException e){
                             System.out.println("Bacio exception " + e);
                         }
                     }
