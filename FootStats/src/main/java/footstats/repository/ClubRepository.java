@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClubRepository extends CrudRepository<Club, Integer> {
 
-    public Club findByName(String clubName);
+    Club findByName(String clubName);
 }

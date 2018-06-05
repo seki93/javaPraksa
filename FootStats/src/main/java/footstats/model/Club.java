@@ -1,5 +1,7 @@
 package footstats.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,7 @@ public class Club {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "club_competition", joinColumns = @JoinColumn(name = "id_club", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_competition", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<Competition> competitionSet = new HashSet<>();
 
     @OneToOne

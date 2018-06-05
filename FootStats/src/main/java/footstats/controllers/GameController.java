@@ -8,8 +8,17 @@ import footstats.service.ClubService;
 import footstats.service.GameService;
 import footstats.service.MatchStatsService;
 import footstats.service.RefereeService;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import java.net.Inet4Address;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/game")
@@ -62,6 +71,92 @@ public class GameController {
 
         gameService.deleteById(id);
         return "Game Deleted";
+    }
+
+    @PostMapping(path = "/find/all")
+    public Iterable<Game> getFindAllMatch(@RequestParam String clubName){
+
+        return gameService.findAllMatch(clubName);
+    }
+
+    @PostMapping(path = "/find/all/winAtHome")
+    public Iterable<Game> getAllWinAtHome(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findWinHome(clubName, pageable);
+    }
+
+    @PostMapping(path = "/find/winAtHome")
+    public  Iterable<Game> getFindWinAtHome(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNNumbersOfWinAtHome(clubName, number);
+    }
+
+    @PostMapping(path = "/find/all/drawnAtHome")
+    public Iterable<Game> getAllDrawnAtHome(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findDrawnAtHome(clubName, pageable);
+    }
+
+    @PostMapping(path = "/find/drawnAtHome")
+    public Iterable<Game> getFindDrawnAtHome(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNNumbersOfDrawnAtHome(clubName, number);
+    }
+
+    @PostMapping(path = "/find/all/lostAtHome")
+    public Iterable<Game> getAllLostAtHome(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findLostAtHome(clubName, pageable);
+    }
+
+    @PostMapping(path = "/find/lostAtHome")
+    public Iterable<Game> getLostAtHome(@RequestParam String clubName, @RequestParam Integer number){
+
+        return  gameService.findNLostAtHome(clubName, number);
+    }
+
+    //AWAY
+
+    @PostMapping(path = "/find/away/allWin")
+    public Iterable<Game> findAllWinAway(@RequestParam String clubName){
+        Pageable pageable = null;
+        System.out.println(gameService.findWinAway(clubName, pageable).size());
+        return gameService.findWinAway(clubName, pageable);
+    }
+
+    @PostMapping(path = "/find/away/win")
+    public Iterable<Game> findNNumbersOfWinAway(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNNumbersOfWinsAway(clubName, number);
+    }
+
+    @PostMapping(path = "/find/away/allLost")
+    public Iterable<Game> findAllLost(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findAllLostAway(clubName, pageable);
+    }
+
+    @PostMapping(path = "/find/away/lost")
+    public Iterable<Game> findNLostAway(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNLostAway(clubName, number);
+    }
+
+    @PostMapping(path = "/find/away/allDrawn")
+    public Iterable<Game> findAllDrawnAway(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findDrawnAway(clubName,pageable);
+    }
+
+    @PostMapping(path = "/find/away/drawn")
+    public Iterable<Game> findNDrawnAway(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNNumbersOfDrawnAway(clubName, number);
     }
 
 }
