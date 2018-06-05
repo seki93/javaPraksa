@@ -155,5 +155,69 @@ public class GameServiceImpl implements GameService{
         else return games;
     }
 
+    @Override
+    public List<Game> findWinHomeOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findWinHomeOnHalfTime(clubName);
 
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findLostHomeOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findLostHomeOnHalfTime(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findDrawHomeOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findDrawHomeOnHalfTime(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findWinAwayOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findWinAwayOnHalfTime(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findLostAwayOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findLostAwayOnHalfTime(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findDrawAwayOnHalfTime(String clubName) {
+        List<Game> g = gameRepository.findDrawAwayOnHalfTime(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
 }

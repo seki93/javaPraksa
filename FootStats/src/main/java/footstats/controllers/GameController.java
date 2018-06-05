@@ -118,6 +118,24 @@ public class GameController {
         return  gameService.findNLostAtHome(clubName, number);
     }
 
+    @GetMapping(path = "/homeWin")
+    public List<Game> findWinHomeOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findWinHomeOnHalfTime(clubName);
+    }
+
+    @GetMapping(path = "/homeLost")
+    public List<Game> findLostHomeOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findLostHomeOnHalfTime(clubName);
+    }
+
+    @GetMapping(path = "/homeDraw")
+    public List<Game> findDrawHomeOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findDrawHomeOnHalfTime(clubName);
+    }
+
     //AWAY
 
     @PostMapping(path = "/find/away/allWin")
@@ -159,4 +177,21 @@ public class GameController {
         return gameService.findNNumbersOfDrawnAway(clubName, number);
     }
 
+    @GetMapping(path = "/awayWin")
+    public List<Game> findWinAwayOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findWinAwayOnHalfTime(clubName);
+    }
+
+    @GetMapping(path = "/awayLost")
+    public List<Game> findLostAwayOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findLostAwayOnHalfTime(clubName);
+    }
+
+    @GetMapping(path = "/awayDraw")
+    public List<Game> findDrawAwayOnHalfTime(@RequestParam String clubName){
+
+        return gameService.findDrawAwayOnHalfTime(clubName);
+    }
 }

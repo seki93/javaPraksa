@@ -41,6 +41,18 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
         return findLostAtHome(clubName, new PageRequest(0, number));
     }
 
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
+            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub")
+    List<Game> findWinHomeOnHalfTime(String clubName);
+
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
+            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub")
+    List<Game> findLostHomeOnHalfTime(String clubName);
+
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
+            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
+    List<Game> findDrawHomeOnHalfTime(String clubName);
+
     //AWAY
 
     @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub")
@@ -64,7 +76,17 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
         return findWinAway(clubName, new PageRequest(0,number));
     }
 
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
+            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub")
+    List<Game> findWinAwayOnHalfTime(String clubName);
 
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
+            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub")
+    List<Game> findLostAwayOnHalfTime(String clubName);
+
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
+            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
+    List<Game> findDrawAwayOnHalfTime(String clubName);
 
 
 }
