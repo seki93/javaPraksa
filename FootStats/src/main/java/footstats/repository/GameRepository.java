@@ -101,10 +101,10 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
     List<Game> findAverageOfRedCardsAway(String clubName);
 
     @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.awayClub.name = ?2 OR g.homeClub.name = ?2 AND g.awayClub.name = ?1")
-    List<Game> findH2HwinAtHome(String homeClub,String awayClub, Pageable pageable);
+    List<Game> findH2HallMatches(String homeClub,String awayClub, Pageable pageable);
 
-    default List<Game> findH2HnNumbersOfWinAtHome(String homeClub,String awayClub, Integer number) {
-        return findH2HwinAtHome(homeClub,awayClub, new PageRequest(0,number));
+    default List<Game> findH2HnNumbersOfMatch(String homeClub,String awayClub, Integer number) {
+        return findH2HallMatches(homeClub,awayClub, new PageRequest(0,number));
     }
 
 

@@ -8,16 +8,10 @@ import footstats.service.ClubService;
 import footstats.service.GameService;
 import footstats.service.MatchStatsService;
 import footstats.service.RefereeService;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import java.net.Inet4Address;
 import java.util.List;
 
 @RestController
@@ -220,15 +214,15 @@ public class GameController {
     }
 
     @PostMapping(path = "/find/H2H/all")
-    public List<Game> findH2HwinAtHome(@RequestParam String homeClub, String awayClub){
+    public List<Game> findH2Hall(@RequestParam String homeClub, String awayClub){
         Pageable pageable = null;
 
-        return gameService.findH2HwinAtHome(homeClub, awayClub, pageable);
+        return gameService.findH2HallMatches(homeClub, awayClub, pageable);
     }
 
     @PostMapping(path = "/find/H2H")
-    public List<Game> findH2HNumbersWinAtHome(@RequestParam String homeClub,@RequestParam String awayClub, @RequestParam Integer number){
+    public List<Game> findH2HNumbers(@RequestParam String homeClub,@RequestParam String awayClub, @RequestParam Integer number){
 
-        return gameService.findH2HnNumbersOfWinAtHome(homeClub, awayClub, number);
+        return gameService.findH2HnNumbersOfMatch(homeClub, awayClub, number);
     }
 }
