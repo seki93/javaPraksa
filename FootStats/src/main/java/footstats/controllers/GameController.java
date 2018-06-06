@@ -118,19 +118,19 @@ public class GameController {
         return  gameService.findNLostAtHome(clubName, number);
     }
 
-    @GetMapping(path = "/find/homeWin/halfTime")
+    @GetMapping(path = "/find/home/halfTime/win")
     public List<Game> findWinHomeOnHalfTime(@RequestParam String clubName){
 
         return gameService.findWinHomeOnHalfTime(clubName);
     }
 
-    @GetMapping(path = "/find/homeLost/halfTime")
+    @GetMapping(path = "/find/home/halfTime/lost")
     public List<Game> findLostHomeOnHalfTime(@RequestParam String clubName){
 
         return gameService.findLostHomeOnHalfTime(clubName);
     }
 
-    @GetMapping(path = "/find/homeDraw/halfTime")
+    @GetMapping(path = "/find/home/halfTime/draw")
     public List<Game> findDrawHomeOnHalfTime(@RequestParam String clubName){
 
         return gameService.findDrawHomeOnHalfTime(clubName);
@@ -177,19 +177,19 @@ public class GameController {
         return gameService.findNNumbersOfDrawnAway(clubName, number);
     }
 
-    @GetMapping(path = "/find/awayWin/halfTime")
+    @GetMapping(path = "/find/away/halfTime/win")
     public List<Game> findWinAwayOnHalfTime(@RequestParam String clubName){
 
         return gameService.findWinAwayOnHalfTime(clubName);
     }
 
-    @GetMapping(path = "/find/awayLost/halfTime")
+    @GetMapping(path = "/find/away/halfTime/lost")
     public List<Game> findLostAwayOnHalfTime(@RequestParam String clubName){
 
         return gameService.findLostAwayOnHalfTime(clubName);
     }
 
-    @GetMapping(path = "/find/awayDraw/halfTime")
+    @GetMapping(path = "/find/away/halfTime/draw")
     public List<Game> findDrawAwayOnHalfTime(@RequestParam String clubName){
 
         return gameService.findDrawAwayOnHalfTime(clubName);
