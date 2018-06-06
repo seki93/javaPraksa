@@ -46,4 +46,7 @@ public interface GameService {
     List<Game> findAverageOfYellowCardsAway(String clubName);
     List<Game> findAverageOfRedCardsAway(String clubName);
 
+    List<Game> findH2HwinAtHome(String homeClub, String awayClub, Pageable pageable);
+    List<Game> findH2HnNumbersOfWinAtHome(String homeClub, String awayClub, Integer number);
+
 }

@@ -264,4 +264,20 @@ public class GameServiceImpl implements GameService{
             return null;
         }
     }
+
+    @Override
+    public List<Game> findH2HwinAtHome(String homeClub, String awayClub, Pageable pageable) {
+        List<Game> games = gameRepository.findH2HwinAtHome(homeClub, awayClub, pageable);
+
+        if(games.size() == 0) return null;
+        else return games;
+    }
+
+    @Override
+    public List<Game> findH2HnNumbersOfWinAtHome(String homeClub, String awayClub, Integer number) {
+        List<Game> games = gameRepository.findH2HnNumbersOfWinAtHome(homeClub, awayClub, number);
+
+        if(games.size() == 0) return null;
+        else return games;
+    }
 }

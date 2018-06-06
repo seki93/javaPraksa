@@ -218,4 +218,17 @@ public class GameController {
 
         return gameService.findAverageOfRedCardsAway(clubName);
     }
+
+    @PostMapping(path = "/find/H2H/all")
+    public List<Game> findH2HwinAtHome(@RequestParam String homeClub, String awayClub){
+        Pageable pageable = null;
+
+        return gameService.findH2HwinAtHome(homeClub, awayClub, pageable);
+    }
+
+    @PostMapping(path = "/find/H2H")
+    public List<Game> findH2HNumbersWinAtHome(@RequestParam String homeClub,@RequestParam String awayClub, @RequestParam Integer number){
+
+        return gameService.findH2HnNumbersOfWinAtHome(homeClub, awayClub, number);
+    }
 }
