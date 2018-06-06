@@ -280,4 +280,26 @@ public class GameServiceImpl implements GameService{
         if(games.size() == 0) return null;
         else return games;
     }
+
+    @Override
+    public List<Game> findAverageOfCornerKicksAtHome(String clubName) {
+        List<Game> g = gameRepository.findAverageOfCornerKicksAtHome(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findAverageOfCornerKicksAway(String clubName) {
+        List<Game> g = gameRepository.findAverageOfCornerKicksAway(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
 }

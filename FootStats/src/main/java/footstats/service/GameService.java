@@ -28,6 +28,8 @@ public interface GameService {
     List<Game> findAverageOfYellowCardsAtHome(String clubName);
     List<Game> findAverageOfRedCardsAtHome(String clubName);
 
+    List<Game> findAverageOfCornerKicksAtHome(String clubName);
+
     //AWAY
 
     List<Game> findAllLostAway(String clubName, Pageable pageable);
@@ -49,4 +51,5 @@ public interface GameService {
     List<Game> findH2HallMatches(String homeClub, String awayClub, Pageable pageable);
     List<Game> findH2HnNumbersOfMatch(String homeClub, String awayClub, Integer number);
 
+    List<Game> findAverageOfCornerKicksAway(String clubName);
 }
