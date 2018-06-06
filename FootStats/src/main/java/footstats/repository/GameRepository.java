@@ -53,6 +53,12 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
             "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
     List<Game> findDrawHomeOnHalfTime(String clubName);
 
+    @Query(value = "SELECT AVG(g.matchStats.yellow_cards_hometeam) FROM Game g WHERE g.homeClub.name = ?1")
+    List<Game> findAverageOfYellowCardsAtHome(String clubName);
+
+    @Query(value = "SELECT AVG(g.matchStats.red_cards_hometeam) FROM Game g WHERE g.homeClub.name = ?1")
+    List<Game> findAverageOfRedCardsAtHome(String clubName);
+
     //AWAY
 
     @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub")
@@ -88,5 +94,9 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
             "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
     List<Game> findDrawAwayOnHalfTime(String clubName);
 
+    @Query(value = "SELECT AVG(g.matchStats.yellow_cards_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
+    List<Game> findAverageOfYellowCardsAway(String clubName);
 
+    @Query(value = "SELECT AVG(g.matchStats.red_cards_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
+    List<Game> findAverageOfRedCardsAway(String clubName);
 }

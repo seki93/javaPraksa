@@ -136,6 +136,18 @@ public class GameController {
         return gameService.findDrawHomeOnHalfTime(clubName);
     }
 
+    @GetMapping(path = "/find/home/average/yellowCards")
+    public List<Game> findAverageOfYellowCardsAtHome(@RequestParam String clubName){
+
+        return gameService.findAverageOfYellowCardsAtHome(clubName);
+    }
+
+    @GetMapping(path = "/find/home/average/redCards")
+    public List<Game> findAverageOfRedCardsAtHome(@RequestParam String clubName){
+
+        return gameService.findAverageOfRedCardsAtHome(clubName);
+    }
+
     //AWAY
 
     @PostMapping(path = "/find/away/allWin")
@@ -193,5 +205,17 @@ public class GameController {
     public List<Game> findDrawAwayOnHalfTime(@RequestParam String clubName){
 
         return gameService.findDrawAwayOnHalfTime(clubName);
+    }
+
+    @GetMapping(path = "/find/away/average/yellowCards")
+    public List<Game> findAverageOfYellowCardsAway(@RequestParam String clubName){
+
+        return gameService.findAverageOfYellowCardsAway(clubName);
+    }
+
+    @GetMapping(path = "/find/away/average/redCards")
+    public List<Game> findAverageOfRedCardsAway(@RequestParam String clubName){
+
+        return gameService.findAverageOfRedCardsAway(clubName);
     }
 }
