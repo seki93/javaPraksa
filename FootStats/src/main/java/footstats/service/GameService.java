@@ -52,4 +52,6 @@ public interface GameService {
     List<Game> findH2HnNumbersOfMatch(String homeClub, String awayClub, Integer number);
 
     List<Game> findAverageOfCornerKicksAway(String clubName);
+
+    List<Game> findNgoals(Integer goals);
 }

@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.QueryHint;
+import java.net.Inet4Address;
 import java.util.List;
 
 @Repository
@@ -112,5 +113,8 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     @Query(value = "SELECT AVG(g.matchStats.corner_kicks_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
     List<Game> findAverageOfCornerKicksAway(String clubName);
+
+    @Query(value = "SELECT g FROM Game g WHERE g.matchStats.goals_homeclub + g.matchStats.goals_awayclub >= ?1")
+    List<Game> findNgoals(Integer goals);
 
 }

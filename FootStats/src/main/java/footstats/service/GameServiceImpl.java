@@ -302,4 +302,12 @@ public class GameServiceImpl implements GameService{
             return null;
         }
     }
+
+    @Override
+    public List<Game> findNgoals(Integer goals) {
+        List<Game> games = gameRepository.findNgoals(goals);
+
+        if(games.size() == 0) return null;
+        else return games;
+    }
 }

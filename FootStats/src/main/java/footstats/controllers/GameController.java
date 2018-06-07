@@ -237,4 +237,10 @@ public class GameController {
 
         return gameService.findAverageOfCornerKicksAway(clubName);
     }
+
+    @PostMapping(path = "/find/goals")
+    public List<Game> findNgolas(@RequestParam Integer goals){
+
+        return gameService.findNgoals(goals);
+    }
 }
