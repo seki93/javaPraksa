@@ -148,6 +148,12 @@ public class GameController {
         return gameService.findAverageOfCornerKicksAtHome(clubName);
     }
 
+    @GetMapping(path = "/find/home/average/totalPasses")
+    public List<Game> findAverageOfTotalPassesAtHome(@RequestParam String clubName){
+
+        return gameService.findAverageOfTotalPassesAtHome(clubName);
+    }
+
     //AWAY
 
     @PostMapping(path = "/find/away/allWin")
@@ -242,5 +248,11 @@ public class GameController {
     public List<Game> findNgolas(@RequestParam Integer goals){
 
         return gameService.findNgoals(goals);
+    }
+
+    @GetMapping(path = "/find/away/average/totalPasses")
+    public List<Game> findAverageOfTotalPassesAway(@RequestParam String clubName){
+
+        return gameService.findAverageOfTotalPassesAway(clubName);
     }
 }
