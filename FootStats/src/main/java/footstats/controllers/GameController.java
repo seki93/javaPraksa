@@ -112,22 +112,42 @@ public class GameController {
         return  gameService.findNLostAtHome(clubName, number);
     }
 
-    @GetMapping(path = "/find/home/halfTime/win")
+    @GetMapping(path = "/find/home/allWin/halfTime")
     public List<Game> findWinHomeOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
 
-        return gameService.findWinHomeOnHalfTime(clubName);
+        return gameService.findWinHomeOnHalfTime(clubName, pageable);
+    }
+    @GetMapping(path = "/find/home/win/halfTime")
+    public List<Game> findNWinAtHomeOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNWinAtHomeOnHalfTime(clubName, number);
     }
 
-    @GetMapping(path = "/find/home/halfTime/lost")
+    @GetMapping(path = "/find/home/allLost/halfTime")
     public List<Game> findLostHomeOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
 
-        return gameService.findLostHomeOnHalfTime(clubName);
+        return gameService.findLostHomeOnHalfTime(clubName, pageable);
     }
 
-    @GetMapping(path = "/find/home/halfTime/draw")
-    public List<Game> findDrawHomeOnHalfTime(@RequestParam String clubName){
+    @GetMapping(path = "/find/home/lost/halfTime")
+    public List<Game> findNLostAtHomeOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
 
-        return gameService.findDrawHomeOnHalfTime(clubName);
+        return gameService.findNLostAtHomeOnHalfTime(clubName, number);
+    }
+
+    @GetMapping(path = "/find/home/allDraw/halfTime")
+    public List<Game> findDrawHomeOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findDrawHomeOnHalfTime(clubName, pageable);
+    }
+
+    @GetMapping(path = "/find/home/draw/halfTime")
+    public List<Game> findNDrawAtHomeOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNDrawAtHomeOnHalfTime(clubName, number);
     }
 
     @GetMapping(path = "/find/home/average/yellowCards")
@@ -195,22 +215,43 @@ public class GameController {
         return gameService.findNNumbersOfDrawnAway(clubName, number);
     }
 
-    @GetMapping(path = "/find/away/halfTime/win")
+    @GetMapping(path = "/find/away/allWin/halfTime")
     public List<Game> findWinAwayOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
 
-        return gameService.findWinAwayOnHalfTime(clubName);
+        return gameService.findWinAwayOnHalfTime(clubName, pageable);
     }
 
-    @GetMapping(path = "/find/away/halfTime/lost")
+    @GetMapping(path = "/find/away/win/halfTime")
+    public List<Game> findNWinAwayOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNWinAwayOnHalfTime(clubName, number);
+    }
+
+    @GetMapping(path = "/find/away/allLost/halfTime")
     public List<Game> findLostAwayOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
 
-        return gameService.findLostAwayOnHalfTime(clubName);
+        return gameService.findLostAwayOnHalfTime(clubName, pageable);
     }
 
-    @GetMapping(path = "/find/away/halfTime/draw")
-    public List<Game> findDrawAwayOnHalfTime(@RequestParam String clubName){
+    @GetMapping(path = "/find/away/lost/halfTime")
+    public List<Game> findNLostAwayOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
 
-        return gameService.findDrawAwayOnHalfTime(clubName);
+        return gameService.findNLostAwayOnHalfTime(clubName, number);
+    }
+
+    @GetMapping(path = "/find/away/allDraw/halfTime")
+    public List<Game> findDrawAwayOnHalfTime(@RequestParam String clubName){
+        Pageable pageable = null;
+
+        return gameService.findDrawAwayOnHalfTime(clubName, pageable);
+    }
+
+    @GetMapping(path = "/find/away/draw/halfTime")
+    public List<Game> findNDrawAwayOnHalfTime(@RequestParam String clubName, @RequestParam Integer number){
+
+        return gameService.findNDrawAwayOnHalfTime(clubName, number);
     }
 
     @GetMapping(path = "/find/away/average/yellowCards")

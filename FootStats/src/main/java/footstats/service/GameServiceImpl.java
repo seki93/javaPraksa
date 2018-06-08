@@ -1,6 +1,5 @@
 package footstats.service;
 
-import footstats.model.Club;
 import footstats.model.Game;
 import footstats.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,8 +155,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findWinHomeOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findWinHomeOnHalfTime(clubName);
+    public List<Game> findWinHomeOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findWinHomeOnHalfTime(clubName, pageable);
 
         if(g != null){
             return g;
@@ -167,8 +166,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findLostHomeOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findLostHomeOnHalfTime(clubName);
+    public List<Game> findNWinAtHomeOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNWinAtHomeOnHalfTime(clubName, number);
 
         if(g != null){
             return g;
@@ -178,8 +177,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findDrawHomeOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findDrawHomeOnHalfTime(clubName);
+    public List<Game> findLostHomeOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findLostHomeOnHalfTime(clubName, pageable);
 
         if(g != null){
             return g;
@@ -189,8 +188,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findWinAwayOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findWinAwayOnHalfTime(clubName);
+    public List<Game> findNLostAtHomeOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNLostAtHomeOnHalfTime(clubName, number);
 
         if(g != null){
             return g;
@@ -200,8 +199,8 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findLostAwayOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findLostAwayOnHalfTime(clubName);
+    public List<Game> findDrawHomeOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findDrawHomeOnHalfTime(clubName, pageable);
 
         if(g != null){
             return g;
@@ -211,8 +210,74 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<Game> findDrawAwayOnHalfTime(String clubName) {
-        List<Game> g = gameRepository.findDrawAwayOnHalfTime(clubName);
+    public List<Game> findNDrawAtHomeOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNDrawAtHomeOnHalfTime(clubName, number);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findWinAwayOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findWinAwayOnHalfTime(clubName, pageable);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findNWinAwayOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNWinAwayOnHalfTime(clubName, number);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findLostAwayOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findLostAwayOnHalfTime(clubName, pageable);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findNLostAwayOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNLostAwayOnHalfTime(clubName, number);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findDrawAwayOnHalfTime(String clubName, Pageable pageable) {
+        List<Game> g = gameRepository.findDrawAwayOnHalfTime(clubName, pageable);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findNDrawAwayOnHalfTime(String clubName, Integer number) {
+        List<Game> g = gameRepository.findNDrawAwayOnHalfTime(clubName, number);
 
         if(g != null){
             return g;

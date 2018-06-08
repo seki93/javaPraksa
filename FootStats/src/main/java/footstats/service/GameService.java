@@ -1,6 +1,5 @@
 package footstats.service;
 
-import footstats.model.Club;
 import footstats.model.Game;
 import org.springframework.data.domain.Pageable;
 
@@ -21,9 +20,14 @@ public interface GameService {
     List<Game> findLostAtHome(String clubName, Pageable pageable);
     List<Game> findNLostAtHome(String clubName, Integer number);
 
-    List<Game> findWinHomeOnHalfTime(String clubName);
-    List<Game> findLostHomeOnHalfTime(String clubName);
-    List<Game> findDrawHomeOnHalfTime(String clubName);
+    List<Game> findWinHomeOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNWinAtHomeOnHalfTime(String clubName, Integer number);
+
+    List<Game> findLostHomeOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNLostAtHomeOnHalfTime(String clubName, Integer number);
+
+    List<Game> findDrawHomeOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNDrawAtHomeOnHalfTime(String clubName, Integer number);
 
     List<Game> findAverageOfYellowCardsAtHome(String clubName);
     List<Game> findAverageOfRedCardsAtHome(String clubName);
@@ -43,9 +47,14 @@ public interface GameService {
     List<Game> findWinAway(String clubName, Pageable pageable);
     List<Game> findNNumbersOfWinsAway(String clubName, Integer number);
 
-    List<Game> findWinAwayOnHalfTime(String clubName);
-    List<Game> findLostAwayOnHalfTime(String clubName);
-    List<Game> findDrawAwayOnHalfTime(String clubName);
+    List<Game> findWinAwayOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNWinAwayOnHalfTime(String clubName, Integer number);
+
+    List<Game> findLostAwayOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNLostAwayOnHalfTime(String clubName, Integer number);
+
+    List<Game> findDrawAwayOnHalfTime(String clubName, Pageable pageable);
+    List<Game> findNDrawAwayOnHalfTime(String clubName, Integer number);
 
     List<Game> findAverageOfYellowCardsAway(String clubName);
     List<Game> findAverageOfRedCardsAway(String clubName);

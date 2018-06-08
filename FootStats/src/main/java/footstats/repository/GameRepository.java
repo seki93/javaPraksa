@@ -1,16 +1,12 @@
 package footstats.repository;
 
-import footstats.model.Club;
 import footstats.model.Game;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.QueryHint;
-import java.net.Inet4Address;
 import java.util.List;
 
 @Repository
@@ -43,16 +39,28 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
     }
 
     @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
-            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub")
-    List<Game> findWinHomeOnHalfTime(String clubName);
+            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findWinHomeOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNWinAtHomeOnHalfTime(String clubName, Integer number){
+        return findWinHomeOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
-            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub")
-    List<Game> findLostHomeOnHalfTime(String clubName);
+            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findLostHomeOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNLostAtHomeOnHalfTime(String clubName, Integer number){
+        return findLostHomeOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND " +
-            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
-    List<Game> findDrawHomeOnHalfTime(String clubName);
+            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findDrawHomeOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNDrawAtHomeOnHalfTime(String clubName, Integer number){
+        return findDrawHomeOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT AVG(g.matchStats.yellow_cards_hometeam) FROM Game g WHERE g.homeClub.name = ?1")
     List<Game> findAverageOfYellowCardsAtHome(String clubName);
@@ -90,16 +98,28 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
     }
 
     @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
-            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub")
-    List<Game> findWinAwayOnHalfTime(String clubName);
+            "g.matchStats.half_time_goals_homeclub > g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findWinAwayOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNWinAwayOnHalfTime(String clubName, Integer number){
+        return findWinAwayOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
-            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub")
-    List<Game> findLostAwayOnHalfTime(String clubName);
+            "matchStats.half_time_goals_homeclub < g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findLostAwayOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNLostAwayOnHalfTime(String clubName, Integer number){
+        return findLostAwayOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND " +
-            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub")
-    List<Game> findDrawAwayOnHalfTime(String clubName);
+            "matchStats.half_time_goals_homeclub = g.matchStats.half_time_goals_awayclub ORDER BY g.date DESC")
+    List<Game> findDrawAwayOnHalfTime(String clubName, Pageable pageable);
+
+    default List<Game> findNDrawAwayOnHalfTime(String clubName, Integer number){
+        return findDrawAwayOnHalfTime(clubName, new PageRequest(0, number));
+    }
 
     @Query(value = "SELECT AVG(g.matchStats.yellow_cards_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
     List<Game> findAverageOfYellowCardsAway(String clubName);
