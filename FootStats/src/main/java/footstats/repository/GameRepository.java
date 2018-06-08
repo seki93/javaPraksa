@@ -18,24 +18,24 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     void deleteById(Integer id);
 
-    @Query("SELECT g FROM Game g WHERE g.awayClub.name = ?1 OR g.homeClub.name = ?1")
+    @Query("SELECT g FROM Game g WHERE g.awayClub.name = ?1 OR g.homeClub.name = ?1 ORDER BY g.date DESC")
     List<Game> findAllMatch(String clubName);
 
-    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findWinHome(String clubName, Pageable pageable);
 
     default List<Game> findNNumbersOfWinAtHome(String clubName,Integer number) {
         return findWinHome(clubName, new PageRequest(0,number));
     }
 
-    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub = g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub = g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findDrawnAtHome(String clubName, Pageable pageable);
 
     default List<Game> findNNumbersOfDrawnAtHome(String clubName, Integer number){
         return  findDrawnAtHome(clubName, new PageRequest(0, number));
     }
 
-    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub < g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.matchStats.goals_homeclub < g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findLostAtHome(String clubName, Pageable pageable);
 
     default List<Game> findNLostAtHome(String clubName, Integer number){
@@ -68,21 +68,21 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     //AWAY
 
-    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub > g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findAllLostAway(String clubName, Pageable pageable);
 
     default List<Game> findNLostAway(String clubName, Integer number){
         return findAllLostAway(clubName, new PageRequest(0, number));
     }
 
-    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub = g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub = g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findDrawnAway(String clubName, Pageable pageable);
 
     default List<Game> findNNumbersOfDrawnAway(String clubName, Integer number){
         return  findDrawnAway(clubName, new PageRequest(0, number));
     }
 
-    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub < g.matchStats.goals_awayclub")
+    @Query(value = "SELECT g FROM Game g WHERE g.awayClub.name = ?1 AND g.matchStats.goals_homeclub < g.matchStats.goals_awayclub ORDER BY g.date DESC")
     List<Game> findWinAway(String clubName, Pageable pageable);
 
     default List<Game> findNNumbersOfWinsAway(String clubName,Integer number) {
@@ -107,7 +107,7 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
     @Query(value = "SELECT AVG(g.matchStats.red_cards_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
     List<Game> findAverageOfRedCardsAway(String clubName);
 
-    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.awayClub.name = ?2 OR g.homeClub.name = ?2 AND g.awayClub.name = ?1")
+    @Query(value = "SELECT g FROM Game g WHERE g.homeClub.name = ?1 AND g.awayClub.name = ?2 OR g.homeClub.name = ?2 AND g.awayClub.name = ?1 ORDER BY g.date DESC")
     List<Game> findH2HallMatches(String homeClub,String awayClub, Pageable pageable);
 
     default List<Game> findH2HnNumbersOfMatch(String homeClub,String awayClub, Integer number) {
