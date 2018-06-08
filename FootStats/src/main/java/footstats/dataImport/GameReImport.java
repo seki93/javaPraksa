@@ -15,9 +15,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -31,7 +32,7 @@ public class GameReImport {
     @Autowired
     private MatchStatsService matchStatsService;
 
-    public void popUpWindowTest(WebDriver driver, WebElement element, Actions action) throws InterruptedException{
+    public void popUpWindowTest(WebDriver driver, WebElement element, Actions action) throws InterruptedException, ParseException {
         Set s = driver.getWindowHandles();
         String mainWindowHandle=driver.getWindowHandle();
 
@@ -39,6 +40,7 @@ public class GameReImport {
         action.click().build().perform();
 
         Iterator ite = s.iterator();
+
         while(ite.hasNext()){
 
             String popupHandle= ite.next().toString();
@@ -46,9 +48,11 @@ public class GameReImport {
                 driver.switchTo().window(popupHandle);
                 Game game = new Game();
                 MatchStats matchStats = new MatchStats();
+
                 if (!driver.findElements(By.xpath("//*[@id=\"a-match-statistics\"]")).isEmpty()){
 
-                    Thread.sleep(500);
+                    Thread.sleep(1500);
+
                     //Proverava da li postoji home klub / ako ne, upisuje u bazu
                     String homeClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[1]/span/a")).getText();
                     if (clubService.findByName(homeClub) == null) {
@@ -57,6 +61,7 @@ public class GameReImport {
                         clubService.save(homeClubUpis);
                     }
                     game.setHomeClub(clubService.findByName(homeClub));
+
                     //Proverava da li postoji away klub / ako ne, upisuje u bazu
                     String awayClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[3]/span/a")).getText();
                     if (clubService.findByName(awayClub) == null) {
@@ -65,17 +70,20 @@ public class GameReImport {
                         clubService.save(awayClubInsert);
                     }
                     game.setAwayClub(clubService.findByName(awayClub));
+
                     // kupi half time golove
-                    Thread.sleep(500);
+                    Thread.sleep(2500);
                     String halfTimeResult = driver.findElement(By.className("score")).getText();
                     String homeTeamHalfTimeGoals = halfTimeResult.substring(0,1);
                     int homeTeamHalfTimeGoalsInsert = Integer.parseInt(homeTeamHalfTimeGoals);
 
                     String awayTeamHalfTimeGoals = halfTimeResult.substring(4,5);
                     int awayTeamHalfTimeGoalsInsert = Integer.parseInt(awayTeamHalfTimeGoals);
+
                     //cuva half time golove
                     matchStats.setHalf_time_goals_homeclub(homeTeamHalfTimeGoalsInsert);
                     matchStats.setHalf_time_goals_awayclub(awayTeamHalfTimeGoalsInsert);
+
                     //kupi krajnji rezultat
                     String endGameResult = driver.findElement(By.className("current-result")).getText();
                     String homeTeamEndGameGoals = endGameResult.substring(0,1);
@@ -86,6 +94,16 @@ public class GameReImport {
                     //cuva krajnji rezultat
                     matchStats.setGoals_homeclub(homeTeamEndGameInsert);
                     matchStats.setGoals_awayclub(awayTeamEndGameInsert);
+
+                    String dateXpath= driver.findElement(By.className("mstat-date")).getText();
+                    String dateYear = dateXpath.substring(6,10);
+                    String dateDays = dateXpath.substring(0,2);
+                    String dateMonth = dateXpath.substring(3,5);
+                    String date = dateYear + "-" + dateMonth + "-" + dateDays;
+                    System.out.println(date);
+                    SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateInsert = parser.parse(date);
+                    game.setDate(dateInsert);
 
                     action.moveToElement(driver.findElement(By.xpath("//*[@id=\"a-match-statistics\"]")));
                     action.click().build().perform();
@@ -236,52 +254,75 @@ public class GameReImport {
                         }
                         matchStatsService.save(matchStats);
                         game.setMatchStats(matchStats);
-
                         gameService.save(game);
                     }
                 } else {
-                    //SVE OVO TREBA PARSIRATI U INT
                     //Proverava da li postoji home klub / ako ne, upisuje u bazu
-                    String homeClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[1]/span/a")).getText();
-                    if (clubService.findByName(homeClub) == null) {
-                        Club homeClubUpis = new Club();
-                        homeClubUpis.setName(homeClub);
-                        clubService.save(homeClubUpis);
+                    Thread.sleep(3000);
+                    try {
+                        String homeClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[1]/span/a")).getText();
+                        if (clubService.findByName(homeClub) == null) {
+                            Club homeClubUpis = new Club();
+                            homeClubUpis.setName(homeClub);
+                            clubService.save(homeClubUpis);
+                        }
+                        game.setHomeClub(clubService.findByName(homeClub));
+                        //Proverava da li postoji away klub / ako ne, upisuje u bazu
+                        String awayClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[3]/span/a")).getText();
+                        if (clubService.findByName(awayClub) == null) {
+                            Club awayClubInsert = new Club();
+                            awayClubInsert.setName(awayClub);
+                            clubService.save(awayClubInsert);
+                        }
+                        game.setAwayClub(clubService.findByName(awayClub));
+                        // kupi half time golove
+                        String halfTimeResult = driver.findElement(By.className("score")).getText();
+                        System.out.println(halfTimeResult + " ovo je half time result koji pravi sranja");
+                        String homeTeamHalfTimeGoals = halfTimeResult.substring(0, 1);
+                        int homeTeamHalfTimeGoalsInsert = Integer.parseInt(homeTeamHalfTimeGoals);
+
+                        String awayTeamHalfTimeGoals = halfTimeResult.substring(4, 5);
+                        int awayTeamHalfTimeGoalsInsert = Integer.parseInt(awayTeamHalfTimeGoals);
+                        //cuva half time golove
+                        matchStats.setHalf_time_goals_homeclub(homeTeamHalfTimeGoalsInsert);
+                        matchStats.setHalf_time_goals_awayclub(awayTeamHalfTimeGoalsInsert);
+                        //kupi krajnji rezultat
+                        String endGameResult = driver.findElement(By.className("current-result")).getText();
+                        System.out.println(endGameResult + " ovo je engame result");
+                        String homeTeamEndGameGoals = endGameResult.substring(0, 1);
+                        int homeTeamEndGameInsert = Integer.parseInt(homeTeamEndGameGoals);
+
+                        String awayTeamEndGameGoals = endGameResult.substring(2, 3);
+                        int awayTeamEndGameInsert = Integer.parseInt(awayTeamEndGameGoals);
+                        //cuva krajnji rezultat
+                        matchStats.setGoals_homeclub(homeTeamEndGameInsert);
+                        matchStats.setGoals_awayclub(awayTeamEndGameInsert);
+
+                        String dateXpath= driver.findElement(By.xpath("//*[@id=\"utime\"]")).getText();
+                        String dateYear = dateXpath.substring(6,10);
+                        String dateDays = dateXpath.substring(0,2);
+                        String dateMonth = dateXpath.substring(3,5);
+                        String date = dateYear + "-" + dateMonth + "-" + dateDays;
+                        System.out.println(date);
+                        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+                        Date dateInsert = parser.parse(date);
+                        game.setDate(dateInsert);
+
+                        game.setMatchStats(matchStats);
+                        matchStatsService.save(matchStats);
+                        gameService.save(game);
+
+                    } catch (StaleElementReferenceException e){
+                        System.out.println("Bacio exception " + e);
                     }
-                    game.setHomeClub(clubService.findByName(homeClub));
-                    //Proverava da li postoji away klub / ako ne, upisuje u bazu
-                    String awayClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[3]/span/a")).getText();
-                    if (clubService.findByName(awayClub) == null) {
-                        Club awayClubInsert = new Club();
-                        awayClubInsert.setName(awayClub);
-                        clubService.save(awayClubInsert);
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Bacio exception " + e);
                     }
-                    game.setAwayClub(clubService.findByName(awayClub));
-                    // kupi half time golove
-                    String halfTimeResult = driver.findElement(By.className("score")).getText();
-                    String homeTeamHalfTimeGoals = halfTimeResult.substring(0,1);
-                    int homeTeamHalfTimeGoalsInsert = Integer.parseInt(homeTeamHalfTimeGoals);
-
-                    String awayTeamHalfTimeGoals = halfTimeResult.substring(4,5);
-                    int awayTeamHalfTimeGoalsInsert = Integer.parseInt(awayTeamHalfTimeGoals);
-                    //cuva half time golove
-                    matchStats.setHalf_time_goals_homeclub(homeTeamHalfTimeGoalsInsert);
-                    matchStats.setHalf_time_goals_awayclub(awayTeamHalfTimeGoalsInsert);
-                    //kupi krajnji rezultat
-                    String endGameResult = driver.findElement(By.className("current-result")).getText();
-                    String homeTeamEndGameGoals = endGameResult.substring(0,1);
-                    int homeTeamEndGameInsert = Integer.parseInt(homeTeamEndGameGoals);
-
-                    String awayTeamEndGameGoals = endGameResult.substring(2,3);
-                    int awayTeamEndGameInsert = Integer.parseInt(awayTeamEndGameGoals);
-                    //cuva krajnji rezultat
-                    matchStats.setGoals_homeclub(homeTeamEndGameInsert);
-                    matchStats.setGoals_awayclub(awayTeamEndGameInsert);
-
-                    game.setMatchStats(matchStats);
-                    matchStatsService.save(matchStats);
-                    gameService.save(game);
-
+                    catch (NoSuchElementException e){
+                        System.out.println("Bacio exception " + e);
+                    } catch (NumberFormatException e){
+                        System.out.println("Bacio exception " + e);
+                    }
                 }
                 driver.close();
             }
@@ -289,7 +330,7 @@ public class GameReImport {
         driver.switchTo().window(mainWindowHandle);
     }
 
-    public void reImportGames() throws InterruptedException {
+    public void reImportGames() throws InterruptedException, ParseException {
 
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -303,7 +344,7 @@ public class GameReImport {
         while (i < 250) {
             //prolazi kroz zemlje
             String country = "//*[@id=\"lmenu_"+ i +"\"]/a";
-            //*[@id="lmenu_198"]/a
+
             if (driver.findElements(By.xpath(country)).isEmpty()) {
                 i++;
                 continue;
@@ -331,7 +372,7 @@ public class GameReImport {
                 String results = "//*[@id=\"fscon\"]/div[2]/ul/li[2]/span/a";
                 action.moveToElement(driver.findElement(By.xpath(results)));
                 action.click().build().perform();
-                Thread.sleep(2500);
+                Thread.sleep(1500);
                 //otvara show more
                 for (int expand = 0; expand < 5; expand++) {
 
@@ -377,14 +418,14 @@ public class GameReImport {
                                 WebElement ele = list.get(r);
                                 popUpWindowTest(driver, ele, action);
                             }
-//                            WebElement element = driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + z + "]/td"));
-//                            popUpWindowTest(driver, element, action);
-
-
                             z++;
                         } catch (StaleElementReferenceException e){
                             System.out.println("Bacio exception " + e);
-                        } catch (IndexOutOfBoundsException e){
+                        }
+                          catch (IndexOutOfBoundsException e){
+                            System.out.println("Bacio exception " + e);
+                        }
+                        catch (NoSuchElementException e){
                             System.out.println("Bacio exception " + e);
                         }
                     }
@@ -421,13 +462,14 @@ public class GameReImport {
                                     WebElement ele = list.get(r);
                                     popUpWindowTest(driver, ele, action);
                                 }
-//                                WebElement element = driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table[" + p + "]/tbody/tr[" + z + "]/td"));
-//                                popUpWindowTest(driver, element, action);
-
                                 z++;
                             } catch (StaleElementReferenceException e){
                                 System.out.println("Bacio exception " + e);
-                            } catch (IndexOutOfBoundsException e){
+                            }
+//                            catch (IndexOutOfBoundsException e){
+//                                System.out.println("Bacio exception " + e);
+//                            }
+                            catch (NoSuchElementException e){
                                 System.out.println("Bacio exception " + e);
                             }
                         }
@@ -464,13 +506,14 @@ public class GameReImport {
                                 WebElement ele = list.get(r);
                                 popUpWindowTest(driver, ele, action);
                             }
-//                            WebElement element = driver.findElement(By.xpath("//*[@id=\"fs-results\"]/table/tbody/tr[" + t + "]/td"));
-//                            popUpWindowTest(driver, element, action);
-
                             t++;
                         } catch (StaleElementReferenceException e){
                             System.out.println("Bacio exception " + e);
-                        } catch (IndexOutOfBoundsException e){
+                        }
+//                        catch (IndexOutOfBoundsException e){
+//                            System.out.println("Bacio exception " + e);
+//                        }
+                        catch (NoSuchElementException e){
                             System.out.println("Bacio exception " + e);
                         }
                     }

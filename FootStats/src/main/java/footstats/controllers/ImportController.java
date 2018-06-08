@@ -4,6 +4,8 @@ import footstats.dataImport.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping(path = "/import")
 public class ImportController {
@@ -141,7 +143,7 @@ public class ImportController {
     }
 
     @GetMapping(path = "/gamereimport")
-    public String reImportGame() {
+    public String reImportGame() throws ParseException {
         try {
             gameReImport.reImportGames();
         } catch (InterruptedException e) {

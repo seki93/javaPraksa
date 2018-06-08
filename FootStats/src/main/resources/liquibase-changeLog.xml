@@ -469,5 +469,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="matchstats"/>
     </changeSet>
+    <changeSet author="vladimir.jevtic (generated)" id="1524050687731-806">
+        <addColumn schemaName="footstats"
+                   tableName="game">
+            <column name="date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

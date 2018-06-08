@@ -3,6 +3,7 @@ package footstats.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Game {
@@ -10,6 +11,8 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    private Date date;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "awayclub_id")
@@ -30,12 +33,13 @@ public class Game {
     public Game() {
     }
 
-    public Game(Integer id, Club awayClub, Club homeClub, MatchStats matchStats, Integer homeclub_goals, Integer awayclub_goals, Referee referee) {
+    public Game(Integer id, Club awayClub, Club homeClub, MatchStats matchStats, Referee referee,  Date date) {
         this.id = id;
         this.awayClub = awayClub;
         this.homeClub = homeClub;
         this.matchStats = matchStats;
         this.referee = referee;
+        this.date = date;
     }
 
     public Integer getId() {
@@ -77,4 +81,13 @@ public class Game {
     public void setReferee(Referee referee) {
         this.referee = referee;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }
+
