@@ -397,4 +397,26 @@ public class GameServiceImpl implements GameService{
             return null;
         }
     }
+
+    @Override
+    public List<Game> findAverageOfBallPossessionAtHome(String clubName) {
+        List<Game> g = gameRepository.findAverageOfBallPossessionAtHome(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findAverageOfBallPossessionAway(String clubName) {
+        List<Game> g = gameRepository.findAverageOfBallPossessionAway(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
 }

@@ -36,6 +36,8 @@ public interface GameService {
 
     List<Game> findAverageOfTotalPassesAtHome(String clubName);
 
+    List<Game> findAverageOfBallPossessionAtHome(String clubName);
+
     //AWAY
 
     List<Game> findAllLostAway(String clubName, Pageable pageable);
@@ -67,4 +69,6 @@ public interface GameService {
     List<Game> findNgoals(Integer goals);
 
     List<Game> findAverageOfTotalPassesAway(String clubName);
+
+    List<Game> findAverageOfBallPossessionAway(String clubName);
 }
