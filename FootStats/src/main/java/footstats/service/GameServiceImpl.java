@@ -410,6 +410,32 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
+    public List<Game> findNumberOfFoulsByTeam(String clubName) {
+        List<Game> g = gameRepository.findNumberOfFoulsByTeam(clubName);
+        if (g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findNumberOfWinsAndNGoalsHomeTeam(String homeClub, Integer goals, Pageable pageable) {
+        List<Game> g = gameRepository.findNumberOfWinsAndNGoalsHomeTeam(homeClub, goals, pageable);
+
+        if (g.size() == 0) return null;
+        else return g;
+    }
+
+    @Override
+    public List<Game> findNumberOfWinsAndGoalsHomeOfMatch(String homeClub, Integer goals, Integer number) {
+        List<Game> g = gameRepository.findNumberOfWinsAndGoalsHomeOfMatch(homeClub, goals, number);
+
+        if (g.size() == 0) return null;
+        else return g;
+    }
+
+    @Override
     public List<Game> findAverageOfBallPossessionAway(String clubName) {
         List<Game> g = gameRepository.findAverageOfBallPossessionAway(clubName);
 
@@ -419,4 +445,32 @@ public class GameServiceImpl implements GameService{
             return null;
         }
     }
+
+    @Override
+    public List<Game> findNumberOfFoulsToTeam(String clubName) {
+        List<Game> g = gameRepository.findNumberOfFoulsToTeam(clubName);
+
+        if(g != null){
+            return g;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Game> findNumberOfWinsAndNGoalsAwayTeam(String awayClub, Integer goals, Pageable pageable) {
+        List<Game> g = gameRepository.findNumberOfWinsAndNGoalsAwayTeam(awayClub,goals,pageable);
+        if (g.size() == 0) return null;
+        else return g;
+    }
+
+    @Override
+    public List<Game> findNumberOfWinsAndGoalsAwayOfMatch(String awayClub, Integer goals, Integer number) {
+        List<Game> g = gameRepository.findNumberOfWinsAndGoalsAwayOfMatch(awayClub, goals, number);
+
+        if (g.size() == 0) return null;
+        else return g;
+    }
+
+
 }

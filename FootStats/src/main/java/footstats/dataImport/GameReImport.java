@@ -48,7 +48,7 @@ public class GameReImport {
                 driver.switchTo().window(popupHandle);
                 Game game = new Game();
                 MatchStats matchStats = new MatchStats();
-
+                try {
                 if (!driver.findElements(By.xpath("//*[@id=\"a-match-statistics\"]")).isEmpty()){
 
                     Thread.sleep(1500);
@@ -259,7 +259,7 @@ public class GameReImport {
                 } else {
                     //Proverava da li postoji home klub / ako ne, upisuje u bazu
                     Thread.sleep(3000);
-                    try {
+
                         String homeClub = driver.findElement(By.xpath("//*[@id=\"flashscore_column\"]/table/tbody/tr[1]/td[1]/span/a")).getText();
                         if (clubService.findByName(homeClub) == null) {
                             Club homeClubUpis = new Club();
@@ -312,6 +312,9 @@ public class GameReImport {
                         matchStatsService.save(matchStats);
                         gameService.save(game);
 
+                        }
+
+
                     } catch (StaleElementReferenceException e){
                         System.out.println("Bacio exception " + e);
                     }
@@ -322,8 +325,9 @@ public class GameReImport {
                         System.out.println("Bacio exception " + e);
                     } catch (NumberFormatException e){
                         System.out.println("Bacio exception " + e);
+                    } catch (TimeoutException e){
+                        System.out.println("Bacio exception " + e);
                     }
-                }
                 driver.close();
             }
         }
@@ -340,7 +344,7 @@ public class GameReImport {
         driver.navigate().to(url);
 
         Actions action = new Actions(driver);
-        int i = 198;
+        int i = 36;
         while (i < 250) {
             //prolazi kroz zemlje
             String country = "//*[@id=\"lmenu_"+ i +"\"]/a";

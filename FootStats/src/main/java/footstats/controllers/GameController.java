@@ -180,6 +180,34 @@ public class GameController {
         return gameService.findAverageOfBallPossessionAtHome(clubName);
     }
 
+    @GetMapping(path = "/find/home/sum/totalFouls/By")
+    public List<Game> findNumberOfFoulsByTeam(@RequestParam String clubName){
+
+        return gameService.findNumberOfFoulsByTeam(clubName);
+    }
+
+    @GetMapping(path = "/find/home/sum/totalFouls/To")
+    public List<Game> findNumberOfFoulsToTeam(@RequestParam String clubName){
+
+        return gameService.findNumberOfFoulsToTeam(clubName);
+    }
+
+    @GetMapping(path = "/find/home/win/andNgoals/all")
+    public Iterable<Game> findNumberOfWinsAndNGoalsHomeTeam(@RequestParam String homeClub,@RequestParam Integer goals){
+        Pageable pageable = null;
+
+        return gameService.findNumberOfWinsAndNGoalsHomeTeam(homeClub, goals, pageable);
+    }
+
+    @GetMapping(path = "/find/home/win/andNgoals/Nmatches")
+    public Iterable<Game> findNumberOfWinsAndGoalsHomeOfMatch(@RequestParam String homeClub,@RequestParam Integer goals,@RequestParam Integer number){
+
+        return gameService.findNumberOfWinsAndGoalsHomeOfMatch(homeClub,goals, number);
+    }
+
+
+
+
     //AWAY
 
     @PostMapping(path = "/find/away/allWin")
@@ -308,4 +336,18 @@ public class GameController {
 
         return gameService.findAverageOfBallPossessionAway(clubName);
     }
+    @GetMapping(path = "/find/away/win/andNgoals/all")
+    public Iterable<Game> findNumberOfWinsAndNGoalsAwayTeam(@RequestParam String awayClub,@RequestParam Integer goals){
+        Pageable pageable = null;
+
+        return gameService.findNumberOfWinsAndNGoalsAwayTeam(awayClub, goals, pageable);
+    }
+
+    @GetMapping(path = "/find/away/win/andNgoals/Nmatches")
+    public Iterable<Game> findNumberOfWinsAndGoalsAwayOfMatch(@RequestParam String awayClub,@RequestParam Integer goals,@RequestParam Integer number){
+
+        return gameService.findNumberOfWinsAndGoalsAwayOfMatch(awayClub,goals, number);
+    }
+
+
 }

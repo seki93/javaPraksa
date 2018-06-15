@@ -148,4 +148,29 @@ public interface GameRepository extends CrudRepository<Game, Integer> {
 
     @Query(value = "SELECT AVG(g.matchStats.ball_possession_awayteam) FROM Game g WHERE g.awayClub.name = ?1")
     List<Game> findAverageOfBallPossessionAway(String clubName);
+
+    @Query(value = "SELECT SUM(g.matchStats.fouls_hometeam) FROM Game g WHERE g.homeClub.name = ?1")
+    List<Game> findNumberOfFoulsByTeam(String clubName);
+
+    @Query(value = "SELECT SUM(g.matchStats.fouls_awayteam) FROM Game g WHERE g.homeClub.name = ?1")
+    List<Game> findNumberOfFoulsToTeam(String clubName);
+
+    @Query(value = "SELECT g FROM Game g WHERE g.matchStats.goals_homeclub > g.matchStats.goals_awayclub AND g.homeClub.name = ?1 AND g.matchStats.goals_homeclub >= ?2 ORDER BY g.date DESC")
+    List<Game> findNumberOfWinsAndNGoalsHomeTeam(String homeClub, Integer goals, Pageable pageable);
+
+    default List<Game> findNumberOfWinsAndGoalsHomeOfMatch(String homeClub, Integer goals, Integer number) {
+
+        return findNumberOfWinsAndNGoalsHomeTeam(homeClub, goals, new PageRequest(0, number));
+    }
+
+    @Query(value = "SELECT g FROM Game g WHERE g.matchStats.goals_awayclub > g.matchStats.goals_homeclub AND g.awayClub.name = ?1 AND g.matchStats.goals_awayclub >= ?2 ORDER BY g.date DESC")
+    List<Game> findNumberOfWinsAndNGoalsAwayTeam(String awayClub, Integer goals, Pageable pageable);
+
+    default List<Game> findNumberOfWinsAndGoalsAwayOfMatch(String awayClub, Integer goals, Integer number){
+
+        return findNumberOfWinsAndNGoalsAwayTeam(awayClub, goals, new PageRequest(0, number));
+    }
+
+
+
 }
