@@ -82,7 +82,6 @@ public interface GameService {
     List<Game> findNumberOfWinsAndNGoalsAwayTeam(String awayClub, Integer goals, Pageable pageable);
     List<Game> findNumberOfWinsAndGoalsAwayOfMatch(String awayClub, Integer goals, Integer number);
 
-
-
-
+    Double findAverageOfScoredGoalsHome(String clubName);
+    Double findAverageOfScoredGoalsAway(String clubName);
 }

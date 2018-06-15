@@ -349,5 +349,15 @@ public class GameController {
         return gameService.findNumberOfWinsAndGoalsAwayOfMatch(awayClub,goals, number);
     }
 
+    @GetMapping(path = "/find/average/scoredGoals/home")
+    public Double findAverageOfScoredGoalsHome(@RequestParam String clubName){
 
+        return gameService.findAverageOfScoredGoalsHome(clubName);
+    }
+
+    @GetMapping(path = "/find/average/scoredGoals/away")
+    public Double findAverageOfScoredGoalsAway(@RequestParam String clubName){
+
+        return gameService.findAverageOfScoredGoalsAway(clubName);
+    }
 }

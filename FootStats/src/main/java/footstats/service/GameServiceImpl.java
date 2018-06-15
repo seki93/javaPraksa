@@ -472,5 +472,19 @@ public class GameServiceImpl implements GameService{
         else return g;
     }
 
+    @Override
+    public Double findAverageOfScoredGoalsHome(String clubName) {
+       Double games = gameRepository.findAverageOfScoredGoalsHome(clubName);
+
+       return games;
+    }
+
+    @Override
+    public Double findAverageOfScoredGoalsAway(String clubName) {
+        Double d = gameRepository.findAverageOfScoredGoalsAway(clubName);
+
+        return d;
+    }
+
 
 }
