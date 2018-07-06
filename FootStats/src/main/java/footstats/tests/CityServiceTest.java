@@ -15,7 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -53,7 +54,7 @@ public class CityServiceTest {
         cityList.add(city1);
 
         Mockito.when(cityRepository.findAll()).thenReturn(cityList);
-        assertEquals(cityService.findAll(), cityList);
+        assertThat(cityService.findAll()).isEqualTo(cityList);
 
     }
 
@@ -70,7 +71,7 @@ public class CityServiceTest {
         city.setCountry(country);
 
         Mockito.when(cityRepository.findOne(1)).thenReturn(city);
-        assertEquals(cityService.findById(1), city);
+        assertThat(cityService.findById(1)).isEqualTo(city);
     }
 
     @Test
@@ -86,6 +87,6 @@ public class CityServiceTest {
         city.setCountry(country);
 
         Mockito.when(cityRepository.findByName("Belgrade")).thenReturn(city);
-        assertEquals(cityService.findByName("Belgrade"), city);
+        assertThat(cityService.findByName("Belgrade")).isEqualTo(city);
     }
 }
