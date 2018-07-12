@@ -1,4 +1,4 @@
-package footstats.tests;
+package footstats.tests.serviceTests;
 
 import footstats.model.Stadium;
 import footstats.repository.StadiumRepository;
