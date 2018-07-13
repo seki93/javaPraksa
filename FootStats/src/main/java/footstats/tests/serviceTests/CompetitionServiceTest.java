@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CompetitionTest {
+public class CompetitionServiceTest {
     @Autowired
     private CompetitionService competitionService;
 
@@ -88,8 +88,8 @@ public class CompetitionTest {
 
         competition1.setCountry(country1);
 
-        Mockito.when(competitionRepository.findOne(1)).thenReturn(competition1);
-        assertThat(competitionService.findByName(competition1.getName())).isEqualTo(competition1);
+        Mockito.when(competitionRepository.findByName(competition1.getName())).thenReturn(competition1);
+        assertThat(competitionService.findByName("Champion's League")).isEqualTo(competition1);
     }
 
     @Test
@@ -108,6 +108,5 @@ public class CompetitionTest {
         Mockito.when(competitionRepository.findOne(1)).thenReturn(competition1);
         Mockito.when(competitionRepository.exists(competition1.getId())).thenReturn(false);
         assertFalse(competitionRepository.exists(competition1.getId()));
-
     }
 }

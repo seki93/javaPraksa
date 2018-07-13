@@ -277,7 +277,6 @@ public class GameReImport {
                         game.setAwayClub(clubService.findByName(awayClub));
                         // kupi half time golove
                         String halfTimeResult = driver.findElement(By.className("score")).getText();
-                        System.out.println(halfTimeResult + " ovo je half time result koji pravi sranja");
                         String homeTeamHalfTimeGoals = halfTimeResult.substring(0, 1);
                         int homeTeamHalfTimeGoalsInsert = Integer.parseInt(homeTeamHalfTimeGoals);
 
@@ -313,7 +312,6 @@ public class GameReImport {
                         gameService.save(game);
 
                         }
-
 
                     } catch (StaleElementReferenceException e){
                         System.out.println("Bacio exception " + e);
@@ -470,9 +468,9 @@ public class GameReImport {
                             } catch (StaleElementReferenceException e){
                                 System.out.println("Bacio exception " + e);
                             }
-//                            catch (IndexOutOfBoundsException e){
-//                                System.out.println("Bacio exception " + e);
-//                            }
+                            catch (IndexOutOfBoundsException e){
+                                System.out.println("Bacio exception " + e);
+                            }
                             catch (NoSuchElementException e){
                                 System.out.println("Bacio exception " + e);
                             }
@@ -514,9 +512,9 @@ public class GameReImport {
                         } catch (StaleElementReferenceException e){
                             System.out.println("Bacio exception " + e);
                         }
-//                        catch (IndexOutOfBoundsException e){
-//                            System.out.println("Bacio exception " + e);
-//                        }
+                        catch (IndexOutOfBoundsException e){
+                            System.out.println("Bacio exception " + e);
+                        }
                         catch (NoSuchElementException e){
                             System.out.println("Bacio exception " + e);
                         }

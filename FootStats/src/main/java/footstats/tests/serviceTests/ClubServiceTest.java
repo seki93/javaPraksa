@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClubTest {
+public class ClubServiceTest {
 
     @Autowired
     private ClubService clubService;
